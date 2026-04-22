@@ -1,0 +1,1889 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SJSU Formula SAE — SR-17</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Cool, fresh off-white — paper-like but bluish. Less sepia, more SF tech. */
+  --paper: #f7f8fa;
+  --paper-2: #eceef2;
+  --ink: #0a0b0d;
+  --ink-2: #4b5563;
+  --ink-3: #9aa0a6;
+  --hair: #d7dae0;
+  /* Accent shifted a hair cooler/brighter — still reads SJSU red but crisper. */
+  --red: #d13d2a;
+  --blue: #0055A2;
+  --gold: #E5A823;
+  --mono: "Geist Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --sans: "Geist", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+/* Breathing organic grid — wide, uneven, drifting. Not a CAD grid; a pencil
+   grid on tracing paper that's been unfolded a few times. Two layers at
+   different scales + slow drift + opacity pulse. A cursor-follow spotlight
+   amplifies the grid locally — wherever the user looks, the paper firms up. */
+body{
+  --mx: 50vw; --my: 50vh;
+  --spot: 0;            /* 0 when cursor idle/off-doc, 1 when present */
+  --spot-r: 360px;      /* spotlight radius */
+}
+body::before{
+  /* Background grid disabled — only the cursor spotlight grid shows now. */
+  display:none;
+}
+/* Cursor spotlight — same 160px cell, slightly stronger locally */
+.grid-spot{
+  position:fixed;inset:0;pointer-events:none;z-index:1;
+  opacity: calc(var(--spot) * 1);
+  transition: opacity .45s ease;
+  background-image:
+    linear-gradient(to right, rgba(30,41,59,.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30,41,59,.08) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mix-blend-mode:multiply;
+  -webkit-mask-image: radial-gradient(circle var(--spot-r) at var(--mx) var(--my), #000 0%, rgba(0,0,0,.6) 40%, transparent 78%);
+          mask-image: radial-gradient(circle var(--spot-r) at var(--mx) var(--my), #000 0%, rgba(0,0,0,.6) 40%, transparent 78%);
+}
+body.motion-off .grid-spot{opacity:0 !important}
+@keyframes gridDrift{
+  0%,100%{transform:translate(0,0)}
+  25%{transform:translate(14px,-8px)}
+  50%{transform:translate(-6px,10px)}
+  75%{transform:translate(10px,6px)}
+}
+@keyframes gridDrift2{
+  0%,100%{transform:translate(0,0)}
+  33%{transform:translate(-18px,10px)}
+  66%{transform:translate(8px,-14px)}
+}
+@keyframes gridBreathe{
+  0%,100%{opacity:var(--op-from,.7)}
+  50%{opacity:var(--op-to,.18)}
+}
+body.motion-off::before{animation:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* ============ SHEET CHROME ============ */
+.sheet-header{
+  position:sticky;top:0;z-index:50;
+  display:flex;justify-content:space-between;gap:16px;
+  padding:11px 28px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(243,239,229,.94);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--ink);
+}
+.sheet-header .live::before{
+  content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--red);margin-right:7px;vertical-align:middle;
+  animation:pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.75)}}
+
+.nav-index{
+  display:grid;grid-template-columns:repeat(8,1fr);
+  border-bottom:1px solid var(--ink);font-size:10px;letter-spacing:.1em;
+  position:sticky;top:37px;z-index:49;background:rgba(243,239,229,.94);backdrop-filter:blur(8px);
+}
+.nav-index a{
+  padding:12px 16px;border-right:1px solid var(--ink);
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background .18s, color .18s;
+}
+.nav-index a:last-child{border-right:0}
+.nav-index a:hover{background:var(--ink);color:var(--paper)}
+.nav-index a.active{background:var(--ink);color:var(--paper)}
+.nav-index a .n{opacity:.55}
+.nav-index a:hover .n{opacity:1}
+
+.sheet{padding:40px 28px 28px;border-bottom:1px solid var(--ink);position:relative;z-index:1;background:transparent}
+/* the sheets themselves shouldn't feel boxed-in by the grid; soft vignette */
+.sheet::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 0%, rgba(243,239,229,.55), transparent 60%);z-index:-1}
+
+.title-block{
+  display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr 1fr;
+  border:1px solid var(--ink);font-size:10px;letter-spacing:.04em;text-transform:uppercase;
+}
+.title-block > div{border-right:1px solid var(--ink);padding:8px 12px}
+.title-block > div:last-child{border-right:0}
+.title-block .k{color:var(--ink-3);font-size:9px}
+.title-block .v{margin-top:2px;font-weight:500;color:var(--ink)}
+
+/* ============ SHARED SVG LINE-DRAW ============ */
+.draw path, .draw line, .draw rect, .draw circle, .draw polyline{
+  stroke-dasharray:var(--len,2000);
+  stroke-dashoffset:var(--len,2000);
+  transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.2,1);
+}
+.draw.in path, .draw.in line, .draw.in rect, .draw.in circle, .draw.in polyline{
+  stroke-dashoffset:0;
+}
+
+/* ============ SHEET 00 — COVER ============ */
+.cover-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0;min-height:560px}
+.cover-left{padding:48px;border-right:1px solid var(--ink);position:relative;display:flex;flex-direction:column;justify-content:space-between}
+.cover-eyebrow{font-size:10px;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase}
+.cover-title{
+  font-family:var(--mono);font-weight:500;font-size:clamp(64px,7.5vw,112px);
+  line-height:.92;letter-spacing:-.025em;margin:24px 0 0;color:var(--ink);
+  position:relative;
+}
+.cover-title .sub{
+  display:block;font-family:var(--sans);font-weight:200;font-style:italic;
+  font-size:clamp(32px,4vw,56px);letter-spacing:-.02em;color:var(--ink-2);margin-top:8px;
+}
+/* animated underline that sweeps under the title */
+.cover-title::after{
+  content:"";position:absolute;left:0;bottom:-10px;height:2px;background:var(--red);
+  width:0;animation:swipe 1.4s .5s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes swipe{to{width:72%}}
+
+.cover-desc{font-size:11px;line-height:1.85;color:var(--ink-2);max-width:52ch;margin-top:32px;letter-spacing:.02em}
+.cover-desc b{color:var(--ink)}
+.stamp{
+  align-self:flex-end;border:2px solid var(--red);color:var(--red);
+  padding:10px 16px;transform:rotate(-5deg);font-size:10px;letter-spacing:.14em;font-weight:600;
+  animation:stampIn 1.2s 1.4s cubic-bezier(.2,1.5,.4,1) both;
+  opacity:0;
+}
+@keyframes stampIn{
+  0%{opacity:0;transform:rotate(-25deg) scale(3)}
+  70%{opacity:1;transform:rotate(-3deg) scale(.95)}
+  100%{opacity:1;transform:rotate(-5deg) scale(1)}
+}
+
+.cover-right{padding:40px;position:relative;display:flex;flex-direction:column}
+.fig-label{display:flex;justify-content:space-between;font-size:10px;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.ortho-side{flex:1;position:relative;border:1px dashed var(--hair);min-height:280px}
+.ortho-side svg{position:absolute;inset:0;width:100%;height:100%}
+.ortho-side svg .cl{stroke:var(--hair);stroke-width:.5;stroke-dasharray:4 3}
+.ortho-side svg .body{stroke:var(--ink);stroke-width:1.2;fill:none}
+.ortho-side svg .wheel{stroke:var(--ink);stroke-width:1.2;fill:var(--paper)}
+.ortho-side svg .fill{fill:var(--paper);stroke:var(--ink);stroke-width:1.2}
+.callout{
+  position:absolute;width:22px;height:22px;border-radius:50%;border:1px solid var(--ink);
+  background:var(--paper);display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--ink);
+  opacity:0;transform:scale(.4);transition:opacity .4s, transform .5s cubic-bezier(.2,1.6,.4,1);
+}
+.in .callout{opacity:1;transform:scale(1)}
+.in .callout:nth-child(1){transition-delay:1.4s}
+.in .callout:nth-child(2){transition-delay:1.55s}
+.in .callout:nth-child(3){transition-delay:1.7s}
+.in .callout:nth-child(4){transition-delay:1.85s}
+
+.dim-line{margin-top:14px;position:relative;height:18px;font-size:10px;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+.dim-line .bar{flex:1;height:1px;background:var(--ink-2);transform:scaleX(0);transform-origin:left;transition:transform 1s .6s ease-out}
+.dim-line.in .bar{transform:scaleX(1)}
+.dim-line .val{background:var(--paper);padding:0 6px;font-weight:500;color:var(--ink)}
+.dim-line .tick{width:1px;height:10px;background:var(--ink-2)}
+.dim-line .arr{opacity:0;transition:opacity .3s 1.6s}
+.dim-line.in .arr{opacity:1}
+
+.parts-legend{display:flex;flex-wrap:wrap;gap:16px 24px;margin-top:22px;font-size:10px;color:var(--ink-2);letter-spacing:.05em}
+
+/* cover note */
+.cover-note{
+  margin-top:72px;border-top:1px solid var(--ink);padding-top:28px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:baseline;
+}
+.cover-note .note-n{font-size:10px;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase}
+.cover-note .note-body{
+  font-family:var(--sans);font-weight:200;font-size:clamp(28px,3.4vw,46px);
+  line-height:1.08;letter-spacing:-.02em;color:var(--ink);
+}
+.cover-note .note-body em{font-style:italic;color:var(--red);font-weight:300}
+
+/* ============ MARQUEE TICKER ============ */
+.ticker{
+  overflow:hidden;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  background:var(--ink);color:var(--paper);
+}
+.ticker-track{display:flex;gap:48px;padding:10px 0;animation:marq 75s linear infinite;white-space:nowrap;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.ticker-track span{display:inline-flex;align-items:center;gap:12px}
+.ticker-track span:first-child,
+.ticker-track span:nth-child(29){color:var(--red);font-weight:600}
+.ticker-track .sep{width:6px;height:6px;background:var(--gold);display:inline-block}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ SHEET 01 — ORTHOGRAPHIC TRIPTYCH ============ */
+.triptych{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--ink);border-top:0}
+.triptych .view{padding:32px;border-right:1px solid var(--ink);position:relative;display:flex;flex-direction:column}
+.triptych .view:last-child{border-right:0}
+.ortho-box{flex:1;min-height:260px;border:1px dashed var(--hair);position:relative;margin-bottom:16px}
+.ortho-box svg{position:absolute;inset:0;width:100%;height:100%}
+.cross{position:absolute;inset:0;pointer-events:none}
+.cross::before,.cross::after{content:"";position:absolute;background:var(--hair)}
+.cross::before{left:50%;top:0;bottom:0;width:1px;transform:translateX(-.5px)}
+.cross::after{left:0;right:0;top:50%;height:1px;transform:translateY(-.5px)}
+
+/* ============ SHEET 02 — SPEC SHEET ============ */
+.spec{border:1px solid var(--ink);border-top:0}
+.spec-row{display:grid;grid-template-columns:60px 220px 1fr 140px;font-size:12px;border-bottom:1px solid var(--hair);
+  opacity:0;transform:translateY(6px);transition:opacity .5s, transform .5s}
+.spec-row:last-child{border-bottom:0}
+.spec-row.in{opacity:1;transform:none}
+.spec-row > div{padding:12px 14px}
+.spec-row .k{color:var(--ink-3);border-right:1px solid var(--hair);font-size:10px;letter-spacing:.08em}
+.spec-row .label{color:var(--ink-2);border-right:1px solid var(--hair);letter-spacing:.06em;text-transform:uppercase;font-size:11px}
+.spec-row .v{color:var(--ink);font-weight:500;border-right:1px solid var(--hair);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.spec-row .v .sans{font-family:var(--sans);font-size:16px;letter-spacing:-.01em;font-weight:500}
+.spec-row .v.typing::after{content:"▍";color:var(--red);animation:caret 1s steps(2) infinite;margin-left:2px}
+@keyframes caret{50%{opacity:0}}
+.spec-row .tol{color:var(--ink-3);font-size:11px}
+.spec-row.hi .v{color:var(--red)}
+
+.spec-footer{display:flex;justify-content:space-between;padding:14px 0;font-size:10px;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase;border-top:1px solid var(--ink);margin-top:-1px}
+
+/* ============ SHEET 03 — STATS ODOMETER ============ */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);border-top:0}
+.stat-cell{padding:48px 32px;border-right:1px solid var(--ink);position:relative;min-height:220px}
+.stat-cell:last-child{border-right:0}
+.stat-cell .n{font-size:10px;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
+.stat-cell .big{
+  font-family:var(--sans);font-weight:300;font-size:clamp(56px,7vw,96px);line-height:1;
+  letter-spacing:-.04em;color:var(--ink);font-variant-numeric:tabular-nums;
+  display:flex;align-items:baseline;gap:8px;
+}
+.stat-cell .big .unit{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.1em;font-weight:500;transform:translateY(-6px)}
+.stat-cell .cap{font-size:11px;color:var(--ink-2);margin-top:22px;line-height:1.6;letter-spacing:.02em}
+
+/* ============ SHEET 04 — EXPLODED ============ */
+.exploded-body{display:grid;grid-template-columns:2fr 1fr;border:1px solid var(--ink);border-top:0}
+.exploded-stage{padding:40px;border-right:1px solid var(--ink);position:relative;min-height:560}
+.exploded-scene{position:relative;aspect-ratio:16/9;border:1px dashed var(--hair);overflow:hidden}
+.ex-part{position:absolute;border:1px solid var(--ink);background:var(--paper);
+  display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ink-2);letter-spacing:.08em;
+  transition:transform 1.4s cubic-bezier(.2,.7,.2,1);
+}
+.ex-part svg{width:70%;height:70%;stroke:var(--ink);stroke-width:1;fill:none}
+
+.bom{padding:18px 0}
+.bom h5{padding:0 18px 14px;margin:0;font-size:10px;color:var(--ink-2);letter-spacing:.12em;border-bottom:1px solid var(--ink);font-weight:500;text-transform:uppercase}
+.bom-row{display:grid;grid-template-columns:36px 1fr 36px 100px;padding:9px 18px;font-size:11px;border-bottom:1px solid var(--hair);
+  opacity:0;transform:translateX(-6px);transition:opacity .4s, transform .4s}
+.bom-row.in{opacity:1;transform:none}
+.bom-row .idx{color:var(--ink-3)}
+.bom-row .pn{color:var(--ink);font-weight:500;letter-spacing:.04em}
+.bom-row .q{color:var(--ink-3)}
+.bom-row .mat{color:var(--ink-2);text-align:right;letter-spacing:.04em}
+
+.exploded-controls{position:absolute;top:60px;right:60px;display:flex;gap:10px;z-index:3}
+.exploded-controls button{border:1px solid var(--ink);padding:6px 12px;font-size:10px;letter-spacing:.12em;background:var(--paper);transition:all .18s}
+.exploded-controls button:hover{background:var(--ink);color:var(--paper)}
+.exploded-controls button.on{background:var(--ink);color:var(--paper)}
+
+/* ============ SHEET 05 — LINEAGE ============ */
+.rev-table{border:1px solid var(--ink);border-top:0}
+.rev-head{display:grid;grid-template-columns:80px 100px 200px 1fr 180px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.rev-head > div{padding:12px 14px;border-right:1px solid #333}
+.rev-head > div:last-child{border-right:0}
+.rev-row{display:grid;grid-template-columns:80px 100px 200px 1fr 180px;font-size:11px;border-bottom:1px solid var(--hair);
+  opacity:0;transform:translateY(10px);transition:opacity .5s, transform .5s;
+  cursor:pointer;position:relative;
+}
+.rev-row:last-child{border-bottom:0}
+.rev-row.in{opacity:1;transform:none}
+.rev-row > div{padding:14px;border-right:1px solid var(--hair)}
+.rev-row > div:last-child{border-right:0}
+.rev-row .rev{color:var(--ink-2);font-weight:500}
+.rev-row.current .rev{color:var(--red);font-weight:600}
+.rev-row .car{color:var(--ink);font-weight:500;letter-spacing:.04em}
+.rev-row .sum{color:var(--ink-2);letter-spacing:.02em}
+.rev-row:hover{background:var(--paper-2)}
+.rev-row:hover .car{color:var(--red)}
+
+/* ============ SHEET 06 — TEAM ORG ============ */
+.org{padding:48px;border:1px solid var(--ink);border-top:0}
+.org-top{display:flex;justify-content:center;margin-bottom:32px;opacity:0;transform:translateY(-10px);transition:opacity .6s, transform .6s}
+.org-top.in{opacity:1;transform:none}
+.org-node{border:1px solid var(--ink);padding:12px 22px;text-align:center;background:var(--paper);transition:transform .25s, background .25s}
+.org-node:hover{transform:translateY(-2px);background:var(--ink);color:var(--paper)}
+.org-node .n{font-size:9px;color:var(--ink-3);letter-spacing:.1em}
+.org-node:hover .n{color:rgba(255,255,255,.7)}
+.org-node .name{font-size:14px;font-weight:500;margin-top:4px;letter-spacing:.02em}
+.org-line{height:20px;width:1px;background:var(--ink-2);margin:0 auto;transform-origin:top;transform:scaleY(0);transition:transform .4s}
+.org-line.in{transform:scaleY(1)}
+.org-hr{height:1px;background:var(--ink-2);margin:0 8%;transform-origin:center;transform:scaleX(0);transition:transform .5s}
+.org-hr.in{transform:scaleX(1)}
+.org-bottom{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.org-bottom .cell{position:relative;padding-top:20px;opacity:0;transform:translateY(10px);transition:opacity .5s, transform .5s}
+.org-bottom .cell.in{opacity:1;transform:none}
+.org-bottom .cell::before{content:"";position:absolute;top:0;left:50%;width:1px;height:20px;background:var(--ink-2)}
+
+.roster-strip{padding:26px 0 0;display:flex;justify-content:space-between;border-top:1px dashed var(--hair);margin-top:44px;font-size:10px;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase}
+
+/* ============ SHEET 07 — RESULTS / DRIVER ============ */
+.track-body{display:grid;grid-template-columns:1.4fr 1fr;border:1px solid var(--ink);border-top:0}
+.track-left{padding:40px;border-right:1px solid var(--ink)}
+.track-svg{width:100%;aspect-ratio:16/10;border:1px dashed var(--hair)}
+.track-svg svg{width:100%;height:100%}
+.track-svg .track-line{stroke:var(--ink);stroke-width:2;fill:none;stroke-dasharray:1600;stroke-dashoffset:1600;transition:stroke-dashoffset 2.4s ease-out}
+.track-svg.in .track-line{stroke-dashoffset:0}
+.track-svg .dot{fill:var(--red);opacity:0;transition:opacity .3s 2.2s}
+.track-svg.in .dot{opacity:1}
+
+.results{padding:24px 0}
+.result-row{display:grid;grid-template-columns:80px 80px 1fr 80px;padding:14px 24px;font-size:11px;border-bottom:1px solid var(--hair);
+  opacity:0;transform:translateX(-10px);transition:opacity .4s, transform .4s;align-items:center}
+.result-row.in{opacity:1;transform:none}
+.result-row .place{font-family:var(--sans);font-size:26px;font-weight:400;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.result-row .place sup{font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:2px}
+.result-row.hi .place{color:var(--red)}
+.result-row .year{color:var(--ink-2)}
+.result-row .event{color:var(--ink);font-weight:500}
+.result-row .event em{font-style:normal;color:var(--ink-3);font-size:10px;display:block;margin-top:2px}
+.result-row .div{color:var(--ink-2);font-size:10px;text-align:right;letter-spacing:.08em}
+
+/* ============ SHEET 08 — PARTNERS ============ */
+.partners{border:1px solid var(--ink);border-top:0}
+.partner-tier{display:grid;grid-template-columns:80px 160px 1fr;border-bottom:1px solid var(--hair);padding:22px 0;
+  opacity:0;transform:translateY(8px);transition:opacity .5s, transform .5s}
+.partner-tier:last-child{border-bottom:0}
+.partner-tier.in{opacity:1;transform:none}
+.partner-tier .t{padding:0 16px;font-size:10px;color:var(--ink-3);letter-spacing:.12em}
+.partner-tier .name{padding:0 16px;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.partner-tier .logos{padding:0 16px;display:flex;flex-wrap:wrap;gap:18px 36px;font-size:11px;color:var(--ink-2);letter-spacing:.04em}
+.partner-tier .logos span{transition:color .2s, transform .2s;cursor:pointer}
+.partner-tier .logos span:hover{color:var(--red);transform:translateY(-1px)}
+
+/* ============ SHEET 09 — JOIN / CTA ============ */
+.join-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0}
+.join-left{padding:56px;border-right:1px solid var(--ink)}
+.join-left h3{
+  font-family:var(--sans);font-weight:200;font-size:clamp(40px,5vw,72px);letter-spacing:-.03em;line-height:1;margin:0;color:var(--ink)
+}
+.join-left h3 em{font-style:italic;color:var(--red);font-weight:300}
+.join-left p{font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:28px;max-width:46ch;letter-spacing:.02em}
+.join-btn{display:inline-flex;align-items:center;gap:14px;margin-top:36px;padding:16px 22px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.14em;text-transform:uppercase;transition:background .25s}
+.join-btn:hover{background:var(--red)}
+.join-btn .arr{transition:transform .3s}
+.join-btn:hover .arr{transform:translateX(6px)}
+
+.roles{padding:24px 0}
+.role-row{display:grid;grid-template-columns:50px 1fr auto;padding:14px 24px;border-bottom:1px solid var(--hair);
+  opacity:0;transform:translateX(-10px);transition:opacity .4s, transform .4s, padding .3s, background .3s;align-items:center}
+.role-row.in{opacity:1;transform:none}
+.role-row:hover{padding-left:36px;background:var(--paper-2)}
+.role-row .n{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
+.role-row .name{font-size:15px;color:var(--ink);letter-spacing:.01em;font-weight:500}
+.role-row .cap{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
+
+/* ============ SHEET 10 — DONATE / DARK ============ */
+.donate{background:var(--ink);color:var(--paper);padding:80px 28px;position:relative;overflow:hidden;border-bottom:1px solid var(--ink)}
+.donate::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:96px 96px;pointer-events:none;
+  animation: gridDrift 48s ease-in-out infinite, gridBreathe 11s ease-in-out infinite;
+  --op-from:.9; --op-to:.4;
+}
+.donate-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1400px;margin:0 auto;align-items:center}
+.donate h3{font-family:var(--sans);font-weight:200;font-size:clamp(48px,6vw,92px);letter-spacing:-.03em;line-height:.98;margin:0}
+.donate h3 em{font-style:italic;color:var(--gold);font-weight:300}
+.donate p{font-size:12px;color:#c3c8d1;line-height:1.8;max-width:48ch;margin-top:30px;letter-spacing:.02em}
+.donate p b{color:var(--paper)}
+.dtier{display:grid;grid-template-columns:auto 1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.15);align-items:center;cursor:pointer;transition:padding .3s, border-color .3s}
+.dtier:hover{padding-left:12px;border-bottom-color:var(--gold)}
+.dtier .amt{font-family:var(--sans);font-size:28px;font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.dtier .d-name{font-size:10px;color:#c3c8d1;letter-spacing:.12em;text-transform:uppercase}
+.dtier .arr{transition:transform .3s,color .3s}
+.dtier:hover .arr{transform:translateX(8px);color:var(--gold)}
+
+/* ============ SHEET 11 — FOOTER / CONTACT ============ */
+.footer-sheet{padding:60px 28px 28px}
+.foot-contact{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);margin-bottom:36px}
+.foot-contact > div{padding:36px;border-right:1px solid var(--ink)}
+.foot-contact > div:last-child{border-right:0}
+.foot-contact .k{font-size:10px;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.foot-contact .body{font-size:13px;line-height:1.8;color:var(--ink);letter-spacing:.02em}
+
+.foot-sign{text-align:center;padding:80px 0;border:1px solid var(--ink);position:relative}
+.foot-sign .k{font-size:10px;color:var(--ink-2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+.foot-sign .big{
+  font-family:var(--mono);font-size:clamp(72px,11vw,160px);font-weight:500;letter-spacing:-.03em;line-height:.9;
+}
+.foot-sign .big .red{color:var(--red)}
+.foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
+.foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ TWEAKS PANEL ============ */
+#tweaks{
+  position:fixed;bottom:20px;right:20px;z-index:200;background:var(--paper);
+  border:1px solid var(--ink);padding:16px;font-family:var(--mono);font-size:11px;width:260px;display:none;
+  box-shadow:0 18px 50px rgba(0,0,0,.1);
+}
+#tweaks h6{margin:0 0 10px;font-size:10px;text-transform:uppercase;letter-spacing:.12em}
+#tweaks label{display:grid;gap:6px;margin-bottom:12px}
+#tweaks input[type=color]{width:100%;height:28px;border:1px solid var(--hair);padding:0;background:none}
+#tweaks select,#tweaks input[type=range]{width:100%}
+#tweaks .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+@media (max-width:900px){
+  .cover-body,.triptych,.exploded-body,.track-body,.join-body{grid-template-columns:1fr}
+  .cover-left,.cover-right,.triptych .view,.exploded-stage,.track-left,.join-left{border-right:0;border-bottom:1px solid var(--ink)}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .nav-index{grid-template-columns:repeat(4,1fr)}
+  .nav-index a:nth-child(4n){border-right:0}
+  .donate-inner{grid-template-columns:1fr;gap:40px}
+  .spec-row{grid-template-columns:40px 1fr 1fr}
+  .spec-row .tol{display:none}
+  .rev-head,.rev-row{grid-template-columns:60px 70px 130px 1fr}
+  .rev-head > div:nth-child(5),.rev-row > div:nth-child(5){display:none}
+  .org-bottom{grid-template-columns:repeat(3,1fr)}
+  .foot-contact{grid-template-columns:1fr}
+  .foot-contact > div{border-right:0;border-bottom:1px solid var(--ink)}
+}
+
+/* ============ CURSOR IMAGE PREVIEW (sheet 05 lineage) ============ */
+.cursor-preview{
+  position:fixed; pointer-events:none; z-index:9999;
+  width:320px; height:200px;
+  opacity:0; transform: translate(-50%, -50%);
+  transition: opacity .12s ease;
+  will-change: opacity;
+}
+.cursor-preview.show{ opacity:1; }
+.cursor-preview .plate{
+  position:absolute; inset:0;
+  background: var(--paper-2);
+  background-size: cover; background-position: center;
+  box-shadow: 0 12px 40px -12px rgba(10,20,40,.35), 0 2px 8px rgba(0,0,0,.08);
+}
+.cursor-preview .meta{
+  position:absolute; left:0; right:0; bottom:-22px;
+  display:flex; justify-content:space-between;
+  font-family: var(--mono); font-size:9px; letter-spacing:.14em;
+  color: var(--ink-2); text-transform: uppercase;
+}
+/* tiny square-bracket corner marks, like the reference */
+.cursor-preview .corner{
+  position:absolute; width:14px; height:14px; border: 1.5px solid var(--paper);
+  mix-blend-mode: difference;
+}
+.cursor-preview .corner.tl{ top:-1px; left:-1px; border-right:0; border-bottom:0;}
+.cursor-preview .corner.tr{ top:-1px; right:-1px; border-left:0; border-bottom:0;}
+.cursor-preview .corner.bl{ bottom:-1px; left:-1px; border-right:0; border-top:0;}
+.cursor-preview .corner.br{ bottom:-1px; right:-1px; border-left:0; border-top:0;}
+
+/* ============ SHEET 06 — LEADERSHIP CARDS ============ */
+.leadership{padding:40px 40px 44px;border:1px solid var(--ink);border-top:0}
+.lead-group-label{display:grid;grid-template-columns:64px auto 1fr;gap:14px;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-2);text-transform:uppercase;margin:8px 0 18px}
+.lead-group-n{color:var(--red);font-weight:500}
+.lead-group-rule{height:1px;background:var(--hair)}
+.lead-grid{display:grid;gap:14px}
+.lead-grid--exec{grid-template-columns:repeat(5,1fr)}
+.lead-grid--subs{grid-template-columns:repeat(5,1fr)}
+@media (max-width: 1100px){ .lead-grid--exec,.lead-grid--subs{grid-template-columns:repeat(4,1fr)} }
+@media (max-width: 820px){ .lead-grid--exec,.lead-grid--subs{grid-template-columns:repeat(3,1fr)} }
+
+.lead-card{position:relative;background:var(--paper);border:1px solid var(--ink);overflow:hidden;cursor:default;transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s}
+.lead-card:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(15,23,42,.25)}
+.lead-photo{position:relative;aspect-ratio:3/4;background:var(--paper-2);overflow:hidden}
+.lead-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.95) contrast(1.02);transition:transform .6s cubic-bezier(.2,.8,.2,1), filter .3s}
+.lead-card:hover .lead-photo img{transform:scale(1.035)}
+.lead-caption{padding:10px 12px 12px;border-top:1px solid var(--hair)}
+.lead-tag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+.lead-name{font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:-.01em;color:var(--ink);margin-top:3px;line-height:1.15}
+.lead-role{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink-2);margin-top:4px;line-height:1.35}
+.lead-yr{color:var(--ink-3)}
+/* Hover bio overlay */
+.lead-desc{position:absolute;inset:0;background:rgba(10,11,13,.94);color:var(--paper);opacity:0;pointer-events:none;transition:opacity .22s ease;display:flex;align-items:flex-end;padding:16px;backdrop-filter:saturate(1.1)}
+.lead-card:hover .lead-desc{opacity:1}
+.lead-desc-inner{max-height:100%;overflow:auto}
+.lead-desc-head{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--red);text-transform:uppercase;border-left:2px solid var(--red);padding-left:8px;margin-bottom:10px}
+.lead-desc p{font-family:var(--sans);font-size:12px;line-height:1.55;color:rgba(255,255,255,.85);margin:0}
+.lead-desc::-webkit-scrollbar,.lead-desc-inner::-webkit-scrollbar{width:4px}
+.lead-desc-inner::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25)}
+
+.lead-branch-rule{color:var(--ink-2);margin:26px 0 10px;height:48px}
+.lead-branch-rule svg{width:100%;height:100%;display:block}
+
+.lead-foot{margin-top:28px;padding-top:14px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase}
+@media (max-width: 820px){ .lead-foot{flex-direction:column;gap:6px} }
+
+/* ============ SHEET 07 — RESULT HOVER PREVIEW ============ */
+.result-preview{
+  position:absolute; inset:0;
+  opacity:0; pointer-events:none;
+  transition: opacity .22s ease;
+  background: var(--ink);
+}
+.result-preview.show{ opacity:1; }
+.result-preview img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit: cover;
+  filter: contrast(1.03) saturate(.95);
+}
+.result-preview-cnr{
+  position:absolute; width:14px; height:14px; border: 1.5px solid var(--paper);
+}
+.result-preview-cnr.tl{ top:8px; left:8px;  border-right:0; border-bottom:0;}
+.result-preview-cnr.tr{ top:8px; right:8px; border-left:0;  border-bottom:0;}
+.result-preview-cnr.bl{ bottom:8px; left:8px;  border-right:0; border-top:0;}
+.result-preview-cnr.br{ bottom:8px; right:8px; border-left:0;  border-top:0;}
+.result-preview-meta{
+  position:absolute; left:12px; right:12px; bottom:10px;
+  display:flex; justify-content:space-between;
+  font-family: var(--mono); font-size:9px; letter-spacing:.14em;
+  color: var(--paper); text-transform: uppercase;
+}
+
+/* Stronger row-hover affordance */
+.result-row{ transition: background .16s, border-color .16s; border-left: 2px solid transparent; }
+.result-row:hover{ background: var(--paper-2); border-left-color: var(--red); cursor: default; }
+.result-row:hover .place{ color: var(--red); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="grid-spot" id="grid-spot"></div>
+
+<!-- SHEET HEADER (drawing frame) -->
+<div class="sheet-header">
+  <span><b style="font-weight:600">SPARTAN RACING</b> · SAN JOSÉ STATE UNIVERSITY FSAE</span>
+  <span class="live">LIVE · SHOP OPEN · <span id="clock">—</span></span>
+  <span>DOC SR-17-WEB-001</span>
+  <span>REV C · 21 APR 2026</span>
+</div>
+
+<!-- SHEET INDEX / NAV -->
+<div class="nav-index" id="nav">
+  <a href="#s00" data-s="s00"><span class="n">00</span><span>COVER</span></a>
+  <a href="#s01" data-s="s01"><span class="n">01</span><span>VEHICLE</span></a>
+  <a href="#s02" data-s="s02"><span class="n">02</span><span>SPEC</span></a>
+  <a href="#s04" data-s="s04"><span class="n">03</span><span>ASSEMBLY</span></a>
+  <a href="#s05" data-s="s05"><span class="n">04</span><span>LINEAGE</span></a>
+  <a href="#s06" data-s="s06"><span class="n">05</span><span>TEAM</span></a>
+  <a href="#s07" data-s="s07"><span class="n">06</span><span>RESULTS</span></a>
+  <a href="#s08" data-s="s08"><span class="n">07</span><span>PARTNERS</span></a>
+</div>
+
+<main>
+
+<!-- ============ SHEET 00 — COVER ============ -->
+<section id="s00" class="sheet" data-screen-label="00 Cover">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">00 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">COVER — SR-26 PROGRAMME</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-left">
+      <div>
+        <div class="cover-eyebrow">Programme title · Season 2025–26</div>
+        <h1 class="cover-title">SR-17<span class="sub">Successor to Flourish.</span></h1>
+        <p class="cover-desc">
+          Formula SAE electric vehicle · Emrax 228 motor · 8.3&nbsp;kWh accumulator.<br/>
+          Designed, machined and composited in <b>San José, California</b> by Spartan Racing across eight subteams: Aero, Powertrain, Chassis, Suspension, Electronics, Software, Business, R&amp;D.<br/><br/>
+          Successor to SR-16 <em>Flourish</em> (1st Endurance, 2nd Overall, Best Aero — FSAE Michigan 2025). Fourth all-electric car. Twenty-third Spartan ever built since 1989.
+        </p>
+      </div>
+      <div class="stamp">FOR COMPETITION USE · REV C</div>
+    </div>
+
+    <div class="cover-right" style="padding:0;position:relative;overflow:hidden;min-height:560px;background:linear-gradient(135deg, #eceef2 0%, #dde1e8 100%)">
+      <div class="fig-label" style="position:absolute;top:14px;left:16px;right:16px;z-index:3;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:var(--ink-2);text-transform:uppercase">
+        <span>FIG 00.1 — SR-17 · CLASSIFIED UNTIL REVEAL</span>
+        <span id="revealCountdown" style="display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--paper);padding:6px 10px;font-family:var(--mono);font-size:10px;letter-spacing:.14em"><span class="live" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1.4s ease-in-out infinite"></span><span id="cdLabel">REVEAL IN</span><span id="cdValue" style="color:var(--paper);font-variant-numeric:tabular-nums">—</span></span>
+      </div>
+      <div id="car3d" style="position:absolute;inset:0;cursor:grab;filter:blur(5px) contrast(1.06) saturate(.9)"></div>
+      <div style="position:absolute;bottom:14px;left:16px;right:16px;z-index:3;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;pointer-events:none">
+        <span>SR-17 · REDACTED SILHOUETTE</span>
+        <span>GLB · 734 KB</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- big typographic note -->
+  <div class="cover-note reveal">
+    <div class="note-n">NOTE A</div>
+    <div class="note-body">Since 1989. Twenty-three cars. Every one drawn by hand, by a student, <em>on a sheet like this one.</em></div>
+    <div class="note-n" style="text-align:right">SEE SHT 04</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>POWERED BY<span class="sep"></span></span>
+    <span>CADENCE<span class="sep"></span></span>
+    <span>ALTIUM<span class="sep"></span></span>
+    <span>SIEMENS<span class="sep"></span></span>
+    <span>ANSYS<span class="sep"></span></span>
+    <span>TORAY<span class="sep"></span></span>
+    <span>ROKU<span class="sep"></span></span>
+    <span>PHOENIX CONTACT<span class="sep"></span></span>
+    <span>MILITARY FASTENERS<span class="sep"></span></span>
+    <span>MOTEC USA<span class="sep"></span></span>
+    <span>LEVY<span class="sep"></span></span>
+    <span>BAYVIEW PLASTICS<span class="sep"></span></span>
+    <span>VI-GRADE<span class="sep"></span></span>
+    <span>CISCO<span class="sep"></span></span>
+    <span>RAPID HARNESS<span class="sep"></span></span>
+    <span>LUCID MOTORS<span class="sep"></span></span>
+    <span>MARIN DESIGN WORKS<span class="sep"></span></span>
+    <span>VALENCE PRECISION<span class="sep"></span></span>
+    <span>MOUNTZ TORQUE<span class="sep"></span></span>
+    <span>EVONIK<span class="sep"></span></span>
+    <span>FUTEK<span class="sep"></span></span>
+    <span>RIVIAN · VW GROUP<span class="sep"></span></span>
+    <span>TE CONNECTIVITY<span class="sep"></span></span>
+    <span>KLA<span class="sep"></span></span>
+    <span>DREMEL<span class="sep"></span></span>
+    <span>MATTERHACKERS<span class="sep"></span></span>
+    <span>VECTORNAV<span class="sep"></span></span>
+    <span>SHINING 3D<span class="sep"></span></span>
+    <!-- duplicated for seamless loop -->
+    <span>POWERED BY<span class="sep"></span></span>
+    <span>CADENCE<span class="sep"></span></span>
+    <span>ALTIUM<span class="sep"></span></span>
+    <span>SIEMENS<span class="sep"></span></span>
+    <span>ANSYS<span class="sep"></span></span>
+    <span>TORAY<span class="sep"></span></span>
+    <span>ROKU<span class="sep"></span></span>
+    <span>PHOENIX CONTACT<span class="sep"></span></span>
+    <span>MILITARY FASTENERS<span class="sep"></span></span>
+    <span>MOTEC USA<span class="sep"></span></span>
+    <span>LEVY<span class="sep"></span></span>
+    <span>BAYVIEW PLASTICS<span class="sep"></span></span>
+    <span>VI-GRADE<span class="sep"></span></span>
+    <span>CISCO<span class="sep"></span></span>
+    <span>RAPID HARNESS<span class="sep"></span></span>
+    <span>LUCID MOTORS<span class="sep"></span></span>
+    <span>MARIN DESIGN WORKS<span class="sep"></span></span>
+    <span>VALENCE PRECISION<span class="sep"></span></span>
+    <span>MOUNTZ TORQUE<span class="sep"></span></span>
+    <span>EVONIK<span class="sep"></span></span>
+    <span>FUTEK<span class="sep"></span></span>
+    <span>RIVIAN · VW GROUP<span class="sep"></span></span>
+    <span>TE CONNECTIVITY<span class="sep"></span></span>
+    <span>KLA<span class="sep"></span></span>
+    <span>DREMEL<span class="sep"></span></span>
+    <span>MATTERHACKERS<span class="sep"></span></span>
+    <span>VECTORNAV<span class="sep"></span></span>
+    <span>SHINING 3D<span class="sep"></span></span>
+  </div>
+</div>
+
+<!-- ============ SHEET 01 — ORTHOGRAPHIC TRIPTYCH ============ -->
+<section id="s01" class="sheet" data-screen-label="01 Vehicle">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">01 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">VEHICLE — ORTHOGRAPHIC PROJECTION</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">1 : 20</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="triptych">
+    <!-- TOP -->
+    <div class="view">
+      <div class="fig-label"><span>FIG 01.1</span><span>VIEW — TOP</span></div>
+      <div class="ortho-box draw reveal">
+        <div class="cross"></div>
+        <svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet">
+          <rect class="fill" x="90" y="40" width="120" height="220" style="--len:700"/>
+          <rect class="fill" x="40" y="60" width="40" height="40" style="--len:200"/>
+          <rect class="fill" x="220" y="60" width="40" height="40" style="--len:200"/>
+          <rect class="fill" x="40" y="200" width="40" height="40" style="--len:200"/>
+          <rect class="fill" x="220" y="200" width="40" height="40" style="--len:200"/>
+        </svg>
+      </div>
+      <div class="dim-line reveal">
+        <span class="tick"></span><span class="bar"></span><span class="val">1 620 mm</span><span class="bar"></span><span class="tick"></span>
+      </div>
+    </div>
+
+    <!-- SIDE -->
+    <div class="view">
+      <div class="fig-label"><span>FIG 01.2</span><span>VIEW — SIDE</span></div>
+      <div class="ortho-box draw reveal">
+        <div class="cross"></div>
+        <svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet">
+          <path class="body" d="M 30 210 Q 30 130 95 130 L 140 130 L 165 90 L 210 90 L 240 130 L 270 130 Q 285 135 285 195" style="stroke:var(--ink);stroke-width:1.2;fill:var(--paper);--len:900"/>
+          <rect class="fill" x="150" y="100" width="50" height="26" style="--len:180"/>
+          <circle class="wheel" cx="75" cy="215" r="26" style="--len:170"/>
+          <circle class="wheel" cx="250" cy="215" r="26" style="--len:170"/>
+        </svg>
+      </div>
+      <div class="dim-line reveal">
+        <span class="tick"></span><span class="bar"></span><span class="val">2 980 mm</span><span class="bar"></span><span class="tick"></span>
+      </div>
+    </div>
+
+    <!-- FRONT -->
+    <div class="view">
+      <div class="fig-label"><span>FIG 01.3</span><span>VIEW — FRONT</span></div>
+      <div class="ortho-box draw reveal">
+        <div class="cross"></div>
+        <svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet">
+          <path class="body" d="M 60 200 Q 60 150 100 150 L 200 150 Q 240 150 240 200 Z" style="stroke:var(--ink);stroke-width:1.2;fill:var(--paper);--len:500"/>
+          <rect class="fill" x="130" y="130" width="40" height="20" style="--len:120"/>
+          <line class="body" x1="30" y1="215" x2="270" y2="215" style="--len:240"/>
+          <circle class="wheel" cx="70" cy="220" r="18" style="--len:120"/>
+          <circle class="wheel" cx="230" cy="220" r="18" style="--len:120"/>
+        </svg>
+      </div>
+      <div class="dim-line reveal">
+        <span class="tick"></span><span class="bar"></span><span class="val">1 380 mm</span><span class="bar"></span><span class="tick"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 02 — SPEC ============ -->
+<section id="s02" class="sheet" data-screen-label="02 Spec">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">02 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">SPECIFICATION — PRIMARY PARAMETERS</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="spec" id="specSheet"></div>
+  <div class="spec-footer">
+    <span>DOC · SR-17-SPEC-001 · REV C</span>
+    <span id="specStatus">▍ AWAITING TRANSMISSION</span>
+  </div>
+</section>
+
+<!-- ============ SHEET 03 — STATS ============ -->
+<section id="s03" class="sheet" data-screen-label="03 Stats" style="border-top:0;">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">03 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">PROGRAMME SUMMARY — FIGURES OF MERIT</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-cell reveal">
+      <div class="n">[ M-01 ] Years running</div>
+      <div class="big"><span class="count" data-to="37">00</span><span class="unit">YRS</span></div>
+      <div class="cap">From SR-0 in 1989 through a pause, reborn with SR-1 in 2008, and annually since. SR-17 is the 23rd Spartan.</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="n">[ M-02 ] Dry mass</div>
+      <div class="big"><span class="count" data-to="420">000</span><span class="unit">LBS</span></div>
+      <div class="cap">190.5 kg dry. Lightest accumulator package in team history.</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="n">[ M-03 ] Peak torque</div>
+      <div class="big"><span class="count" data-to="162">000</span><span class="unit">FT·LB</span></div>
+      <div class="cap">Emrax 228 PMSM. 600 V nominal bus. Cascadia PM150DX inverter.</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="n">[ M-04 ] 0–60 mph</div>
+      <div class="big"><span class="count" data-to="3.0" data-decimal>0.0</span><span class="unit">SEC</span></div>
+      <div class="cap">Target. SR-16 clocked 3.4 s at FSAE Michigan 2025 — 1st Endurance, 2nd Overall.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 04 — EXPLODED ============ -->
+<section id="s04" class="sheet" data-screen-label="04 Assembly">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">04 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">CHASSIS — EXPLODED ASSEMBLY</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">1 : 12</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="exploded-body">
+    <div class="exploded-stage">
+      <div class="fig-label"><span>FIG 04.1 — SCROLL TO EXPLODE</span><span>10 MAJOR SUBASSEMBLIES</span></div>
+      <div class="exploded-controls">
+        <button id="ex-assemble" class="on">ASSEMBLE</button>
+        <button id="ex-explode">EXPLODE</button>
+      </div>
+      <div class="exploded-scene" id="exScene">
+        <!-- parts -->
+        <div class="ex-part" data-p="2" style="--hx:0%;--hy:0%;--w:34%;--h:42%;left:33%;top:30%;width:34%;height:42%">
+          <span>② MONOCOQUE</span>
+        </div>
+        <div class="ex-part" data-p="1" style="--hx:-32%;--hy:-6%;--w:18%;--h:22%;left:10%;top:40%;width:18%;height:22%">
+          <span>① FR WING</span>
+        </div>
+        <div class="ex-part" data-p="3" style="--hx:32%;--hy:-6%;--w:18%;--h:22%;left:72%;top:40%;width:18%;height:22%">
+          <span>③ RR WING</span>
+        </div>
+        <div class="ex-part" data-p="4" style="--hx:-18%;--hy:-36%;--w:10%;--h:14%;left:24%;top:12%;width:10%;height:14%">
+          <span>④ UPR L</span>
+        </div>
+        <div class="ex-part" data-p="5" style="--hx:18%;--hy:-36%;--w:10%;--h:14%;left:66%;top:12%;width:10%;height:14%">
+          <span>⑤ UPR R</span>
+        </div>
+        <div class="ex-part" data-p="6" style="--hx:0%;--hy:36%;--w:42%;--h:12%;left:29%;top:78%;width:42%;height:12%">
+          <span>⑥ UNDERFLOOR</span>
+        </div>
+        <div class="ex-part" data-p="7" style="--hx:0%;--hy:-48%;--w:20%;--h:18%;left:40%;top:4%;width:20%;height:18%">
+          <span>⑦ POWERTRAIN</span>
+        </div>
+      </div>
+      <div class="dim-line reveal" style="margin-top:20px">
+        <span class="tick"></span><span class="bar"></span><span class="val">14 MAJOR PARTS · 218 FASTENERS</span><span class="bar"></span><span class="tick"></span>
+      </div>
+    </div>
+
+    <div class="bom">
+      <h5>Bill of materials · extract</h5>
+      <div id="bomList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 05 — LINEAGE ============ -->
+<section id="s05" class="sheet" data-screen-label="05 Lineage">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">05 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">LINEAGE — REVISION HISTORY · 37 YRS</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="rev-table">
+    <div class="rev-head">
+      <div>REV</div><div>YEAR</div><div>CAR</div><div>SUMMARY OF CHANGES</div><div>RESULT</div>
+    </div>
+    <div id="revBody"></div>
+  </div>
+</section>
+
+<!-- ============ SHEET 06 — TEAM ============ -->
+<section id="s06" class="sheet" data-screen-label="06 Team">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">06 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">TEAM — LEADERSHIP, SEASON 2025–26</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">1 : 1</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="leadership">
+    <div class="lead-group-label"><span class="lead-group-n">§ 06.A</span><span>EXECUTIVE BOARD — 5 MEMBERS</span><span class="lead-group-rule"></span></div>
+    <div class="lead-grid lead-grid--exec">
+      <div class="lead-card lead-card--exec" data-slug="hiren-patel">
+        <div class="lead-photo"><img src="assets/leads/hiren-patel.jpg" alt="HIREN PATEL" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">T-01</div>
+          <div class="lead-name">HIREN PATEL</div>
+          <div class="lead-role">Chief Engineer · <span class="lead-yr">ME MS · YR 1</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HIREN PATEL — Chief Engineer</div><p>Joined during SR-13 as an intern. Chassis designer and harness manufacturer on SR-15; Systems Integration on SR-16, stepping up as Project Manager through technicals and dynamics. Now Chief Engineer for SR-17 — striving for a podium finish.</p></div></div>
+      </div>
+      <div class="lead-card lead-card--exec" data-slug="will-kittinger">
+        <div class="lead-photo"><img src="assets/leads/will-kittinger.jpg" alt="WILL KITTINGER" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">T-02</div>
+          <div class="lead-name">WILL KITTINGER</div>
+          <div class="lead-role">President · <span class="lead-yr">MIS · YR 5</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">WILL KITTINGER — President</div><p>Began as Business intern during SR-15. Expanded into Suspension and Final Drive on SR-16 while building the foundation of the Cost Report and leading sponsor outreach. Now President and Business Lead for SR-17. Goal: first place next June.</p></div></div>
+      </div>
+      <div class="lead-card lead-card--exec" data-slug="ally-almiranez">
+        <div class="lead-photo"><img src="assets/leads/ally-almiranez.jpg" alt="ALLY ALMIRANEZ" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">T-03</div>
+          <div class="lead-name">ALLY ALMIRANEZ</div>
+          <div class="lead-role">Treasurer · <span class="lead-yr">MKTG · YR 2</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">ALLY ALMIRANEZ — Treasurer</div><p>Joined during SR-16. Supports the team by sending gifts to top-tier sponsors, managing the website, and handling logistics for the team\'s largest annual competition.</p></div></div>
+      </div>
+      <div class="lead-card lead-card--exec" data-slug="angel-lopez">
+        <div class="lead-photo"><img src="assets/leads/angel-lopez.jpg" alt="ANGEL LOPEZ" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">T-04</div>
+          <div class="lead-name">ANGEL LOPEZ</div>
+          <div class="lead-role">Project Manager · <span class="lead-yr">ME · YR 3</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">ANGEL LOPEZ — Project Manager</div><p>Joined during SR-15 as an Aerodynamic and Final Drive intern. Aerodynamics Designer and Differential Carrier Designer on SR-16. Now Project Manager for SR-17 — guiding the team through new challenges.</p></div></div>
+      </div>
+      <div class="lead-card lead-card--exec" data-slug="aidan-garcia">
+        <div class="lead-photo"><img src="assets/leads/aidan-garcia.jpg" alt="AIDAN GARCIA" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">T-05</div>
+          <div class="lead-name">AIDAN GARCIA</div>
+          <div class="lead-role">Safety Officer · <span class="lead-yr">IE · YR 5</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">AIDAN GARCIA — Safety Officer</div><p>Joined Spartan Racing during SR-15 as a powertrain intern. Named one of SR-16\'s battery pack designers; finished manufacturing the first accumulator 2 weeks ahead of schedule, enabling the testing that contributed to the 1st-place Endurance result.</p></div></div>
+      </div>
+    </div>
+
+    <div class="lead-branch-rule" aria-hidden="true">
+      <svg viewBox="0 0 1200 48" preserveAspectRatio="none">
+        <path d="M 600 0 L 600 18 M 120 48 L 120 30 L 1080 30 L 1080 48" stroke="currentColor" stroke-width="1" fill="none"/>
+        <path d="M 600 18 L 120 30 M 600 18 L 1080 30" stroke="currentColor" stroke-width="1" fill="none" stroke-dasharray="2 3" opacity=".45"/>
+        <circle cx="600" cy="18" r="2.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div class="lead-group-label"><span class="lead-group-n">§ 06.B</span><span>SUBTEAM LEADS — 9 MEMBERS · 8 SUBTEAMS</span><span class="lead-group-rule"></span></div>
+    <div class="lead-grid lead-grid--subs">
+      <div class="lead-card" data-slug="damon-haberman">
+        <div class="lead-photo"><img src="assets/leads/damon-haberman.jpg" alt="DAMON HABERMAN" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">L-01</div>
+          <div class="lead-name">DAMON HABERMAN</div>
+          <div class="lead-role">Aerodynamics Lead · <span class="lead-yr">AE · YR 4</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">DAMON HABERMAN — Aerodynamics Lead</div><p>Joined during SR-13 / SRE-6. Three years of iterative aero on front wing and undertray (+20% downforce), then redesigned the whole package front-to-back (+25%). Now Aero Lead for SR-17 — refining the package into a reliable, durable system.</p></div></div>
+      </div>
+      <div class="lead-card" data-slug="hayat-dlala">
+        <div class="lead-photo"><img src="assets/leads/hayat-dlala.jpg" alt="HAYAT DLALA" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">L-02</div>
+          <div class="lead-name">HAYAT DLALA</div>
+          <div class="lead-role">Business Lead · <span class="lead-yr">FIN · YR 2</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HAYAT DLALA — Business Lead</div><p>Joined as intern during SR-17. Contributed across logistics, media, newsletters, and graphic design before moving into project management and business ops. Now Business Lead — building a sustainable year-round business team competing for 1st.</p></div></div>
+      </div>
+      <div class="lead-card" data-slug="emmett-miura">
+        <div class="lead-photo"><img src="assets/leads/emmett-miura.jpg" alt="EMMETT MIURA" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">L-03</div>
+          <div class="lead-name">EMMETT MIURA</div>
+          <div class="lead-role">Chassis Lead · <span class="lead-yr">ME · YR 3</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">EMMETT MIURA — Chassis Lead</div><p>Joined during SR-15 as an intern — steering wheel, jigs, and suspension tasks. Designed the SR-16 steering system. Now SR-17 Chassis Lead and kinematics designer.</p></div></div>
+      </div>
+      <div class="lead-card" data-slug="william-la-poll">
+        <div class="lead-photo"><img src="assets/leads/william-la-poll.jpg" alt="WILLIAM LA POLL" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">L-04</div>
+          <div class="lead-name">WILLIAM LA POLL</div>
+          <div class="lead-role">Electronics Lead · <span class="lead-yr">EE · YR 3</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">WILLIAM LA POLL — Electronics Lead</div><p>Joined during SR-15 as a wire harness intern. Wire harness designer and motherboard co-designer on SR-16. Now Electronics Lead — building a reliable, fast race car.</p></div></div>
+      </div>
+      <div class="lead-card" data-slug="harleen-sandhu">
+        <div class="lead-photo"><img src="assets/leads/harleen-sandhu.jpg" alt="HARLEEN SANDHU" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">L-05</div>
+          <div class="lead-name">HARLEEN SANDHU</div>
+          <div class="lead-role">Software Lead · <span class="lead-yr">CS · YR 4</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HARLEEN SANDHU — Software Lead</div><p>Started in R&D on Torque Vectoring. Joined the competition team on SR-16 as a Controls designer, authoring a Power Limiting algorithm. Now Software Lead after ~1.5 years on software — expanding control systems this year.</p></div></div>
+      </div>
+      <div class="lead-card" data-slug="nicholas-ng">
+        <div class="lead-photo"><img src="assets/leads/nicholas-ng.jpg" alt="NICHOLAS NG" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">L-06</div>
+          <div class="lead-name">NICHOLAS NG</div>
+          <div class="lead-role">Suspension Lead · <span class="lead-yr">ISE</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">NICHOLAS NG — Suspension Lead</div><p>Joined during SR-14 as a suspension intern. Dampers + inboard suspension on SR-15; kinematics and inboard suspension on SR-16. Now Suspension Lead — guiding the next generation and building on SR-16.</p></div></div>
+      </div>
+      <div class="lead-card" data-slug="aidan-garcia">
+        <div class="lead-photo"><img src="assets/leads/aidan-garcia.jpg" alt="AIDAN GARCIA" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">L-07</div>
+          <div class="lead-name">AIDAN GARCIA</div>
+          <div class="lead-role">Powertrain Co-Lead · <span class="lead-yr">IE · YR 5</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">AIDAN GARCIA — Powertrain Co-Lead</div><p>Powertrain intern on SR-15; battery pack designer on SR-16 — finished first accumulator 2 weeks early. Now Powertrain Co-Lead: more reliable, while still letting designers innovate and learn.</p></div></div>
+      </div>
+      <div class="lead-card" data-slug="kevin-hong">
+        <div class="lead-photo"><img src="assets/leads/kevin-hong.jpg" alt="KEVIN HONG" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">L-08</div>
+          <div class="lead-name">KEVIN HONG</div>
+          <div class="lead-role">Powertrain Co-Lead · <span class="lead-yr">ME · YR 3</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">KEVIN HONG — Powertrain Co-Lead</div><p>A materials & fatigue specialist with a passion for bicycles and automobiles. Designed drivetrain components for both SR-15 and SR-16. Now Powertrain Co-Lead — leading innovative, sound engineering practice for the Powertrain subsystem.</p></div></div>
+      </div>
+      <div class="lead-card" data-slug="shaun-gilmore">
+        <div class="lead-photo"><img src="assets/leads/shaun-gilmore.jpg" alt="SHAUN GILMORE" loading="lazy"/></div>
+        <div class="lead-caption">
+          <div class="lead-tag">L-09</div>
+          <div class="lead-name">SHAUN GILMORE</div>
+          <div class="lead-role">R&D Lead · <span class="lead-yr">MATH · YR 4</span></div>
+        </div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">SHAUN GILMORE — R&D Lead</div><p>Joined during SR-14 / SRE-7 as an R&D sensors designer. Controls designer on SR-15 — power limiting and launch control. Now R&D Lead: in-hubs and torque vectoring development, targeting a running 4WD in-hubs car.</p></div></div>
+      </div>
+    </div>
+
+    <div class="lead-foot">
+      <span>HOVER ANY CARD FOR BIO</span>
+      <span>APPLICATIONS OPEN AUG 2026 · SEE SHEET 09</span>
+      <span>FAC. ADVISOR — DR. RAYMOND YEE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 07 — RESULTS ============ -->
+<section id="s07" class="sheet" data-screen-label="07 Results">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">07 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">RESULTS — FIVE-SEASON DYNAMIC EVENTS</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="track-body">
+    <div class="track-left">
+      <div class="fig-label"><span id="figLabel">FIG 07.1 — FSAE MICHIGAN · SR-16 · JUN 2025</span><span>BEST SHOT</span></div>
+      <div class="track-svg reveal" style="position:relative;min-height:300px;aspect-ratio:4/2.5;background:var(--ink)">
+        <div id="resultPreview" class="result-preview show" aria-hidden="false">
+          <img id="resultPreviewImg" src="assets/events/fsae-michigan-2025.png" alt=""/>
+          <div class="result-preview-cnr tl"></div><div class="result-preview-cnr tr"></div>
+          <div class="result-preview-cnr bl"></div><div class="result-preview-cnr br"></div>
+          <div class="result-preview-meta"><span>FIG 07.1</span><span id="resultPreviewCap">FSAE MICHIGAN · SR-16 · JUN 2025</span></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;font-size:11px">
+        <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">BEST LAP</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">58.24<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
+        <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">ACCEL</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">3.84<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
+        <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">SKIDPAD</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">5.12<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
+      </div>
+    </div>
+
+    <div class="results" id="resultsList"></div>
+  </div>
+</section>
+
+<!-- ============ SHEET 08 — PARTNERS ============ -->
+<section id="s08" class="sheet" data-screen-label="08 Partners">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">08 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">PARTNERS — CERTIFIED CONTRIBUTORS</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="partners">
+    <div class="partner-tier reveal">
+      <div class="t">T-I</div>
+      <div class="name">Title · $30K+</div>
+      <div class="logos"><span>Cadence</span><span>Altium</span><span>Siemens</span><span>Ansys</span><span>Toray</span><span>Roku</span><span>Phoenix Contact</span><span>Military Fasteners</span><span>Bergman</span><span>Don Beal</span></div>
+    </div>
+    <div class="partner-tier reveal">
+      <div class="t">T-II</div>
+      <div class="name">Platinum · $20K+</div>
+      <div class="logos"><span>Motec USA</span><span>Levy</span><span>BayView Plastics</span></div>
+    </div>
+    <div class="partner-tier reveal">
+      <div class="t">T-III</div>
+      <div class="name">Gold · $10K+</div>
+      <div class="logos"><span>Vi-grade</span><span>Cisco</span><span>Rapid Harness</span><span>SFR SCCA</span><span>Lucid Motors</span><span>Candy Store Fdn</span><span>Marin Design Works</span><span>Valence Precision</span></div>
+    </div>
+    <div class="partner-tier reveal">
+      <div class="t">T-IV</div>
+      <div class="name">Silver · $5K+</div>
+      <div class="logos"><span>Mountz Torque</span><span>Evonik</span><span>Futek</span><span>About Energy</span><span>Rivian · VW Group</span><span>TE Connectivity</span></div>
+    </div>
+    <div class="partner-tier reveal">
+      <div class="t">T-V</div>
+      <div class="name">Bronze · $2.5K+</div>
+      <div class="logos"><span>Star One CU</span><span>Airtech</span><span>Sabalcore</span><span>LCL Machining</span><span>KLA</span><span>Amex</span></div>
+    </div>
+    <div class="partner-tier reveal">
+      <div class="t">T-VI</div>
+      <div class="name">Partner · In-kind</div>
+      <div class="logos"><span>Rexco</span><span>Chemtrend</span><span>SMC</span><span>Dremel</span><span>FibreGlast</span><span>XRP</span><span>MatterHackers</span><span>Bender</span><span>VectorNav</span><span>Bojo Tools</span><span>Shining 3D</span><span>Prismatic Powders</span><span>ThinBIT</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 09 — JOIN ============ -->
+<section id="s09" class="sheet" data-screen-label="09 Join">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">09 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">RECRUITING — OPEN ROLES SEASON 27</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="join-body">
+    <div class="join-left">
+      <h3>You don't <em>need</em><br/>experience.<br/>You need hours.</h3>
+      <p>Spartan Racing hires on commitment — 10–20 hours a week, most of them on the shop floor. We will teach you FEA, carbon layup, wiring harnesses, engine tuning, and machining. The car is the classroom.</p>
+      <a class="join-btn" href="#">Open roles <span class="arr">→</span></a>
+    </div>
+    <div class="roles" id="rolesList"></div>
+  </div>
+</section>
+
+<!-- ============ SHEET 10 — DONATE ============ -->
+<section id="s10" data-screen-label="10 Donate" class="donate">
+  <div class="donate-inner">
+    <div class="reveal">
+      <h3>Keep the Spartans<br/><em>on the grid.</em></h3>
+      <p>Every SR car costs roughly <b>$85,000</b> to build. Your gift funds aluminum, carbon, tyres, freight, and the twelve-hour shop nights that turn students into engineers.</p>
+    </div>
+    <div class="reveal">
+      <div class="dtier"><div class="amt">$50</div><div class="d-name">Shop Fuel · Coffee & pizza, one build night</div><div class="arr">→</div></div>
+      <div class="dtier"><div class="amt">$250</div><div class="d-name">Consumables · Rivets, fasteners, hardware</div><div class="arr">→</div></div>
+      <div class="dtier"><div class="amt">$1,000</div><div class="d-name">Tyres · One set of Hoosier R10s</div><div class="arr">→</div></div>
+      <div class="dtier"><div class="amt">$5,000</div><div class="d-name">Travel · One competition for six students</div><div class="arr">→</div></div>
+      <div class="dtier"><div class="amt">Custom</div><div class="d-name">Legacy · Honor a Spartan alum</div><div class="arr">→</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 11 — CONTACT / SIGN-OFF ============ -->
+<section id="s11" class="footer-sheet" data-screen-label="11 Contact">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">11 / 11</div></div>
+    <div><div class="k">Title</div><div class="v">CONTACT · APPROVAL STAMP</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="foot-contact">
+    <div>
+      <div class="k">FIG 11.1 — LOCATION</div>
+      <div class="body">
+        Engineering Building, Room 344 — club room<br/>
+        Rooms 123 &amp; 130 — build shops<br/>
+        San José State University<br/>
+        One Washington Square<br/>
+        San José, CA 95192<br/><br/>
+        <span style="color:var(--ink-2);font-size:11px">Lat 37.3352° N / Lng 121.8811° W<br/>Shop hours · 24 / 7 · the lights stay on</span>
+      </div>
+    </div>
+    <div>
+      <div class="k">FIG 11.2 — CORRESPONDENCE</div>
+      <div class="body">
+        <a href="https://sjsuformulasae.com">sjsuformulasae.com</a><br/>
+        <a href="mailto:contact@sjsuformulasae.com">contact@sjsuformulasae.com</a><br/>
+        <a href="mailto:sponsorship@sjsuformulasae.com">sponsorship@sjsuformulasae.com</a><br/><br/>
+        <a href="#">/instagram</a> · <a href="#">/youtube</a> · <a href="#">/linkedin</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot-sign reveal">
+    <div class="k">END OF SHEET SET · APPROVED FOR COMPETITION</div>
+    <div class="big">SR-<span class="red">17</span></div>
+    <div class="approval">Signed · WILL KITTINGER, President · HIREN PATEL, Chief Engineer · 21 APR 2026</div>
+  </div>
+
+  <div class="foot-colophon">
+    <span>© 1986–2026 Spartan Racing · SJSU FSAE</span>
+    <span>Drawn by student team · do not redistribute without credit</span>
+    <span>Sheet 11 / 11</span>
+  </div>
+</section>
+
+</main>
+
+<!-- TWEAKS -->
+<div id="tweaks" role="dialog" aria-label="Tweaks">
+  <h6>Tweaks</h6>
+  <label>Paper tone
+    <select id="tw-paper">
+      <option value="warm">Warm (default)</option>
+      <option value="cool">Cool</option>
+      <option value="neutral">Neutral</option>
+      <option value="blueprint">Blueprint</option>
+    </select>
+  </label>
+  <div class="row">
+    <label>Accent<input type="color" id="tw-red" value="#d13d2a"></label>
+    <label>Gold<input type="color" id="tw-gold" value="#E5A823"></label>
+  </div>
+  <label>Motion intensity
+    <select id="tw-motion">
+      <option value="heavy">Heavy (default)</option>
+      <option value="medium">Medium</option>
+      <option value="off">Reduced</option>
+    </select>
+  </label>
+  <label>Grid overlay
+    <select id="tw-grid">
+      <option value="on">On (default)</option>
+      <option value="off">Off</option>
+    </select>
+  </label>
+</div>
+
+<script>
+/* ============ CLOCK ============ */
+(function(){
+  const el = document.getElementById('clock');
+  const pad = n => String(n).padStart(2,'0');
+  const tick = () => { const d = new Date(); el.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} PDT`; };
+  tick(); setInterval(tick,1000);
+})();
+
+/* ============ GENERIC REVEAL ============ */
+(function(){
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }), {threshold:.15});
+  document.querySelectorAll('.reveal, .draw, .dim-line, .track-svg').forEach(el => io.observe(el));
+})();
+
+/* ============ SPEC SHEET TYPEWRITER ============ */
+const SPEC_ROWS = [
+  {n:'001', label:'Chassis',           val:'Steel tube spaceframe, 4130 chromoly', tol:'—'},
+  {n:'002', label:'Wheelbase',         val:'1 550', vsans:true, unit:'mm', tol:'±2 mm'},
+  {n:'003', label:'Track · F / R',     val:'1 220 / 1 180', vsans:true, unit:'mm', tol:'±2 mm'},
+  {n:'004', label:'Overall length',    val:'2 980', vsans:true, unit:'mm', tol:''},
+  {n:'005', label:'Overall width',     val:'1 380', vsans:true, unit:'mm', tol:''},
+  {n:'006', label:'Dry mass',          val:'190.5', vsans:true, unit:'kg', tol:'±0.2 kg', hi:true},
+  {n:'007', label:'Motor',             val:'Emrax 228, permanent-magnet synchronous', tol:'—'},
+  {n:'008', label:'Accumulator',       val:'8.3', vsans:true, unit:'kWh · 600 V nominal', tol:'', hi:true},
+  {n:'009', label:'Peak torque',       val:'162', vsans:true, unit:'ft·lbs at the motor', tol:''},
+  {n:'010', label:'Inverter',          val:'Cascadia PM150DX', tol:'—'},
+  {n:'011', label:'Suspension',        val:'Pushrod, 4-way adjustable dampers', tol:'—'},
+  {n:'012', label:'Aero · downforce',  val:'94.0', vsans:true, unit:'kg @ 90 km/h', tol:'', hi:true},
+  {n:'013', label:'Brakes',            val:'Wilwood 4-pot, dual circuit + regen', tol:'—'},
+  {n:'014', label:'Tyres',             val:'Hoosier 18×7.5-R10, LCO', tol:'—'},
+  {n:'015', label:'Projected 0–60 mph',val:'3.0', vsans:true, unit:'s', tol:'', hi:true},
+];
+(function(){
+  const sheet = document.getElementById('specSheet');
+  SPEC_ROWS.forEach(r => {
+    const row = document.createElement('div');
+    row.className = 'spec-row' + (r.hi ? ' hi' : '');
+    row.innerHTML = `
+      <div class="k">${r.n}</div>
+      <div class="label">${r.label}</div>
+      <div class="v" data-final="${r.val}" data-unit="${r.unit||''}" data-sans="${r.vsans?1:0}"></div>
+      <div class="tol">${r.tol||''}</div>`;
+    sheet.appendChild(row);
+  });
+
+  const status = document.getElementById('specStatus');
+  let started = false;
+  const start = () => {
+    if (started) return; started = true;
+    status.textContent = '▍ TRANSMITTING';
+    const rows = [...sheet.querySelectorAll('.spec-row')];
+    let i = 0;
+    const next = () => {
+      if (i >= rows.length){ status.textContent = '✓ SYNCED · ' + rows.length + ' LINES · REV C'; return; }
+      const row = rows[i];
+      row.classList.add('in');
+      const vEl = row.querySelector('.v');
+      const text = vEl.dataset.final;
+      const unit = vEl.dataset.unit;
+      const sans = vEl.dataset.sans === '1';
+      vEl.classList.add('typing');
+      let j = 0;
+      const step = Math.max(10, 140 / Math.max(1,text.length) * 1.6);
+      const tick = () => {
+        j++;
+        if (sans) {
+          vEl.innerHTML = `<span class="sans">${text.slice(0,j)}</span>`;
+        } else {
+          vEl.textContent = text.slice(0,j);
+        }
+        if (j < text.length) setTimeout(tick, step);
+        else {
+          vEl.classList.remove('typing');
+          if (unit){
+            if (sans) vEl.innerHTML = `<span class="sans">${text}</span> <span style="font-size:10px;color:var(--ink-3)">${unit}</span>`;
+            else vEl.innerHTML = `${text} <span style="font-size:10px;color:var(--ink-3)">${unit}</span>`;
+          }
+          i++; setTimeout(next, 40);
+        }
+      };
+      tick();
+    };
+    next();
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ start(); io.unobserve(e.target);} }), {threshold:.2});
+  io.observe(sheet);
+})();
+
+/* ============ STAT COUNTERS ============ */
+(function(){
+  const ease = t => 1 - Math.pow(1-t,3);
+  const anim = el => {
+    const to = parseFloat(el.dataset.to);
+    const dec = el.hasAttribute('data-decimal');
+    const start = performance.now();
+    const dur = 1800;
+    const pad = dec ? 3 : String(Math.floor(to)).length;
+    const frame = now => {
+      const t = Math.min(1,(now-start)/dur);
+      const v = to * ease(t);
+      el.textContent = dec ? v.toFixed(1) : String(Math.round(v)).padStart(pad,'0');
+      if (t<1) requestAnimationFrame(frame);
+      else el.textContent = dec ? to.toFixed(1) : String(Math.round(to));
+    };
+    requestAnimationFrame(frame);
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ anim(e.target); io.unobserve(e.target);} }), {threshold:.5});
+  document.querySelectorAll('.count').forEach(el => io.observe(el));
+})();
+
+/* ============ EXPLODED ASSEMBLY ============ */
+(function(){
+  const scene = document.getElementById('exScene');
+  const parts = [...scene.querySelectorAll('.ex-part')];
+  const btnAssy = document.getElementById('ex-assemble');
+  const btnExpl = document.getElementById('ex-explode');
+  const setExplode = (t) => {
+    parts.forEach(p => {
+      const hx = p.style.getPropertyValue('--hx');
+      const hy = p.style.getPropertyValue('--hy');
+      p.style.transform = `translate(calc(${hx} * ${t}), calc(${hy} * ${t}))`;
+    });
+  };
+  btnAssy.addEventListener('click', () => {
+    btnAssy.classList.add('on'); btnExpl.classList.remove('on'); setExplode(0);
+  });
+  btnExpl.addEventListener('click', () => {
+    btnExpl.classList.add('on'); btnAssy.classList.remove('on'); setExplode(1);
+  });
+
+  // scroll-linked explosion through the sheet
+  const sheet = document.getElementById('s04');
+  let activeExplodeFromScroll = true;
+  const onScroll = () => {
+    if (!activeExplodeFromScroll) return;
+    const r = sheet.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const progress = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
+    // explode while scrolling past
+    const eased = Math.max(0, Math.min(1, (progress - 0.3) * 2));
+    setExplode(eased);
+    btnAssy.classList.toggle('on', eased < 0.5);
+    btnExpl.classList.toggle('on', eased >= 0.5);
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  // any click takes over
+  [btnAssy,btnExpl].forEach(b => b.addEventListener('click', () => { activeExplodeFromScroll = false; }));
+
+  // BOM list
+  const bom = [
+    ['1','FRONT WING ASSY','1','CARBON / AL'],
+    ['2','MONOCOQUE CELL','1','4130 CHROMOLY'],
+    ['3','REAR WING ASSY','1','CARBON'],
+    ['4','FRONT UPRIGHT L','1','AL 7075'],
+    ['5','FRONT UPRIGHT R','1','AL 7075'],
+    ['6','UNDERFLOOR','1','CARBON'],
+    ['7','POWERTRAIN','1','YAMAHA MT-07'],
+    ['8','SIDEPOD L / R','2','CARBON SKIN'],
+    ['9','HARNESS CH1','1','MOTEC M130'],
+    ['10','DIFFUSER','1','CARBON'],
+  ];
+  const bl = document.getElementById('bomList');
+  bom.forEach((r,i) => {
+    const el = document.createElement('div');
+    el.className = 'bom-row';
+    el.innerHTML = `<div class="idx">${r[0]}</div><div class="pn">${r[1]}</div><div class="q">${r[2]}</div><div class="mat">${r[3]}</div>`;
+    bl.appendChild(el);
+  });
+  const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*50); io.unobserve(e.target);} }), {threshold:.3});
+  [...bl.children].forEach(el => io.observe(el));
+})();
+
+/* ============ LINEAGE REVISION TABLE ============ */
+(function(){
+  const revs = [
+    {r:'23', y:'2026', car:'SR-17', sum:'Successor to Flourish. Emrax 228, 8.3 kWh accumulator. Refined aero package.', res:'PENDING', current:true, img:'sr17'},
+    {r:'22', y:'2025', car:'SR-16 · FLOURISH', sum:'Emrax 228 · 162 ft·lbs · 8.3 kWh. 1st Endurance, 2nd Overall, Best Aero.', res:'MI · 2nd / 120', img:'sr16'},
+    {r:'21', y:'2024', car:'SR-15 · SUCCESS', sum:'Full EV focus. 1st EV at SoCal Shootout (twice). Cummins Innovation Award.', res:'MI · 5th Overall', img:'sr15'},
+    {r:'20', y:'2023', car:'SR-14', sum:'Emrax 228 · 7.6 kWh. Iterative EV refinement from SRE-6 learnings.', res:'MI · varied', img:'sr14'},
+    {r:'19', y:'2022', car:'SR-13 · MEMENTO MORI', sum:'Last combustion car. Triumph Daytona 675R. Closed the ICE era.', res:'MI · varied', img:'sr13'},
+    {r:'19e',y:'2022', car:'SRE-6', sum:'Emrax 228 · 7.6 kWh. Parallel electric development.', res:'—', img:'sre6'},
+    {r:'18', y:'2021', car:'SRE-5 · BREAKTHROUGH', sum:'First running SRE race car. Built through the pandemic.', res:'MI · 1st End · 2nd Overall', img:'sre5'},
+    {r:'17', y:'2019–18', car:'SR-11 / SRE-4', sum:'Triumph Street Triple platform. Parallel EV continues.', res:'—', img:'sr11'},
+    {r:'15', y:'2015', car:'SR-7 · TRIUMPH', sum:'1st place 2015 FSAE. Spartan Racing Electric founded same year.', res:'1st Overall', img:'sr7'},
+    {r:'01', y:'2008', car:'SR-1 · REBIRTH', sum:'Spartan Racing revived after 19-year pause. Rookie of the Year.', res:'ROTY', img:'sr1'},
+    {r:'00', y:'1989', car:'SR-0', sum:'The original — a senior project. Where it all started.', res:'—', img:'sr0'},
+  ];
+  const body = document.getElementById('revBody');
+  revs.forEach(rv => {
+    const el = document.createElement('div');
+    el.className = 'rev-row' + (rv.current ? ' current' : '');
+    el.dataset.img = rv.img || '';
+    el.dataset.year = rv.y || '';
+    el.dataset.car  = rv.car || '';
+    el.innerHTML = `<div class="rev">${rv.r}</div><div>${rv.y}</div><div class="car">${rv.car}</div><div class="sum">${rv.sum}</div><div>${rv.res}</div>`;
+    body.appendChild(el);
+  });
+  const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*60); io.unobserve(e.target);} }), {threshold:.25});
+  [...body.children].forEach(el => io.observe(el));
+})();
+
+/* ============ RESULTS LIST ============ */
+(function(){
+  const rows = [
+    {p:'1',s:'st',y:'2025',e:'NorCal Shootout · SR-16',loc:'Thunderhill, CA',d:'Fastest lap prize · 4.55 s',img:'assets/events/norcal-2025.jpg',cap:'NORCAL SHOOTOUT · THUNDERHILL · OCT 2025'},
+    {p:'2',s:'nd',y:'2025',e:'FSAE Michigan · SR-16',loc:'Brooklyn, MI',d:'2nd Overall · 1st EV · Fastest SAE EV',hi:true,img:'assets/events/fsae-michigan-2025.png',cap:'FSAE MICHIGAN · SR-16 · JUN 2025'},
+    {p:'1',s:'st',y:'2024',e:'SoCal Shootout · SR-15',loc:'Willow Springs, CA',d:'1st EV · Beall 60 entry',img:'assets/events/socal-shootout.jpg',cap:'SOCAL SHOOTOUT · WILLOW SPRINGS · 2024'},
+    {p:'5',s:'th',y:'2024',e:'FSAE Michigan · SR-15',loc:'Brooklyn, MI',d:'1st Cummins Innovation · 2nd Cost · 3rd Endurance · 4th Design',img:'assets/events/fsae-michigan-2024.png',cap:'FSAE MICHIGAN · SR-15 · JUN 2024'},
+    {p:'2',s:'nd',y:'2021',e:'FSAE Michigan · SRE-5',loc:'Brooklyn, MI',d:'1st Endurance · First running SRE ever',img:'assets/events/fsae-michigan-2021.png',cap:'FSAE MICHIGAN · SRE-5 · 2021'},
+    {p:'1',s:'st',y:'2015',e:'FSAE · SR-7',loc:'Michigan',d:'Overall winners · SRE founded this year',img:'assets/events/fsae-michigan-2015.png',cap:'FSAE MICHIGAN · SR-7 · 2015'},
+  ];
+  const body = document.getElementById('resultsList');
+  rows.forEach(r => {
+    const el = document.createElement('div');
+    el.className = 'result-row' + (r.hi?' hi':'');
+    el.dataset.img = r.img || '';
+    el.dataset.cap = r.cap || '';
+    el.innerHTML = `<div class="place">${r.p}<sup>${r.s}</sup></div><div class="year">${r.y}</div><div class="event">${r.e}<em>${r.loc}</em></div><div class="div">${r.d}</div>`;
+    body.appendChild(el);
+  });
+  const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*70); io.unobserve(e.target);} }), {threshold:.3});
+  [...body.children].forEach(el => io.observe(el));
+
+  // Hover preview — swap event photo in FIG 07.1; revert to highlighted row when idle
+  const panel = document.getElementById('resultPreview');
+  const pImg  = document.getElementById('resultPreviewImg');
+  const pCap  = document.getElementById('resultPreviewCap');
+  const pLab  = document.getElementById('figLabel');
+  if (panel && pImg){
+    const rowsEls = body.querySelectorAll('.result-row');
+    const defaultRow = body.querySelector('.result-row.hi') || rowsEls[0];
+    const setFrom = (row) => {
+      const src = row.dataset.img; if (!src) return;
+      pImg.src = src;
+      const cap = row.dataset.cap || '';
+      pCap.textContent = cap;
+      if (pLab) pLab.textContent = 'FIG 07.1 — ' + cap;
+    };
+    rowsEls.forEach(row => {
+      row.addEventListener('mouseenter', () => setFrom(row));
+      row.addEventListener('mouseleave', () => { if (defaultRow) setFrom(defaultRow); });
+    });
+  }
+})();
+
+/* ============ ROLES LIST ============ */
+(function(){
+  const roles = [
+    {n:'R-01', name:'Aerodynamicist',               cap:'ROLLING'},
+    {n:'R-02', name:'Composites fabricator',        cap:'ROLLING'},
+    {n:'R-03', name:'Powertrain engineer',          cap:'ROLLING'},
+    {n:'R-04', name:'Electrical / low-voltage',     cap:'ROLLING'},
+    {n:'R-05', name:'Data & controls',              cap:'ROLLING'},
+    {n:'R-06', name:'Operations & business',        cap:'ROLLING'},
+    {n:'R-07', name:'Driver candidate',             cap:'ROLLING'},
+  ];
+  const body = document.getElementById('rolesList');
+  roles.forEach(r => {
+    const el = document.createElement('div');
+    el.className = 'role-row';
+    el.innerHTML = `<div class="n">${r.n}</div><div class="name">${r.name}</div><div class="cap">${r.cap}</div>`;
+    body.appendChild(el);
+  });
+  const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); io.unobserve(e.target);} }), {threshold:.3});
+  [...body.children].forEach(el => io.observe(el));
+})();
+
+/* ============ ORG CHART REVEAL ============ */
+/* sheet-06 org IO removed — replaced by leadership cards */
+
+/* ============ NAV ACTIVE STATE ============ */
+(function(){
+  const links = [...document.querySelectorAll('.nav-index a')];
+  const sections = links.map(a => document.getElementById(a.dataset.s));
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (e.isIntersecting){
+        const id = e.target.id;
+        links.forEach(l => l.classList.toggle('active', l.dataset.s === id));
+      }
+    });
+  }, {threshold:.35, rootMargin:'-120px 0px -30% 0px'});
+  sections.forEach(s => s && io.observe(s));
+})();
+
+/* ============ TWEAKS PROTOCOL ============ */
+(function(){
+  const panel = document.getElementById('tweaks');
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "paper": "warm",
+    "red": "#d13d2a",
+    "gold": "#E5A823",
+    "motion": "heavy",
+    "grid": "on"
+  }/*EDITMODE-END*/;
+  const state = {...TWEAK_DEFAULTS};
+
+  function apply(){
+    const tones = {
+      warm:   ['#eef0f3','#dde1e8'],
+      cool:   ['#eef0f3','#e3e6eb'],
+      neutral:['#f1f1f1','#e7e7e7'],
+      blueprint:['#17365c','#0f2849']
+    };
+    const [p1,p2] = tones[state.paper] || tones.warm;
+    document.documentElement.style.setProperty('--paper', p1);
+    document.documentElement.style.setProperty('--paper-2', p2);
+    if (state.paper === 'blueprint'){
+      document.documentElement.style.setProperty('--ink', '#f0f4fa');
+      document.documentElement.style.setProperty('--ink-2', '#aabbd4');
+      document.documentElement.style.setProperty('--ink-3', '#7a8ea8');
+      document.documentElement.style.setProperty('--hair', '#3b5a82');
+    } else {
+      document.documentElement.style.setProperty('--ink', '#0a0b0d');
+      document.documentElement.style.setProperty('--ink-2', '#4b5563');
+      document.documentElement.style.setProperty('--ink-3', '#9aa0a6');
+      document.documentElement.style.setProperty('--hair', '#d7dae0');
+    }
+    document.documentElement.style.setProperty('--red', state.red);
+    document.documentElement.style.setProperty('--gold', state.gold);
+    document.body.style.backgroundImage = state.grid === 'off' ? 'none' : '';
+    if (state.motion === 'off'){
+      document.querySelectorAll('.reveal,.draw,.dim-line,.spec-row,.rev-row,.bom-row,.result-row,.role-row,.track-svg,.org-top,.org-line,.org-hr,.org-bottom .cell').forEach(el => el.classList.add('in'));
+    }
+  }
+  function persist(edits){ try{ window.parent.postMessage({type:'__edit_mode_set_keys', edits}, '*'); }catch(e){} }
+  const bind = (id,key) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = state[key];
+    const handle = () => { state[key] = el.value; apply(); persist({[key]:el.value}); };
+    el.addEventListener('input', handle);
+    el.addEventListener('change', handle);
+  };
+  bind('tw-paper','paper'); bind('tw-red','red'); bind('tw-gold','gold');
+  bind('tw-motion','motion'); bind('tw-grid','grid');
+  apply();
+
+  window.addEventListener('message', e => {
+    const d = e.data || {};
+    if (d.type === '__activate_edit_mode') panel.style.display = 'block';
+    if (d.type === '__deactivate_edit_mode') panel.style.display = 'none';
+  });
+  try { window.parent.postMessage({type:'__edit_mode_available'}, '*'); } catch(e) {}
+})();
+</script>
+
+<script>
+/* Cursor-spotlight: amplify grid opacity in a ~360px radius around pointer */
+(() => {
+  const body = document.body;
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let tx = mx, ty = my;
+  let active = false;
+  let raf = null;
+  const tick = () => {
+    // ease toward target
+    mx += (tx - mx) * 0.18;
+    my += (ty - my) * 0.18;
+    body.style.setProperty('--mx', mx + 'px');
+    body.style.setProperty('--my', my + 'px');
+    if (Math.abs(tx-mx) > 0.3 || Math.abs(ty-my) > 0.3) {
+      raf = requestAnimationFrame(tick);
+    } else { raf = null; }
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
+  window.addEventListener('pointermove', (e) => {
+    tx = e.clientX; ty = e.clientY;
+    if (!active){ active = true; body.style.setProperty('--spot', '1'); }
+    kick();
+  }, {passive:true});
+  window.addEventListener('pointerleave', () => { active = false; body.style.setProperty('--spot', '0'); });
+  document.addEventListener('mouseleave', () => { active = false; body.style.setProperty('--spot', '0'); });
+  // idle fade: if no movement for 2.2s, dim
+  let idleT = null;
+  window.addEventListener('pointermove', () => {
+    if (idleT) clearTimeout(idleT);
+    body.style.setProperty('--spot', '1');
+    idleT = setTimeout(() => body.style.setProperty('--spot', '.35'), 2200);
+  }, {passive:true});
+})();
+</script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+    "three/examples/jsm/libs/draco/": "https://unpkg.com/three@0.160.0/examples/jsm/libs/draco/"
+  }
+}
+</script>
+<script type="module">
+  import * as THREE from 'three';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+  import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+  const mount = document.getElementById('car3d');
+  if (mount) {
+    const w = () => mount.clientWidth;
+    const h = () => mount.clientHeight;
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(35, w()/h(), 0.1, 100);
+    cam.position.set(0, 1.2, 5);  cam.lookAt(0,0,0);
+    const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(w(), h());
+    renderer.setClearColor(0x000000, 0);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    mount.appendChild(renderer.domElement);
+
+    // lighting — soft technical daylight
+    // Lighting — high-contrast studio so matte black still reads clearly.
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x1a1f2a, 0.45));
+    const key = new THREE.DirectionalLight(0xffffff, 3.2);
+    key.position.set(5, 6, 4);
+    scene.add(key);
+    const rim = new THREE.DirectionalLight(0xffffff, 2.0);
+    rim.position.set(-5, 3, -4);
+    scene.add(rim);
+    const fill = new THREE.DirectionalLight(0xbfcde0, 0.8);
+    fill.position.set(0, -2, 3);
+    scene.add(fill);
+
+    // subtle ground contact shadow disc
+    const discGeo = new THREE.CircleGeometry(2.5, 64);
+    const discMat = new THREE.MeshBasicMaterial({color:0x000000, transparent:true, opacity:0.08});
+    const disc = new THREE.Mesh(discGeo, discMat);
+    disc.rotation.x = -Math.PI/2; disc.position.y = -0.01;
+    scene.add(disc);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const draco = new DRACOLoader();
+    draco.setDecoderPath('https://unpkg.com/three@0.160.0/examples/jsm/libs/draco/');
+    const loader = new GLTFLoader();
+    loader.setDRACOLoader(draco);
+    loader.load('models/sr17.glb', (g) => {
+      const m = g.scene;
+      const box = new THREE.Box3().setFromObject(m);
+      const size = new THREE.Vector3(); box.getSize(size);
+      const center = new THREE.Vector3(); box.getCenter(center);
+      const maxDim = Math.max(size.x, size.y, size.z) || 1;
+      const scale = 2.6 / maxDim;
+      m.scale.setScalar(scale);
+      // re-center after scaling
+      const box2 = new THREE.Box3().setFromObject(m);
+      const c2 = new THREE.Vector3(); box2.getCenter(c2);
+      m.position.sub(c2);
+      // ensure materials render (some GLBs come in as MeshBasic without lights)
+      // Blacked out — car reveal is Saturday. Keep silhouette readable via speculars.
+      const blackMat = new THREE.MeshStandardMaterial({
+        color: 0x0a0a0c, roughness: 0.55, metalness: 0.35, side: THREE.DoubleSide
+      });
+      m.traverse(n => { if (n.isMesh) { n.material = blackMat; n.material.needsUpdate = true; } });
+      group.add(m);
+      console.log('glb loaded, size:', size, 'scale:', scale);
+    }, (p) => console.log('glb progress', p.loaded, '/', p.total), (e) => console.error('glb ERROR', e));
+
+    // Locked tilt (slight downward look); only Y-axis rotation allowed.
+    const TILT = 0.28;            // fixed X tilt — camera looks slightly down
+    let ry = 0.6;                 // current Y rotation
+    let ty = ry;                  // target Y rotation
+    let spin = 0.004;             // idle spin speed (rad/frame)
+    let dragging = false, lx = 0;
+    mount.style.cursor = 'ew-resize';
+    mount.addEventListener('pointerdown', (e) => { dragging = true; lx = e.clientX; mount.setPointerCapture(e.pointerId); });
+    mount.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      ty += (e.clientX - lx) * 0.01;  // only horizontal input affects Y
+      lx = e.clientX;
+    });
+    const release = () => { dragging = false; };
+    mount.addEventListener('pointerup', release);
+    mount.addEventListener('pointercancel', release);
+    mount.addEventListener('pointerleave', release);
+
+    const loop = () => {
+      if (!dragging) ty += spin;
+      ry += (ty - ry) * 0.14;
+      group.rotation.x = TILT;   // locked
+      group.rotation.y = ry;
+      group.rotation.z = 0;      // locked
+      renderer.render(scene, cam);
+      requestAnimationFrame(loop);
+    };
+    loop();
+
+    const onResize = () => { cam.aspect = w()/h(); cam.updateProjectionMatrix(); renderer.setSize(w(), h()); };
+    window.addEventListener('resize', onResize);
+  }
+</script>
+
+
+<!-- Cursor preview for the lineage sheet -->
+<div class="cursor-preview" id="cursorPreview">
+  <div class="plate" id="cursorPlate"></div>
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+  <div class="meta"><span id="cpMetaL"></span><span id="cpMetaR"></span></div>
+</div>
+<script>
+(function(){
+  const preview = document.getElementById('cursorPreview');
+  const plate   = document.getElementById('cursorPlate');
+  const mL      = document.getElementById('cpMetaL');
+  const mR      = document.getElementById('cpMetaR');
+  if (!preview) return;
+
+  // Build placeholder plates (SVG data URIs) — cool, schematic, per-car tint.
+  // Replace later with real photos by mapping key → url.
+  const PHOTO_OVERRIDES = {
+    sr17: 'assets/cars/sr16.jpg',   // SR-17 photo pending — use SR-16 render until shakedown photos exist
+    sr16: 'assets/cars/sr16.jpg',
+    sr15: 'assets/cars/sr15.jpg',
+    sr14: 'assets/cars/sr14.png',
+    sr13: 'assets/cars/sr13.jpg',
+    sre6: 'assets/cars/sre6.jpg',
+    sre5: 'assets/cars/sre5.jpg',
+    sr11: 'assets/cars/sr11.png',
+    sr7:  'assets/cars/sr7.jpg',
+    sr1:  'assets/cars/sr1.jpg',
+    sr0:  'assets/cars/sr0.jpg',
+  };
+
+  const TINTS = {
+    sr17:'#1e2a44', sr16:'#2c1f3a', sr15:'#1f3a3a', sr14:'#3a2f1f',
+    sr13:'#3a1f1f', sre6:'#1f2f3a', sre5:'#1f3a2f', sr11:'#2f1f3a',
+    sr7: '#3a2f1f', sr1: '#2b2b2b', sr0: '#1f1f1f',
+  };
+
+  function makeSVG(key, label){
+    const tint = TINTS[key] || '#2a2f3a';
+    const txt = (label || key).toUpperCase();
+    // very simple abstract "car-plate" — tinted rect + centered label + hairline
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${tint}" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#0a0b0d" stop-opacity="1"/>
+        </linearGradient>
+        <pattern id="p" width="32" height="32" patternUnits="userSpaceOnUse">
+          <path d="M32 0H0v32" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="640" height="400" fill="url(#g)"/>
+      <rect width="640" height="400" fill="url(#p)"/>
+      <line x1="0" y1="200" x2="640" y2="200" stroke="rgba(255,255,255,.08)" stroke-dasharray="4 6"/>
+      <line x1="320" y1="0" x2="320" y2="400" stroke="rgba(255,255,255,.08)" stroke-dasharray="4 6"/>
+      <text x="32" y="56" font-family="Geist Mono, ui-monospace, monospace" font-size="13" letter-spacing="3" fill="rgba(255,255,255,.55)">PHOTO · PENDING</text>
+      <text x="32" y="368" font-family="Geist, ui-sans-serif, sans-serif" font-size="56" font-weight="500" letter-spacing="-1" fill="#fff">${txt}</text>
+    </svg>`;
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  }
+
+  const rows = document.querySelectorAll('#revBody .rev-row');
+  let active = null;
+
+  function show(row){
+    const key = row.dataset.img;
+    const year = row.dataset.year;
+    const car  = row.dataset.car;
+    const url = PHOTO_OVERRIDES[key] ? `url("${PHOTO_OVERRIDES[key]}")` : `url("${makeSVG(key, car)}")`;
+    plate.style.backgroundImage = url;
+    mL.textContent = car || '';
+    const fig = 'FIG 05.' + String(Array.from(rows).indexOf(row)+1).padStart(2,'0');
+    const suffix = (key === 'sr17') ? ' · AWAITING SHAKEDOWN' : '';
+    mR.textContent = (year || '') + ' · ' + fig + suffix;
+    preview.classList.add('show');
+    active = row;
+  }
+  function hide(){ preview.classList.remove('show'); active = null; }
+
+  let rafId = null, tx=0, ty=0, cx=0, cy=0;
+  function tick(){
+    cx += (tx - cx) * .18;
+    cy += (ty - cy) * .18;
+    preview.style.left = cx + 'px';
+    preview.style.top  = cy + 'px';
+    if (Math.abs(tx-cx) > .3 || Math.abs(ty-cy) > .3) {
+      rafId = requestAnimationFrame(tick);
+    } else rafId = null;
+  }
+  function onMove(e){
+    tx = e.clientX + 140;  // offset right-and-down from cursor
+    ty = e.clientY + 100;
+    // keep inside viewport
+    const pad = 24;
+    const w = 320, h = 200;
+    if (tx + w/2 > innerWidth - pad)  tx = e.clientX - 140;
+    if (ty + h/2 > innerHeight - pad) ty = e.clientY - 100;
+    if (!rafId) rafId = requestAnimationFrame(tick);
+  }
+
+  rows.forEach(row => {
+    row.addEventListener('mouseenter', (e) => {
+      // Snap preview to cursor BEFORE showing. Kill any in-flight easing.
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      const pad = 24, pw = 320, ph = 200;
+      let nx = e.clientX + 140, ny = e.clientY + 100;
+      if (nx + pw/2 > innerWidth - pad)  nx = e.clientX - 140;
+      if (ny + ph/2 > innerHeight - pad) ny = e.clientY - 100;
+      tx = cx = nx;
+      ty = cy = ny;
+      preview.style.left = cx + 'px';
+      preview.style.top  = cy + 'px';
+      show(row);
+    });
+    row.addEventListener('mouseleave', hide);
+    row.addEventListener('mousemove', onMove);
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  const label = document.getElementById('cdLabel');
+  const value = document.getElementById('cdValue');
+  if (!label || !value) return;
+
+  // Compute the next Saturday at 11:00 local time. Falls back to "this Saturday"
+  // if today is before Saturday; next Saturday if later.
+  function nextSaturday11AM(){
+    const now = new Date();
+    const d = new Date(now);
+    const dow = d.getDay(); // 0 Sun ... 6 Sat
+    let daysUntilSat = (6 - dow + 7) % 7;
+    d.setHours(11, 0, 0, 0);
+    if (daysUntilSat === 0 && now >= d) daysUntilSat = 7;
+    d.setDate(d.getDate() + daysUntilSat);
+    return d;
+  }
+
+  const target = nextSaturday11AM();
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    const now = new Date();
+    let ms = target - now;
+    if (ms <= 0){
+      label.textContent = 'SR-17 REVEAL';
+      value.textContent = 'LIVE';
+      return;
+    }
+    const days = Math.floor(ms / 86400000); ms -= days*86400000;
+    const hrs  = Math.floor(ms / 3600000);  ms -= hrs*3600000;
+    const mins = Math.floor(ms / 60000);    ms -= mins*60000;
+    const secs = Math.floor(ms / 1000);
+    value.textContent = `${days}d ${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
+    requestAnimationFrame(() => {
+      // throttle to ~1s
+      setTimeout(tick, 1000);
+    });
+  }
+  tick();
+})();
+</script>
+
+</body>
+</html>
