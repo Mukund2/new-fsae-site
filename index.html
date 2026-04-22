@@ -90,7 +90,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.75)}}
 
 .nav-index{
-  display:grid;grid-template-columns:repeat(8,1fr);
+  display:grid;grid-template-columns:repeat(9,1fr);
   border-bottom:1px solid var(--ink);font-size:10px;letter-spacing:.1em;
   position:sticky;top:37px;z-index:49;background:rgba(243,239,229,.94);backdrop-filter:blur(8px);
 }
@@ -356,6 +356,28 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .partner-tier .logos span{transition:color .2s, transform .2s;cursor:pointer}
 .partner-tier .logos span:hover{color:var(--red);transform:translateY(-1px)}
 
+/* ============ SHEET 08B — NEWSLETTER ============ */
+.nl-table{border:1px solid var(--ink);border-top:0}
+.nl-head{display:grid;grid-template-columns:60px 140px 1fr 120px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.nl-head > div{padding:12px 14px;border-right:1px solid #333}
+.nl-head > div:last-child{border-right:0}
+.nl-row{display:grid;grid-template-columns:60px 140px 1fr 120px;font-size:11px;border-bottom:1px solid var(--hair);
+  opacity:0;transform:translateY(8px);transition:opacity .5s, transform .5s;
+  cursor:pointer;position:relative;align-items:center}
+.nl-row:last-child{border-bottom:0}
+.nl-row.in{opacity:1;transform:none}
+.nl-row > div{padding:14px;border-right:1px solid var(--hair)}
+.nl-row > div:last-child{border-right:0}
+.nl-row .nl-n{color:var(--ink-3);font-weight:500;font-size:10px;letter-spacing:.1em}
+.nl-row .nl-date{color:var(--ink-2);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.nl-row .nl-title{color:var(--ink);font-weight:500;letter-spacing:.02em}
+.nl-row .nl-link{font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:right}
+.nl-row .nl-link a{color:var(--ink-2);transition:color .2s}
+.nl-row:hover{background:var(--paper-2)}
+.nl-row:hover .nl-title{color:var(--red)}
+.nl-row:hover .nl-link a{color:var(--red)}
+.nl-year-break{padding:10px 14px;font-size:10px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;border-bottom:1px solid var(--hair);background:rgba(0,0,0,.015)}
+
 /* ============ SHEET 09 — JOIN / CTA ============ */
 .join-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0}
 .join-left{padding:56px;border-right:1px solid var(--ink)}
@@ -448,6 +470,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .org-bottom{grid-template-columns:repeat(3,1fr)}
   .foot-contact{grid-template-columns:1fr}
   .foot-contact > div{border-right:0;border-bottom:1px solid var(--ink)}
+  .nl-head,.nl-row{grid-template-columns:40px 100px 1fr 90px}
 }
 
 /* ============ CURSOR IMAGE PREVIEW (sheet 05 lineage) ============ */
@@ -573,6 +596,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <a href="#s06" data-s="s06"><span class="n">05</span><span>TEAM</span></a>
   <a href="#s07" data-s="s07"><span class="n">06</span><span>RESULTS</span></a>
   <a href="#s08" data-s="s08"><span class="n">07</span><span>PARTNERS</span></a>
+  <a href="#s08b" data-s="s08b"><span class="n">08</span><span>NEWSLETTER</span></a>
 </div>
 
 <main>
@@ -1109,6 +1133,24 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 </section>
 
+<!-- ============ SHEET 08B — NEWSLETTER ============ -->
+<section id="s08b" class="sheet" data-screen-label="08b Newsletter">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">08B / 11</div></div>
+    <div><div class="k">Title</div><div class="v">NEWSLETTER — DISPATCHES FROM THE SHOP</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="nl-table">
+    <div class="nl-head">
+      <div>ISSUE</div><div>DATE</div><div>TITLE</div><div>DOCUMENT</div>
+    </div>
+    <div id="nlBody"></div>
+  </div>
+</section>
+
 <!-- ============ SHEET 09 — JOIN ============ -->
 <section id="s09" class="sheet" data-screen-label="09 Join">
   <div class="title-block">
@@ -1490,6 +1532,45 @@ const SPEC_ROWS = [
   });
   const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); io.unobserve(e.target);} }), {threshold:.3});
   [...body.children].forEach(el => io.observe(el));
+})();
+
+/* ============ NEWSLETTER LIST ============ */
+(function(){
+  const issues = [
+    {date:'March 2026',     title:'Into the Electric',    pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_234414049a954679966f200b229aee64.pdf', yr:'2026'},
+    {date:'February 2026',  title:'Design to Reality',    pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_96fb6ce5ecbf4feab0491278f70f07e0.pdf', yr:'2026'},
+    {date:'New Year 2026',  title:'2026 Team Resolutions',pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_23a0bf9e19ea4f34abb5746375101d73.pdf', yr:'2026'},
+    {date:'Fall 2025',      title:'November Update',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_22de078a7a1c4559bbc9a270aafac172.pdf', yr:'2025'},
+    {date:'Summer 2025',    title:'Competition Recap',    pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_60b226acddbe413ea91fa95a9902aaf8.pdf', yr:'2025'},
+    {date:'Spring 2025',    title:'March Update',         pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_989138bdf1b340248759424b3ba49d62.pdf', yr:'2025'},
+    {date:'Winter 2025',    title:'February Update',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_d3576df32e2b430bb50838aa571d41c7.pdf', yr:'2025'},
+    {date:'Winter 2024',    title:'December Update',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_814e7aff58694194af605109541a320c.pdf', yr:'2024'},
+    {date:'Fall 2024',      title:'November Update',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_eef97411dfc64ad0be10f122537649a6.pdf', yr:'2024'},
+    {date:'March 2024',     title:'Spring Update',        pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_dfb20c3c8d334851a785a4e3841833dc.pdf', yr:'2024'},
+    {date:'Mar–Jun 2023',   title:'Season Recap',         pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_b8f2c6d86e4942cf9f8f46eac23f80c0.pdf', yr:'2023'},
+    {date:'February 2023',  title:'Winter Update',        pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_b484c3b3d7e34c8cacc1061a74791660.pdf', yr:'2023'},
+    {date:'Nov 2021–Feb 2022',title:'Winter Recap',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_a76ccd1b40ae48a9a4ed5d29d73b1267.pdf', yr:'2021'},
+    {date:'October 2021',   title:'Inaugural Issue',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_be2da463627d4fdf9d63a8fcf717baaa.pdf', yr:'2021'},
+  ];
+  const body = document.getElementById('nlBody');
+  let lastYr = '';
+  issues.forEach((r,i) => {
+    if (r.yr !== lastYr){
+      const sep = document.createElement('div');
+      sep.className = 'nl-year-break';
+      sep.textContent = r.yr;
+      body.appendChild(sep);
+      lastYr = r.yr;
+    }
+    const n = String(issues.length - i).padStart(2,'0');
+    const el = document.createElement('div');
+    el.className = 'nl-row';
+    el.innerHTML = `<div class="nl-n">${n}</div><div class="nl-date">${r.date}</div><div class="nl-title">${r.title}</div><div class="nl-link"><a href="${r.pdf}" target="_blank" rel="noopener">VIEW PDF →</a></div>`;
+    el.addEventListener('click', () => window.open(r.pdf, '_blank'));
+    body.appendChild(el);
+  });
+  const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*50); io.unobserve(e.target);} }), {threshold:.2});
+  body.querySelectorAll('.nl-row').forEach(el => io.observe(el));
 })();
 
 /* ============ ORG CHART REVEAL ============ */
