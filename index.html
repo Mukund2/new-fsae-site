@@ -356,29 +356,39 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .partner-tier .logos span{transition:color .2s, transform .2s;cursor:pointer}
 .partner-tier .logos span:hover{color:var(--red);transform:translateY(-1px)}
 
-/* ============ SHEET 08B — NEWSLETTER ============ */
-.nl-table{border:1px solid var(--ink);border-top:0}
-.nl-head{display:grid;grid-template-columns:60px 140px 1fr 120px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
-.nl-head > div{padding:12px 14px;border-right:1px solid #333}
-.nl-head > div:last-child{border-right:0}
-.nl-row{display:grid;grid-template-columns:60px 140px 1fr 120px;font-size:11px;border-bottom:1px solid var(--hair);
-  opacity:0;transform:translateY(8px);transition:opacity .5s, transform .5s;
-  cursor:pointer;position:relative;align-items:center}
-.nl-row:last-child{border-bottom:0}
-.nl-row.in{opacity:1;transform:none}
-.nl-row > div{padding:14px;border-right:1px solid var(--hair)}
-.nl-row > div:last-child{border-right:0}
-.nl-row .nl-n{color:var(--ink-3);font-weight:500;font-size:10px;letter-spacing:.1em}
-.nl-row .nl-date{color:var(--ink-2);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
-.nl-row .nl-title{color:var(--ink);font-weight:500;letter-spacing:.02em}
-.nl-row .nl-link{font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:right}
-.nl-row .nl-link a{color:var(--ink-2);transition:color .2s}
-.nl-row:hover{background:var(--paper-2)}
-.nl-row:hover .nl-title{color:var(--red)}
-.nl-row:hover .nl-link a{color:var(--red)}
-.nl-year-break{padding:10px 14px;font-size:10px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;border-bottom:1px solid var(--hair);background:rgba(0,0,0,.015)}
+/* ============ SHEET 09 — NEWSLETTER ============ */
+.nl-body{display:grid;grid-template-columns:1.4fr 1fr;border:1px solid var(--ink);border-top:0}
+.nl-viewer{border-right:1px solid var(--ink);position:relative;min-height:560px;display:flex;flex-direction:column;background:var(--paper-2)}
+.nl-viewer .fig-label{padding:14px 16px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:var(--ink-2);text-transform:uppercase;border-bottom:1px solid var(--hair)}
+.nl-flipbook-wrap{flex:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:24px}
+.nl-flipbook-wrap .stf__parent{margin:0 auto}
+.nl-flipbook-wrap .stf__parent .stf__item{background:#fff}
+.nl-flipbook-wrap img{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}
+.nl-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-size:10px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase}
+.nl-spinner{width:28px;height:28px;border:2px solid var(--hair);border-top-color:var(--red);border-radius:50%;animation:nlspin .8s linear infinite}
+@keyframes nlspin{to{transform:rotate(360deg)}}
+.nl-page-nav{display:flex;justify-content:center;align-items:center;gap:16px;padding:12px;border-top:1px solid var(--hair);font-size:10px;letter-spacing:.1em;color:var(--ink-2)}
+.nl-page-nav button{background:none;border:1px solid var(--ink);color:var(--ink);width:30px;height:30px;display:grid;place-items:center;cursor:pointer;transition:all .18s;font-family:var(--mono);font-size:12px}
+.nl-page-nav button:hover{background:var(--ink);color:var(--paper)}
+.nl-page-nav button:disabled{opacity:.25;cursor:default;background:none;color:var(--ink)}
+.nl-sidebar{display:flex;flex-direction:column}
+.nl-sidebar-head{padding:14px 20px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.nl-sidebar-head .nl-pag{display:flex;gap:8px}
+.nl-sidebar-head .nl-pag button{background:none;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);width:26px;height:26px;display:grid;place-items:center;cursor:pointer;transition:all .18s;font-family:var(--mono);font-size:11px}
+.nl-sidebar-head .nl-pag button:hover{background:rgba(255,255,255,.15);color:#fff}
+.nl-sidebar-head .nl-pag button:disabled{opacity:.3;cursor:default}
+.nl-list{flex:1;overflow-y:auto}
+.nl-item{padding:16px 20px;border-bottom:1px solid var(--hair);cursor:pointer;transition:background .16s, border-color .16s, padding .2s;border-left:2px solid transparent}
+.nl-item:hover{background:var(--paper-2);padding-left:26px}
+.nl-item.active{border-left-color:var(--red);background:var(--paper-2);padding-left:26px}
+.nl-item .nl-item-date{font-size:10px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.nl-item.active .nl-item-date{color:var(--red)}
+.nl-item .nl-item-title{font-family:var(--sans);font-size:15px;font-weight:500;letter-spacing:-.01em;color:var(--ink);line-height:1.3}
+.nl-item:hover .nl-item-title{color:var(--red)}
+.nl-year-sep{padding:8px 20px;font-size:9px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;border-bottom:1px solid var(--hair);background:rgba(0,0,0,.015)}
+.nl-current{padding:12px 20px;border-top:1px solid var(--ink);font-size:10px;letter-spacing:.1em;color:var(--ink-2);text-transform:uppercase;display:flex;justify-content:space-between;margin-top:auto}
 
-/* ============ SHEET 09 — JOIN / CTA ============ */
+/* ============ SHEET 10 — JOIN / CTA ============ */
 .join-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0}
 .join-left{padding:56px;border-right:1px solid var(--ink)}
 .join-left h3{
@@ -400,7 +410,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .role-row .name{font-size:15px;color:var(--ink);letter-spacing:.01em;font-weight:500}
 .role-row .cap{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
 
-/* ============ SHEET 10 — DONATE / DARK ============ */
+/* ============ SHEET 11 — DONATE / DARK ============ */
 .donate{background:var(--ink);color:var(--paper);padding:80px 28px;position:relative;overflow:hidden;border-bottom:1px solid var(--ink)}
 .donate::before{
   content:"";position:absolute;inset:0;
@@ -423,7 +433,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .dtier .arr{transition:transform .3s,color .3s}
 .dtier:hover .arr{transform:translateX(8px);color:var(--gold)}
 
-/* ============ SHEET 11 — FOOTER / CONTACT ============ */
+/* ============ SHEET 12 — FOOTER / CONTACT ============ */
 .footer-sheet{padding:60px 28px 28px}
 .foot-contact{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);margin-bottom:36px}
 .foot-contact > div{padding:36px;border-right:1px solid var(--ink)}
@@ -470,7 +480,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .org-bottom{grid-template-columns:repeat(3,1fr)}
   .foot-contact{grid-template-columns:1fr}
   .foot-contact > div{border-right:0;border-bottom:1px solid var(--ink)}
-  .nl-head,.nl-row{grid-template-columns:40px 100px 1fr 90px}
+  .nl-body{grid-template-columns:1fr}
+  .nl-viewer{border-right:0;border-bottom:1px solid var(--ink);min-height:400px}
 }
 
 /* ============ CURSOR IMAGE PREVIEW (sheet 05 lineage) ============ */
@@ -596,7 +607,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <a href="#s06" data-s="s06"><span class="n">05</span><span>TEAM</span></a>
   <a href="#s07" data-s="s07"><span class="n">06</span><span>RESULTS</span></a>
   <a href="#s08" data-s="s08"><span class="n">07</span><span>PARTNERS</span></a>
-  <a href="#s08b" data-s="s08b"><span class="n">08</span><span>NEWSLETTER</span></a>
+  <a href="#s09" data-s="s09"><span class="n">08</span><span>NEWSLETTER</span></a>
 </div>
 
 <main>
@@ -604,7 +615,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 00 — COVER ============ -->
 <section id="s00" class="sheet" data-screen-label="00 Cover">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">00 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">00 / 12</div></div>
     <div><div class="k">Title</div><div class="v">COVER — SR-26 PROGRAMME</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -712,7 +723,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 01 — ORTHOGRAPHIC TRIPTYCH ============ -->
 <section id="s01" class="sheet" data-screen-label="01 Vehicle">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">01 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">01 / 12</div></div>
     <div><div class="k">Title</div><div class="v">VEHICLE — ORTHOGRAPHIC PROJECTION</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 20</div></div>
@@ -778,7 +789,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 02 — SPEC ============ -->
 <section id="s02" class="sheet" data-screen-label="02 Spec">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">02 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">02 / 12</div></div>
     <div><div class="k">Title</div><div class="v">SPECIFICATION — PRIMARY PARAMETERS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -795,7 +806,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 03 — STATS ============ -->
 <section id="s03" class="sheet" data-screen-label="03 Stats" style="border-top:0;">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">03 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">03 / 12</div></div>
     <div><div class="k">Title</div><div class="v">PROGRAMME SUMMARY — FIGURES OF MERIT</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -828,7 +839,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 04 — EXPLODED ============ -->
 <section id="s04" class="sheet" data-screen-label="04 Assembly">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">04 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">04 / 12</div></div>
     <div><div class="k">Title</div><div class="v">CHASSIS — EXPLODED ASSEMBLY</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 12</div></div>
@@ -881,7 +892,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 05 — LINEAGE ============ -->
 <section id="s05" class="sheet" data-screen-label="05 Lineage">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">05 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">05 / 12</div></div>
     <div><div class="k">Title</div><div class="v">LINEAGE — REVISION HISTORY · 37 YRS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -899,7 +910,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 06 — TEAM ============ -->
 <section id="s06" class="sheet" data-screen-label="06 Team">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">06 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">06 / 12</div></div>
     <div><div class="k">Title</div><div class="v">TEAM — LEADERSHIP, SEASON 2025–26</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 1</div></div>
@@ -1051,7 +1062,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
     <div class="lead-foot">
       <span>HOVER ANY CARD FOR BIO</span>
-      <span>APPLICATIONS OPEN AUG 2026 · SEE SHEET 09</span>
+      <span>APPLICATIONS OPEN AUG 2026 · SEE SHEET 10</span>
       <span>FAC. ADVISOR — DR. RAYMOND YEE</span>
     </div>
   </div>
@@ -1060,7 +1071,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 07 — RESULTS ============ -->
 <section id="s07" class="sheet" data-screen-label="07 Results">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">07 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">07 / 12</div></div>
     <div><div class="k">Title</div><div class="v">RESULTS — FIVE-SEASON DYNAMIC EVENTS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1092,7 +1103,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 08 — PARTNERS ============ -->
 <section id="s08" class="sheet" data-screen-label="08 Partners">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">08 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">08 / 12</div></div>
     <div><div class="k">Title</div><div class="v">PARTNERS — CERTIFIED CONTRIBUTORS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1133,28 +1144,47 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 </section>
 
-<!-- ============ SHEET 08B — NEWSLETTER ============ -->
-<section id="s08b" class="sheet" data-screen-label="08b Newsletter">
+<!-- ============ SHEET 09 — NEWSLETTER ============ -->
+<section id="s09" class="sheet" data-screen-label="09 Newsletter">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">08B / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">09 / 12</div></div>
     <div><div class="k">Title</div><div class="v">NEWSLETTER — DISPATCHES FROM THE SHOP</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
     <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
-  <div class="nl-table">
-    <div class="nl-head">
-      <div>ISSUE</div><div>DATE</div><div>TITLE</div><div>DOCUMENT</div>
+  <div class="nl-body">
+    <div class="nl-viewer">
+      <div class="fig-label"><span id="nlFigLabel">FIG 09.1 — INTO THE ELECTRIC · MAR 2026</span><span>FLIPBOOK</span></div>
+      <div class="nl-flipbook-wrap" id="nlFlipWrap">
+        <div class="nl-loading" id="nlLoading"><div class="nl-spinner"></div><span>RENDERING PAGES</span></div>
+        <div id="nlFlipbook"></div>
+      </div>
+      <div class="nl-page-nav">
+        <button id="nlPrev" disabled>&#8592;</button>
+        <span id="nlPageNum">1 / —</span>
+        <button id="nlNext">&#8594;</button>
+      </div>
     </div>
-    <div id="nlBody"></div>
+    <div class="nl-sidebar">
+      <div class="nl-sidebar-head">
+        <span>ARCHIVE · <span id="nlCount">14</span> ISSUES</span>
+        <div class="nl-pag">
+          <button id="nlPgUp" disabled>&#8593;</button>
+          <button id="nlPgDn">&#8595;</button>
+        </div>
+      </div>
+      <div class="nl-list" id="nlList"></div>
+      <div class="nl-current"><span id="nlCurrentLabel">MARCH 2026 · INTO THE ELECTRIC</span><span>ISSUE 14 / 14</span></div>
+    </div>
   </div>
 </section>
 
-<!-- ============ SHEET 09 — JOIN ============ -->
-<section id="s09" class="sheet" data-screen-label="09 Join">
+<!-- ============ SHEET 10 — JOIN ============ -->
+<section id="s10" class="sheet" data-screen-label="10 Join">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">09 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">10 / 12</div></div>
     <div><div class="k">Title</div><div class="v">RECRUITING — OPEN ROLES SEASON 27</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1171,8 +1201,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 </section>
 
-<!-- ============ SHEET 10 — DONATE ============ -->
-<section id="s10" data-screen-label="10 Donate" class="donate">
+<!-- ============ SHEET 11 — DONATE ============ -->
+<section id="s11" data-screen-label="11 Donate" class="donate">
   <div class="donate-inner">
     <div class="reveal">
       <h3>Keep the Spartans<br/><em>on the grid.</em></h3>
@@ -1188,10 +1218,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 </section>
 
-<!-- ============ SHEET 11 — CONTACT / SIGN-OFF ============ -->
-<section id="s11" class="footer-sheet" data-screen-label="11 Contact">
+<!-- ============ SHEET 12 — CONTACT / SIGN-OFF ============ -->
+<section id="s12" class="footer-sheet" data-screen-label="12 Contact">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">11 / 11</div></div>
+    <div><div class="k">Sheet</div><div class="v">12 / 12</div></div>
     <div><div class="k">Title</div><div class="v">CONTACT · APPROVAL STAMP</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1230,7 +1260,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="foot-colophon">
     <span>© 1986–2026 Spartan Racing · SJSU FSAE</span>
     <span>Drawn by student team · do not redistribute without credit</span>
-    <span>Sheet 11 / 11</span>
+    <span>Sheet 12 / 12</span>
   </div>
 </section>
 
@@ -1265,6 +1295,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     </select>
   </label>
 </div>
+
+<!-- pdf.js + page-flip for newsletter flipbook -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<script>
+  if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>
 
 <script>
 /* ============ CLOCK ============ */
@@ -1534,43 +1571,188 @@ const SPEC_ROWS = [
   [...body.children].forEach(el => io.observe(el));
 })();
 
-/* ============ NEWSLETTER LIST ============ */
+/* ============ NEWSLETTER FLIPBOOK ============ */
 (function(){
   const issues = [
-    {date:'March 2026',     title:'Into the Electric',    pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_234414049a954679966f200b229aee64.pdf', yr:'2026'},
-    {date:'February 2026',  title:'Design to Reality',    pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_96fb6ce5ecbf4feab0491278f70f07e0.pdf', yr:'2026'},
-    {date:'New Year 2026',  title:'2026 Team Resolutions',pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_23a0bf9e19ea4f34abb5746375101d73.pdf', yr:'2026'},
-    {date:'Fall 2025',      title:'November Update',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_22de078a7a1c4559bbc9a270aafac172.pdf', yr:'2025'},
-    {date:'Summer 2025',    title:'Competition Recap',    pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_60b226acddbe413ea91fa95a9902aaf8.pdf', yr:'2025'},
-    {date:'Spring 2025',    title:'March Update',         pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_989138bdf1b340248759424b3ba49d62.pdf', yr:'2025'},
-    {date:'Winter 2025',    title:'February Update',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_d3576df32e2b430bb50838aa571d41c7.pdf', yr:'2025'},
-    {date:'Winter 2024',    title:'December Update',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_814e7aff58694194af605109541a320c.pdf', yr:'2024'},
-    {date:'Fall 2024',      title:'November Update',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_eef97411dfc64ad0be10f122537649a6.pdf', yr:'2024'},
-    {date:'March 2024',     title:'Spring Update',        pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_dfb20c3c8d334851a785a4e3841833dc.pdf', yr:'2024'},
-    {date:'Mar–Jun 2023',   title:'Season Recap',         pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_b8f2c6d86e4942cf9f8f46eac23f80c0.pdf', yr:'2023'},
-    {date:'February 2023',  title:'Winter Update',        pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_b484c3b3d7e34c8cacc1061a74791660.pdf', yr:'2023'},
-    {date:'Nov 2021–Feb 2022',title:'Winter Recap',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_a76ccd1b40ae48a9a4ed5d29d73b1267.pdf', yr:'2021'},
-    {date:'October 2021',   title:'Inaugural Issue',      pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_be2da463627d4fdf9d63a8fcf717baaa.pdf', yr:'2021'},
+    {date:'March 2026',        title:'Into the Electric',     pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_234414049a954679966f200b229aee64.pdf', yr:'2026'},
+    {date:'February 2026',     title:'Design to Reality',     pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_96fb6ce5ecbf4feab0491278f70f07e0.pdf', yr:'2026'},
+    {date:'New Year 2026',     title:'2026 Team Resolutions', pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_23a0bf9e19ea4f34abb5746375101d73.pdf', yr:'2026'},
+    {date:'Fall 2025',         title:'November Update',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_22de078a7a1c4559bbc9a270aafac172.pdf', yr:'2025'},
+    {date:'Summer 2025',       title:'Competition Recap',     pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_60b226acddbe413ea91fa95a9902aaf8.pdf', yr:'2025'},
+    {date:'Spring 2025',       title:'March Update',          pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_989138bdf1b340248759424b3ba49d62.pdf', yr:'2025'},
+    {date:'Winter 2025',       title:'February Update',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_d3576df32e2b430bb50838aa571d41c7.pdf', yr:'2025'},
+    {date:'Winter 2024',       title:'December Update',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_814e7aff58694194af605109541a320c.pdf', yr:'2024'},
+    {date:'Fall 2024',         title:'November Update',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_eef97411dfc64ad0be10f122537649a6.pdf', yr:'2024'},
+    {date:'March 2024',        title:'Spring Update',         pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_dfb20c3c8d334851a785a4e3841833dc.pdf', yr:'2024'},
+    {date:'Mar–Jun 2023',      title:'Season Recap',          pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_b8f2c6d86e4942cf9f8f46eac23f80c0.pdf', yr:'2023'},
+    {date:'February 2023',     title:'Winter Update',         pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_b484c3b3d7e34c8cacc1061a74791660.pdf', yr:'2023'},
+    {date:'Nov 2021–Feb 2022', title:'Winter Recap',          pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_a76ccd1b40ae48a9a4ed5d29d73b1267.pdf', yr:'2021'},
+    {date:'October 2021',      title:'Inaugural Issue',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_be2da463627d4fdf9d63a8fcf717baaa.pdf', yr:'2021'},
   ];
-  const body = document.getElementById('nlBody');
-  let lastYr = '';
-  issues.forEach((r,i) => {
-    if (r.yr !== lastYr){
-      const sep = document.createElement('div');
-      sep.className = 'nl-year-break';
-      sep.textContent = r.yr;
-      body.appendChild(sep);
-      lastYr = r.yr;
+
+  const list      = document.getElementById('nlList');
+  const figLabel  = document.getElementById('nlFigLabel');
+  const curLabel  = document.getElementById('nlCurrentLabel');
+  const pgUp      = document.getElementById('nlPgUp');
+  const pgDn      = document.getElementById('nlPgDn');
+  const flipMount = document.getElementById('nlFlipbook');
+  const flipWrap  = document.getElementById('nlFlipWrap');
+  const loading   = document.getElementById('nlLoading');
+  const prevBtn   = document.getElementById('nlPrev');
+  const nextBtn   = document.getElementById('nlNext');
+  const pageNum   = document.getElementById('nlPageNum');
+  let activeIdx   = 0;
+  let page        = 0;
+  const PER_PAGE  = 5;
+  const totalPages = Math.ceil(issues.length / PER_PAGE);
+  let flipInstance = null;
+  let currentPdfPages = [];
+
+  /* ---- Render PDF pages to images via pdf.js ---- */
+  async function loadPdf(url){
+    loading.style.display = 'flex';
+    flipMount.innerHTML = '';
+    if (flipInstance){ flipInstance.destroy(); flipInstance = null; }
+    currentPdfPages = [];
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    pageNum.textContent = '— / —';
+
+    try {
+      const pdfjsLib = window.pdfjsLib;
+      const pdf = await pdfjsLib.getDocument(url).promise;
+      const numPages = pdf.numPages;
+      const imgs = [];
+
+      for (let i = 1; i <= numPages; i++){
+        const pg = await pdf.getPage(i);
+        const scale = 1.5;
+        const vp = pg.getViewport({scale});
+        const canvas = document.createElement('canvas');
+        canvas.width = vp.width;
+        canvas.height = vp.height;
+        await pg.render({canvasContext: canvas.getContext('2d'), viewport: vp}).promise;
+        imgs.push(canvas.toDataURL('image/jpeg', 0.85));
+      }
+      currentPdfPages = imgs;
+      loading.style.display = 'none';
+      buildFlipbook(imgs, numPages);
+    } catch(e){
+      console.error('PDF load error', e);
+      loading.innerHTML = '<span style="color:var(--red)">FAILED TO LOAD</span><span style="font-size:9px;margin-top:8px"><a href="' + url + '" target="_blank" style="color:var(--ink-2);text-decoration:underline">OPEN PDF DIRECTLY</a></span>';
     }
-    const n = String(issues.length - i).padStart(2,'0');
-    const el = document.createElement('div');
-    el.className = 'nl-row';
-    el.innerHTML = `<div class="nl-n">${n}</div><div class="nl-date">${r.date}</div><div class="nl-title">${r.title}</div><div class="nl-link"><a href="${r.pdf}" target="_blank" rel="noopener">VIEW PDF →</a></div>`;
-    el.addEventListener('click', () => window.open(r.pdf, '_blank'));
-    body.appendChild(el);
-  });
-  const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*50); io.unobserve(e.target);} }), {threshold:.2});
-  body.querySelectorAll('.nl-row').forEach(el => io.observe(el));
+  }
+
+  /* ---- Build page-flip flipbook ---- */
+  function buildFlipbook(imgs, numPages){
+    flipMount.innerHTML = '';
+    // Create page elements
+    imgs.forEach((src, i) => {
+      const div = document.createElement('div');
+      div.className = 'nl-flip-page';
+      div.style.cssText = 'background:#fff;';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = 'Page ' + (i+1);
+      img.draggable = false;
+      div.appendChild(img);
+      flipMount.appendChild(div);
+    });
+
+    // Compute dimensions to fit the wrapper
+    const wrapRect = flipWrap.getBoundingClientRect();
+    const availH = wrapRect.height - 48;
+    const availW = wrapRect.width - 48;
+    const ratio = 8.5 / 11;
+    const isMobile = window.innerWidth < 900;
+    let pgW, pgH;
+    if (isMobile){
+      pgW = Math.min(availW - 16, 340);
+      pgH = Math.round(pgW / ratio);
+    } else {
+      pgH = Math.min(availH, 480);
+      pgW = Math.round(pgH * ratio);
+      if (pgW * 2 > availW){ pgW = Math.round(availW / 2 - 8); pgH = Math.round(pgW / ratio); }
+    }
+
+    flipInstance = new St.PageFlip(flipMount, {
+      width: pgW,
+      height: pgH,
+      size: 'fixed',
+      showCover: true,
+      maxShadowOpacity: 0.35,
+      mobileScrollSupport: true,
+      useMouseEvents: true,
+      swipeDistance: 30,
+      flippingTime: 600,
+      usePortrait: isMobile,
+      drawShadow: true,
+      autoSize: false,
+      showPageCorners: true,
+    });
+    flipInstance.loadFromHTML(flipMount.querySelectorAll('.nl-flip-page'));
+    flipInstance.on('flip', function(e){
+      updatePageNav(e.data, numPages);
+    });
+    updatePageNav(0, numPages);
+  }
+
+  function updatePageNav(pg, total){
+    pageNum.textContent = (pg + 1) + ' / ' + total;
+    prevBtn.disabled = pg === 0;
+    nextBtn.disabled = pg >= total - 1;
+  }
+  prevBtn.addEventListener('click', function(){ if (flipInstance) flipInstance.flipPrev(); });
+  nextBtn.addEventListener('click', function(){ if (flipInstance) flipInstance.flipNext(); });
+
+  /* ---- Sidebar ---- */
+  function select(idx){
+    activeIdx = idx;
+    const issue = issues[idx];
+    const issueNum = issues.length - idx;
+    figLabel.textContent = 'FIG 09.1 — ' + issue.title.toUpperCase() + ' · ' + issue.date.toUpperCase();
+    curLabel.textContent = issue.date.toUpperCase() + ' · ' + issue.title.toUpperCase();
+    document.querySelector('.nl-current span:last-child').textContent = 'ISSUE ' + issueNum + ' / ' + issues.length;
+    list.querySelectorAll('.nl-item').forEach(function(el){ el.classList.toggle('active', parseInt(el.dataset.idx) === idx); });
+    loadPdf(issue.pdf);
+  }
+
+  function renderPage(){
+    list.innerHTML = '';
+    var start = page * PER_PAGE;
+    var slice = issues.slice(start, start + PER_PAGE);
+    var lastYr = '';
+    slice.forEach(function(issue, i){
+      var globalIdx = start + i;
+      if (issue.yr !== lastYr){
+        var sep = document.createElement('div');
+        sep.className = 'nl-year-sep';
+        sep.textContent = issue.yr;
+        list.appendChild(sep);
+        lastYr = issue.yr;
+      }
+      var el = document.createElement('div');
+      el.className = 'nl-item' + (globalIdx === activeIdx ? ' active' : '');
+      el.dataset.idx = globalIdx;
+      el.innerHTML = '<div class="nl-item-date">' + issue.date + '</div><div class="nl-item-title">' + issue.title + '</div>';
+      el.addEventListener('click', function(){ select(globalIdx); });
+      list.appendChild(el);
+    });
+    pgUp.disabled = page === 0;
+    pgDn.disabled = page >= totalPages - 1;
+  }
+
+  pgUp.addEventListener('click', function(){ if (page > 0){ page--; renderPage(); } });
+  pgDn.addEventListener('click', function(){ if (page < totalPages - 1){ page++; renderPage(); } });
+
+  renderPage();
+  // Don't auto-load first PDF — wait for user to scroll into view
+  var nlSection = document.getElementById('s09');
+  var nlStarted = false;
+  var nlIO = new IntersectionObserver(function(es){ es.forEach(function(e){
+    if (e.isIntersecting && !nlStarted){ nlStarted = true; select(0); nlIO.unobserve(nlSection); }
+  }); }, {threshold:.1});
+  nlIO.observe(nlSection);
 })();
 
 /* ============ ORG CHART REVEAL ============ */
