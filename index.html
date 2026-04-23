@@ -572,6 +572,22 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #tweaks select,#tweaks input[type=range]{width:100%}
 #tweaks .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
+/* ============ MOBILE HAMBURGER NAV ============ */
+.nav-toggle{
+  display:none;position:fixed;top:0;right:0;z-index:60;
+  width:48px;height:37px;background:var(--ink);color:var(--paper);
+  border:none;cursor:pointer;font-family:var(--mono);font-size:18px;line-height:1;
+  align-items:center;justify-content:center;
+}
+.nav-toggle .bar{display:block;width:18px;height:1.5px;background:var(--paper);position:relative;transition:transform .25s,opacity .25s}
+.nav-toggle .bar::before,.nav-toggle .bar::after{content:"";position:absolute;left:0;width:100%;height:100%;background:var(--paper);transition:transform .25s}
+.nav-toggle .bar::before{top:-5px}
+.nav-toggle .bar::after{top:5px}
+.nav-toggle.open .bar{background:transparent}
+.nav-toggle.open .bar::before{top:0;transform:rotate(45deg)}
+.nav-toggle.open .bar::after{top:0;transform:rotate(-45deg)}
+
+/* ============ TABLET ≤ 900px ============ */
 @media (max-width:900px){
   .cover-body,.triptych,.track-body,.join-body{grid-template-columns:1fr}
   .cover-left,.cover-right,.triptych .view,.track-left,.join-left{border-right:0;border-bottom:1px solid var(--ink)}
@@ -579,13 +595,188 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .nav-index a:nth-child(5n){border-right:0}
   .rev-head,.rev-row{grid-template-columns:60px 70px 130px 1fr}
   .rev-head > div:nth-child(5),.rev-row > div:nth-child(5){display:none}
-  .org-bottom{grid-template-columns:repeat(3,1fr)}
   .foot-contact{grid-template-columns:1fr}
   .foot-contact > div{border-right:0;border-bottom:1px solid var(--ink)}
-  .merch-grid{grid-template-columns:1fr}
+  .merch-grid{grid-template-columns:repeat(2,1fr)}
   .lt-body{grid-template-columns:1fr}
   .lt-surface{border-bottom:1px solid var(--ink)}
   .lt-index{border-left:0;max-height:300px}
+  .title-block{grid-template-columns:1fr 1fr}
+  .title-block > div:nth-child(2n){border-right:0}
+  .sheet{padding:32px 20px 20px}
+  .cover-left{padding:32px 24px}
+  .cover-right{min-height:400px !important}
+  .leadership{padding:28px 20px 32px}
+  .lead-grid--exec{grid-template-columns:repeat(3,1fr)}
+  .lead-grid--subs .lead-card{width:calc((100% - 20px) / 3)}
+  .foot-colophon{flex-direction:column;gap:6px;text-align:center}
+  .partner-tier{grid-template-columns:60px 120px 1fr}
+  .result-row{grid-template-columns:60px 60px 1fr 80px}
+  .role-detail-inner{grid-template-columns:1fr}
+  .role-detail-img{min-height:200px}
+  .cover-note{grid-template-columns:1fr;gap:12px}
+  .cover-note .note-n:last-child{display:none}
+  .cursor-preview{display:none !important}
+}
+
+/* ============ MOBILE ≤ 680px ============ */
+@media (max-width:680px){
+  /* Hamburger nav visible */
+  .nav-toggle{display:flex}
+  .nav-index{
+    position:fixed;top:37px;left:0;right:0;z-index:49;
+    grid-template-columns:1fr 1fr;
+    max-height:0;overflow:hidden;transition:max-height .35s ease;
+    border-bottom:none;
+  }
+  .nav-index.open{max-height:400px;border-bottom:1px solid var(--ink)}
+  .nav-index a{padding:14px 16px;border-bottom:1px solid var(--hair)}
+  .nav-index a:nth-child(2n){border-right:0}
+  .nav-index a:nth-child(2n+1){border-right:1px solid var(--ink)}
+
+  /* Header */
+  .sheet-header{padding:9px 14px;font-size:9px;gap:6px;flex-wrap:wrap;padding-right:52px}
+  .sheet-header span:nth-child(3),.sheet-header span:nth-child(4){display:none}
+
+  /* Sheets */
+  .sheet{padding:24px 14px 18px;scroll-margin-top:42px}
+  .footer-sheet{padding:24px 14px 18px}
+
+  /* Title blocks */
+  .title-block{grid-template-columns:1fr 1fr;font-size:9px}
+  .title-block > div{padding:6px 10px}
+
+  /* Cover */
+  .cover-body{min-height:auto}
+  .cover-left{padding:24px 18px}
+  .cover-title{font-size:clamp(48px,12vw,80px)}
+  .cover-title .sub{font-size:clamp(22px,5vw,36px)}
+  .cover-desc{font-size:11px;margin-top:20px}
+  .cover-right{min-height:320px !important;padding:0 !important}
+  .cover-note .note-body{font-size:clamp(22px,5vw,36px)}
+  .stamp{font-size:9px;padding:8px 12px}
+
+  /* Triptych */
+  .triptych{grid-template-columns:1fr !important}
+  .triptych .view{padding:20px 14px}
+
+  /* Lineage / Rev table */
+  .rev-head,.rev-row{grid-template-columns:50px 1fr;font-size:10px}
+  .rev-head > div:nth-child(2),.rev-row > div:nth-child(2){display:none}
+  .rev-head > div:nth-child(4),.rev-row > div:nth-child(4){display:none}
+  .rev-head > div:nth-child(5),.rev-row > div:nth-child(5){display:none}
+  .rev-row > div{padding:10px 12px}
+  .rev-head > div{padding:10px 12px}
+  .rev-row .car{font-size:11px}
+
+  /* Leadership */
+  .leadership{padding:20px 14px 24px}
+  .lead-grid--exec{grid-template-columns:repeat(2,1fr);gap:8px}
+  .lead-grid--subs{gap:8px}
+  .lead-grid--subs .lead-card{width:calc(50% - 5px)}
+  .lead-name{font-size:11px}
+  .lead-role{font-size:9px}
+  .lead-caption{padding:8px 10px 10px}
+  .lead-group-label{font-size:9px;gap:8px}
+  .lead-group-label span:first-child{min-width:auto}
+  .lead-foot{font-size:9px;flex-direction:column;gap:6px}
+  /* Tap to reveal bio on mobile */
+  .lead-desc{transition:opacity .22s ease}
+
+  /* Results */
+  .track-body{grid-template-columns:1fr}
+  .track-left{padding:20px 14px;border-right:0;border-bottom:1px solid var(--ink)}
+  .result-row{grid-template-columns:50px 50px 1fr;font-size:10px;padding:10px 14px}
+  .result-row .div{display:none}
+  .result-row .place{font-size:20px}
+  .result-row .event{font-size:11px}
+  #resultHighlights{flex-wrap:wrap;gap:6px}
+  .result-tag{font-size:8px;padding:4px 8px}
+
+  /* Partners */
+  .partner-tier{grid-template-columns:1fr;gap:6px;padding:16px 14px}
+  .partner-tier .t{padding:0;font-size:9px}
+  .partner-tier .name{padding:0;font-size:12px}
+  .partner-tier .logos{padding:0;gap:10px 18px;font-size:10px}
+
+  /* Newsletter */
+  .lt-body{grid-template-columns:1fr}
+  .lt-surface{border-bottom:1px solid var(--ink);padding:10px 8px 10px}
+  .lt-index{border-left:0;max-height:240px}
+  .lt-index-head{padding:8px 12px;font-size:9px}
+  .lt-entry{padding:8px 10px}
+  .lt-fig{font-size:9px;flex-wrap:wrap;gap:4px}
+  .sp-page-wrap{min-height:280px}
+
+  /* Merch */
+  .merch-grid{grid-template-columns:repeat(2,1fr)}
+  .merch-card{padding:12px}
+  .merch-name{font-size:11px}
+  .merch-price{font-size:10px}
+  .merch-link{font-size:8px;padding:8px 10px}
+
+  /* Join */
+  .join-body{grid-template-columns:1fr}
+  .join-left{padding:24px 18px;border-right:0;border-bottom:1px solid var(--ink)}
+  .join-left h3{font-size:clamp(26px,6vw,42px)}
+  .join-left p{font-size:11px}
+  .join-btn{font-size:9px;padding:14px 18px}
+  .role-row{grid-template-columns:40px 1fr auto;padding:12px 14px;font-size:10px}
+  .role-row .name{font-size:13px}
+  .role-detail-inner{grid-template-columns:1fr}
+  .role-detail-img{min-height:180px;order:-1}
+  .role-detail-text{padding:20px 18px}
+
+  /* Footer / Contact */
+  .foot-contact{grid-template-columns:1fr}
+  .foot-contact > div{padding:20px 18px;border-right:0;border-bottom:1px solid var(--ink)}
+  .foot-contact > div:last-child{border-bottom:0}
+  .foot-contact .body{font-size:12px}
+  .foot-contact .body div[style*="float:right"]{float:none !important;width:100% !important;margin:0 0 16px 0 !important}
+  .foot-sign{padding:48px 14px}
+  .foot-sign .big{font-size:clamp(64px,18vw,140px)}
+  .foot-sign .approval{font-size:10px}
+  .foot-colophon{font-size:9px}
+  .signature{font-size:22px}
+
+  /* Ticker */
+  .ticker-track{font-size:9px}
+  .ticker-track span{padding:8px 14px}
+
+  /* General mobile touch */
+  .cursor-preview{display:none !important}
+  .grid-spot{display:none}
+}
+
+/* ============ SMALL PHONE ≤ 420px ============ */
+@media (max-width:420px){
+  .sheet{padding:18px 10px 14px}
+  .footer-sheet{padding:18px 10px 14px}
+  .sheet-header{padding:8px 10px;font-size:8px;padding-right:52px}
+  .title-block{grid-template-columns:1fr;font-size:8px}
+  .title-block > div{border-right:0 !important;border-bottom:1px solid var(--hair)}
+  .title-block > div:last-child{border-bottom:0}
+  .cover-title{font-size:clamp(40px,14vw,64px)}
+  .cover-left{padding:18px 14px}
+  .cover-right{min-height:260px !important}
+  .cover-note .note-body{font-size:clamp(18px,5vw,28px)}
+  .lead-grid--exec{grid-template-columns:1fr 1fr}
+  .lead-grid--subs .lead-card{width:calc(50% - 4px)}
+  .merch-grid{grid-template-columns:1fr}
+  .rev-head,.rev-row{grid-template-columns:1fr}
+  .rev-head > div:nth-child(1),.rev-row > div:nth-child(1){display:none}
+  .rev-row .car{font-size:12px}
+  .rev-row .sum{font-size:10px;line-height:1.5}
+  .result-row{grid-template-columns:40px 1fr;gap:8px}
+  .result-row .year{display:none}
+  .partner-tier .logos{font-size:10px;gap:8px 14px}
+  .lt-index{max-height:200px}
+  .foot-sign{padding:36px 10px}
+  .foot-sign .big{font-size:clamp(48px,20vw,100px)}
+  .foot-contact > div{padding:16px 12px}
+  .join-left{padding:18px 14px}
+  .join-left h3{font-size:clamp(22px,7vw,36px)}
+  .sponsor-link{font-size:8px;padding:6px 8px}
 }
 
 /* ============ CURSOR IMAGE PREVIEW (sheet 05 lineage) ============ */
@@ -630,6 +821,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lead-grid--subs .lead-card{width:calc((100% - 40px) / 5)}
 @media (max-width: 1100px){ .lead-grid--exec{grid-template-columns:repeat(4,1fr)} .lead-grid--subs .lead-card{width:calc((100% - 30px) / 4)} }
 @media (max-width: 820px){ .lead-grid--exec{grid-template-columns:repeat(3,1fr)} .lead-grid--subs .lead-card{width:calc((100% - 20px) / 3)} }
+@media (max-width: 680px){ .lead-grid--exec{grid-template-columns:repeat(2,1fr)} .lead-grid--subs .lead-card{width:calc(50% - 5px)} }
+@media (max-width: 420px){ .lead-grid--exec{grid-template-columns:1fr 1fr} .lead-grid--subs .lead-card{width:calc(50% - 4px)} }
 
 .lead-card{position:relative;background:var(--paper);border:1px solid var(--ink);overflow:hidden;cursor:default;transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s}
 .lead-card:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(15,23,42,.25)}
@@ -708,6 +901,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <span>DOC SR-17-WEB-001</span>
   <span>REV C · 23 APR 2026</span>
 </div>
+
+<!-- MOBILE NAV TOGGLE -->
+<button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+  <span class="bar"></span>
+</button>
 
 <!-- SHEET INDEX / NAV -->
 <div class="nav-index" id="nav">
@@ -1818,6 +2016,69 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     });
   }, {threshold:.35, rootMargin:'-120px 0px -30% 0px'});
   sections.forEach(s => s && io.observe(s));
+})();
+
+/* ============ MOBILE HAMBURGER TOGGLE ============ */
+(function(){
+  var btn = document.getElementById('navToggle');
+  var nav = document.getElementById('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  // Close nav when a link is tapped
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+  // Close nav on outside tap
+  document.addEventListener('click', function(e){
+    if (!nav.contains(e.target) && !btn.contains(e.target)){
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
+/* ============ MOBILE: TAP-TO-REVEAL LEAD BIOS ============ */
+(function(){
+  var isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if (!isMobile) return;
+  document.querySelectorAll('.lead-card').forEach(function(card){
+    card.addEventListener('click', function(e){
+      var desc = card.querySelector('.lead-desc');
+      if (!desc) return;
+      // If already showing, hide it
+      if (desc.style.opacity === '1'){
+        desc.style.opacity = '0';
+        desc.style.pointerEvents = 'none';
+        return;
+      }
+      // Hide all others first
+      document.querySelectorAll('.lead-desc').forEach(function(d){
+        d.style.opacity = '0';
+        d.style.pointerEvents = 'none';
+      });
+      desc.style.opacity = '1';
+      desc.style.pointerEvents = 'auto';
+      e.preventDefault();
+    });
+  });
+  // Close bio on outside tap
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('.lead-card')){
+      document.querySelectorAll('.lead-desc').forEach(function(d){
+        d.style.opacity = '0';
+        d.style.pointerEvents = 'none';
+      });
+    }
+  });
 })();
 
 /* ============ TWEAKS PROTOCOL ============ */

@@ -286,7 +286,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
-/* ============ RESPONSIVE ============ */
+/* ============ RESPONSIVE — TABLET ≤ 900px ============ */
 @media (max-width:900px){
   .hero-body,.cta-body{grid-template-columns:1fr}
   .hero-left,.cta-left{border-right:0;border-bottom:1px solid var(--ink)}
@@ -296,11 +296,103 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .title-block{grid-template-columns:1fr 1fr}
   .title-block > div:nth-child(2n){border-right:0}
   .foot-colophon{flex-direction:column;gap:6px;text-align:center}
+  .sheet{padding:32px 20px 20px}
+  .hero-left{padding:36px 28px}
+  .hero-right{padding:28px}
+  .cta-left{padding:28px}
+  .cta-right{padding:28px}
+  .comp-wrap{margin-left:-20px;margin-right:-20px;border-left:0;border-right:0}
+  .contact-row{grid-template-columns:70px 1fr}
 }
-@media (max-width:600px){
+
+/* ============ RESPONSIVE — MOBILE ≤ 680px ============ */
+@media (max-width:680px){
+  /* Header */
+  .sheet-header{padding:9px 14px;font-size:9px;gap:6px;flex-wrap:wrap}
+  .sheet-header span:nth-child(3),.sheet-header span:nth-child(4){display:none}
+
+  /* Sheets */
+  .sheet{padding:24px 14px 18px;scroll-margin-top:42px}
+  .footer-sheet{padding:24px 14px 18px}
+
+  /* Title blocks */
+  .title-block{grid-template-columns:1fr 1fr;font-size:9px}
+  .title-block > div{padding:6px 10px}
+
+  /* Hero */
+  .hero-body{min-height:auto}
+  .hero-left{padding:24px 18px}
+  .hero-title{font-size:clamp(28px,6vw,48px)}
+  .hero-desc{font-size:11px;margin-top:16px}
+  .hero-right{padding:20px 18px;gap:14px}
+  .hero-stat{padding:14px 16px;gap:12px}
+  .hero-stat .num{font-size:clamp(24px,5vw,36px)}
+  .hero-stat .label{font-size:9px}
+  .hero-stamp{font-size:9px;padding:8px 12px}
+
+  /* Tiers — tier head/row already handled by 600px below */
   .tier-head,.tier-row{grid-template-columns:1fr}
   .tier-head > div,.tier-row > div{border-right:0;border-bottom:1px solid var(--hair)}
-  .sheet-header{flex-wrap:wrap;gap:8px}
+
+  /* Comparison table */
+  .comp-wrap{margin-left:-14px;margin-right:-14px;border-left:0;border-right:0}
+  .comp-table th,.comp-table td{padding:10px 8px;font-size:10px}
+  .comp-table th{font-size:10px}
+  .comp-table th .tier-price{font-size:8px}
+
+  /* Benefits */
+  .benefits-grid{grid-template-columns:1fr}
+  .benefit-cell{border-right:0;padding:20px 18px}
+  .benefit-title{font-size:13px}
+  .benefit-desc{font-size:10px}
+
+  /* CTA / Contact */
+  .cta-body{grid-template-columns:1fr}
+  .cta-left{padding:24px 18px;border-right:0;border-bottom:1px solid var(--ink)}
+  .cta-left h3{font-size:clamp(26px,6vw,44px)}
+  .cta-left p{font-size:11px}
+  .cta-btn{font-size:9px;padding:14px 18px}
+  .cta-right{padding:20px 18px}
+  .contact-row{grid-template-columns:60px 1fr;padding:12px 0;font-size:10px}
+  .contact-row .ck{font-size:9px}
+
+  /* Flipbook */
+  .sp-surface{padding:10px 8px 10px}
+  .sp-fig{font-size:9px;flex-wrap:wrap;gap:4px}
+  .sp-page-wrap{min-height:280px}
+
+  /* Back link */
+  .back-link{font-size:9px;padding:12px 16px}
+
+  /* Footer */
+  .foot-sign{padding:48px 14px}
+  .foot-sign .big{font-size:clamp(64px,18vw,140px)}
+  .foot-sign .approval{font-size:10px}
+  .foot-colophon{font-size:9px}
+  .signature{font-size:22px}
+
+  /* Grid spot */
+  .grid-spot{display:none}
+}
+
+/* ============ RESPONSIVE — SMALL PHONE ≤ 420px ============ */
+@media (max-width:420px){
+  .sheet{padding:18px 10px 14px}
+  .footer-sheet{padding:18px 10px 14px}
+  .sheet-header{padding:8px 10px;font-size:8px}
+  .title-block{grid-template-columns:1fr;font-size:8px}
+  .title-block > div{border-right:0 !important;border-bottom:1px solid var(--hair)}
+  .title-block > div:last-child{border-bottom:0}
+  .hero-left{padding:18px 14px}
+  .hero-title{font-size:clamp(24px,7vw,40px)}
+  .hero-right{padding:16px 14px}
+  .cta-left{padding:18px 14px}
+  .cta-left h3{font-size:clamp(22px,7vw,36px)}
+  .cta-right{padding:16px 14px}
+  .foot-sign{padding:36px 10px}
+  .foot-sign .big{font-size:clamp(48px,20vw,100px)}
+  .benefit-cell{padding:16px 14px}
+  .comp-table th,.comp-table td{padding:8px 6px;font-size:9px}
 }
 </style>
 </head>
