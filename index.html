@@ -308,7 +308,19 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .roster-strip{padding:26px 0 0;display:flex;justify-content:space-between;border-top:1px dashed var(--hair);margin-top:44px;font-size:10px;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase}
 
 /* Sponsor link in title-block */
-.sponsor-link:hover{opacity:.7}
+.sponsor-link{
+  display:flex !important;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,rgba(229,168,35,.12),rgba(229,168,35,.22));
+  color:var(--gold) !important;font-weight:600;text-decoration:none;
+  transition:background .25s, transform .15s;
+  margin:-8px -12px;padding:8px 12px;
+}
+.sponsor-link:hover{
+  background:linear-gradient(135deg,rgba(229,168,35,.25),rgba(229,168,35,.38));
+  transform:scale(1.02);
+}
+.sponsor-link .arr{display:inline-block;transition:transform .3s}
+.sponsor-link:hover .arr{transform:translateX(4px)}
 
 /* ============ SHEET 07 — RESULTS / DRIVER ============ */
 .track-body{display:grid;grid-template-columns:1.4fr 1fr;border:1px solid var(--ink);border-top:0}
@@ -333,15 +345,36 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ============ SHEET 08 — PARTNERS ============ */
 .partners{border:1px solid var(--ink);border-top:0}
-.partner-tier{display:grid;grid-template-columns:80px 160px 1fr;border-bottom:1px solid var(--hair);padding:22px 0;
+.partner-tier{display:grid;grid-template-columns:80px 160px 1fr;border-bottom:1px solid var(--hair);padding:0;
   opacity:0;transform:translateY(8px);transition:opacity .5s, transform .5s}
 .partner-tier:last-child{border-bottom:0}
 .partner-tier.in{opacity:1;transform:none}
-.partner-tier .t{padding:0 16px;font-size:10px;color:var(--ink-3);letter-spacing:.12em}
-.partner-tier .name{padding:0 16px;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
-.partner-tier .logos{padding:0 16px;display:flex;flex-wrap:wrap;gap:18px 36px;font-size:11px;color:var(--ink-2);letter-spacing:.04em}
-.partner-tier .logos span{transition:color .2s, transform .2s;cursor:pointer}
-.partner-tier .logos span:hover{color:var(--gold);transform:translateY(-1px)}
+.partner-tier .t{padding:20px 16px;font-size:10px;color:var(--ink-3);letter-spacing:.12em;display:flex;align-items:center}
+.partner-tier .name{padding:20px 16px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;border-right:1px solid var(--hair);border-left:1px solid var(--hair)}
+.partner-tier .logos{padding:16px;display:flex;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--ink-2);letter-spacing:.04em}
+/* Individual sponsor chips */
+.partner-tier .logos span{
+  padding:6px 14px;border:1px solid var(--hair);
+  transition:all .2s;cursor:default;background:var(--paper);
+}
+.partner-tier .logos span:hover{
+  border-color:var(--gold);color:var(--gold);background:rgba(229,168,35,.06);
+  transform:translateY(-2px);box-shadow:0 4px 12px -4px rgba(229,168,35,.15);
+}
+/* Top tiers get gold accent */
+.partner-tier.tier-title{background:linear-gradient(90deg,rgba(229,168,35,.06),transparent 60%)}
+.partner-tier.tier-title .t{color:var(--gold);font-weight:600}
+.partner-tier.tier-title .name{color:var(--gold)}
+.partner-tier.tier-title .logos span{border-color:rgba(229,168,35,.25)}
+.partner-tier.tier-plat{background:linear-gradient(90deg,rgba(229,168,35,.03),transparent 40%)}
+.partner-tier.tier-plat .t{color:var(--gold)}
+/* Sponsor count badge */
+.partner-tier .count{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--ink);color:var(--paper);font-size:9px;font-weight:600;
+  margin-left:auto;flex-shrink:0;
+}
 
 /* ============ SHEET 09 — LIGHT TABLE NEWSLETTER ============ */
 .lt-body{display:grid;grid-template-columns:1fr 220px;border:1px solid var(--ink);border-top:0;max-height:600px;overflow:hidden}
@@ -371,7 +404,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* Page info below */
 .lt-page-info{text-align:center;padding-top:8px;font-size:10px;letter-spacing:.1em;color:var(--ink-2);position:relative;z-index:1}
 /* Flipbook container from page-flip library */
-.lt-page .stf__parent{margin:0 auto}
+.lt-page .stf__parent{margin:0 auto;transition:transform .5s ease}
+.lt-page.on-cover .stf__parent{transform:translateX(25%)}
 .lt-page .stf__wrapper{box-shadow:0 6px 30px -10px rgba(0,0,0,.25)}
 .lt-page .page-wrapper{background:#fff}
 .lt-page .page-wrapper img{width:100%;height:100%;object-fit:contain;display:block}
@@ -958,39 +992,39 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Sheet</div><div class="v">05 / 08</div></div>
     <div><div class="k">Title</div><div class="v">PARTNERS — CERTIFIED CONTRIBUTORS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
-    <div><a href="sponsors.html" class="v sponsor-link" style="display:flex;align-items:center;gap:6px;color:var(--gold);font-weight:600;text-decoration:none;transition:opacity .2s"><span>BECOME A SPONSOR →</span></a></div>
+    <div style="padding:0"><a href="sponsors.html" class="sponsor-link"><span>BECOME A SPONSOR</span><span class="arr">→</span></a></div>
     <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="partners">
-    <div class="partner-tier reveal">
+    <div class="partner-tier tier-title reveal">
       <div class="t">T-I</div>
-      <div class="name">Title · $30K+</div>
+      <div class="name">Title · $30K+<span class="count">10</span></div>
       <div class="logos"><span>Cadence</span><span>Altium</span><span>Siemens</span><span>Ansys</span><span>Toray</span><span>Roku</span><span>Phoenix Contact</span><span>Military Fasteners</span><span>Bergman</span><span>Don Beal</span></div>
     </div>
-    <div class="partner-tier reveal">
+    <div class="partner-tier tier-plat reveal">
       <div class="t">T-II</div>
-      <div class="name">Platinum · $20K+</div>
+      <div class="name">Platinum · $20K+<span class="count">3</span></div>
       <div class="logos"><span>Motec USA</span><span>Levy</span><span>BayView Plastics</span></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-III</div>
-      <div class="name">Gold · $10K+</div>
+      <div class="name">Gold · $10K+<span class="count">8</span></div>
       <div class="logos"><span>Vi-grade</span><span>Cisco</span><span>Rapid Harness</span><span>SFR SCCA</span><span>Lucid Motors</span><span>Candy Store Fdn</span><span>Marin Design Works</span><span>Valence Precision</span></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-IV</div>
-      <div class="name">Silver · $5K+</div>
+      <div class="name">Silver · $5K+<span class="count">6</span></div>
       <div class="logos"><span>Mountz Torque</span><span>Evonik</span><span>Futek</span><span>About Energy</span><span>Rivian · VW Group</span><span>TE Connectivity</span></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-V</div>
-      <div class="name">Bronze · $2.5K+</div>
+      <div class="name">Bronze · $2.5K+<span class="count">6</span></div>
       <div class="logos"><span>Star One CU</span><span>Airtech</span><span>Sabalcore</span><span>LCL Machining</span><span>KLA</span><span>Amex</span></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-VI</div>
-      <div class="name">Partner · In-kind</div>
+      <div class="name">Partner · In-kind<span class="count">13</span></div>
       <div class="logos"><span>Rexco</span><span>Chemtrend</span><span>SMC</span><span>Dremel</span><span>FibreGlast</span><span>XRP</span><span>MatterHackers</span><span>Bender</span><span>VectorNav</span><span>Bojo Tools</span><span>Shining 3D</span><span>Prismatic Powders</span><span>ThinBIT</span></div>
     </div>
   </div>
@@ -1370,6 +1404,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     pageNum.textContent = (current + 1) + ' / ' + total;
     scaleEl.textContent = 'PAGE ' + (current + 1);
   }
+  function updateCoverState(){
+    if (!flipBook) return;
+    var current = flipBook.getCurrentPageIndex();
+    var total = flipBook.getPageCount();
+    // On cover (page 0) or last page, shift to center the single page
+    if (current === 0) pageEl.classList.add('on-cover');
+    else pageEl.classList.remove('on-cover');
+  }
 
   function loadIssue(idx){
     if (flipBook){ flipBook.destroy(); flipBook = null; }
@@ -1413,14 +1455,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
       flipBook = new St.PageFlip(pageEl, {
         width: pageW, height: pageH, size: 'fixed',
-        showCover: true, maxShadowOpacity: 0.4,
+        showCover: true, maxShadowOpacity: 0.5,
         mobileScrollSupport: true, useMouseEvents: true,
         swipeDistance: 30, flippingTime: 600,
         drawShadow: true, showPageCorners: true,
-        disableFlipByClick: false
+        disableFlipByClick: false, startPage: 0,
+        startZIndex: 0, autoSize: false
       });
       flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
-      flipBook.on('flip', function(){ playFlip(); updateButtons(); });
+      flipBook.on('flip', function(){ playFlip(); updateButtons(); updateCoverState(); });
+      pageEl.classList.add('on-cover');
       updateButtons();
     });
   }
