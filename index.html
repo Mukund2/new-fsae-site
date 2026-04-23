@@ -109,7 +109,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .nav-index a .n{opacity:.55}
 .nav-index a:hover .n{opacity:1}
 
-.sheet{padding:40px 28px 28px;border-bottom:1px solid var(--ink);position:relative;z-index:1;background:transparent}
+.sheet{padding:40px 28px 28px;border-bottom:1px solid var(--ink);position:relative;z-index:1;background:transparent;scroll-margin-top:75px}
+.footer-sheet{scroll-margin-top:75px}
 /* the sheets themselves shouldn't feel boxed-in by the grid; soft vignette */
 .sheet::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 0%, rgba(243,239,229,.55), transparent 60%);z-index:-1}
 
@@ -570,9 +571,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lead-desc{position:absolute;inset:0;background:rgba(10,11,13,.94);color:var(--paper);opacity:0;pointer-events:none;transition:opacity .22s ease;display:flex;align-items:flex-end;padding:16px;backdrop-filter:saturate(1.1)}
 .lead-card:hover .lead-desc{opacity:1}
 .lead-desc-inner{max-height:100%;overflow:auto}
-.lead-desc-head{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;padding-left:0;margin-bottom:10px}
-.lead-desc-head::before{content:"[ "; color:var(--gold)}
-.lead-desc-head::after{content:" ]"; color:var(--gold)}
+.lead-desc-head{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;padding-left:0;margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lead-desc-head::before{content:"[ ";color:var(--gold)}
+.lead-desc-head::after{content:" ]";color:var(--gold)}
 .lead-desc p{font-family:var(--sans);font-size:12px;line-height:1.55;color:rgba(255,255,255,.85);margin:0}
 .lead-desc::-webkit-scrollbar,.lead-desc-inner::-webkit-scrollbar{width:4px}
 .lead-desc-inner::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25)}
@@ -620,8 +621,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .result-tag.primary{border-color:var(--gold);color:var(--gold);font-weight:600}
 
 /* Stronger row-hover affordance */
-.result-row{ transition: background .16s, border-color .16s; border-left: 2px solid transparent; }
-.result-row:hover{ background: var(--paper-2); border-left-color: var(--gold); cursor: default; }
+.result-row{ transition: background .16s, transform .16s, box-shadow .16s; }
+.result-row:hover{ background: var(--paper-2); transform: translateY(-1px) scale(1.005); box-shadow: 0 4px 12px -4px rgba(0,0,0,.1); cursor: default; }
 .result-row:hover .place{ color: var(--gold); }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -632,7 +633,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- SHEET HEADER (drawing frame) -->
 <div class="sheet-header">
   <span style="display:inline-flex;align-items:center;gap:10px"><img src="assets/spartan-racing-logo.png" alt="Spartan Racing" style="height:22px;width:auto;vertical-align:middle"><b style="font-weight:600">SPARTAN RACING</b> · SAN JOSÉ STATE UNIVERSITY FSAE</span>
-  <span class="live">LIVE · SHOP OPEN · <span id="clock">—</span></span>
+  <span class="live">LIVE · <span id="clock">—</span></span>
   <span>DOC SR-17-WEB-001</span>
   <span>REV C · 21 APR 2026</span>
 </div>
@@ -679,7 +680,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="cover-right" style="padding:0;position:relative;overflow:hidden;min-height:560px;background:linear-gradient(135deg, #eceef2 0%, #dde1e8 100%)">
       <div class="fig-label" style="position:absolute;top:14px;left:16px;right:16px;z-index:3;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:var(--ink-2);text-transform:uppercase">
         <span>FIG 00.1 — SR-17 · CLASSIFIED UNTIL REVEAL</span>
-        <span id="revealCountdown" style="display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--paper);padding:6px 10px;font-family:var(--mono);font-size:10px;letter-spacing:.14em"><span class="live" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 1.4s ease-in-out infinite"></span><span id="cdLabel">REVEAL IN</span><span id="cdValue" style="color:var(--paper);font-variant-numeric:tabular-nums">—</span></span>
+        <span id="revealCountdown" style="display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--paper);padding:6px 10px;font-family:var(--mono);font-size:10px;letter-spacing:.14em"><span class="live" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 1.4s ease-in-out infinite"></span><span id="cdValue" style="color:var(--paper);font-variant-numeric:tabular-nums">—</span></span>
       </div>
       <div id="car3d" style="position:absolute;inset:0;cursor:grab;filter:blur(12px) contrast(1.06) saturate(.9)"></div>
       <div style="position:absolute;bottom:14px;left:16px;right:16px;z-index:3;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;pointer-events:none">
@@ -1897,9 +1898,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 <script>
 (function(){
-  const label = document.getElementById('cdLabel');
   const value = document.getElementById('cdValue');
-  if (!label || !value) return;
+  if (!value) return;
 
   // Compute the next Saturday at 11:00 local time. Falls back to "this Saturday"
   // if today is before Saturday; next Saturday if later.
@@ -1921,8 +1921,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     const now = new Date();
     let ms = target - now;
     if (ms <= 0){
-      label.textContent = 'SR-17 REVEAL';
-      value.textContent = 'LIVE';
+      value.textContent = 'SR-17 REVEAL · LIVE';
       return;
     }
     const days = Math.floor(ms / 86400000); ms -= days*86400000;
