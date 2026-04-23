@@ -782,33 +782,32 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 
   <div class="triptych" style="grid-template-columns:1.4fr 1fr">
-    <!-- SIDE — original image with dims baked in + animated overlay on top -->
+    <!-- SIDE — dims image as base, animated text overlaid exactly on top -->
     <div class="view" style="background:#fff;position:relative">
       <div class="fig-label"><span>FIG 01.1</span><span>VIEW — SIDE</span></div>
       <div class="ortho-box reveal" id="sideView" style="display:block;padding:8px;background:#fff;border:none;position:relative">
-        <!-- Original image WITH dimension lines/arrows baked in -->
-        <img src="assets/cars/sr16-side.png" alt="SR-16 side view" style="width:100%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
-        <!-- Animated text overlay — white rects cover baked-in text, then animated text types on top -->
-        <svg class="dim-overlay" viewBox="0 0 1300 750" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);pointer-events:none">
-          <!-- 34.32 CG text cover + animated replacement -->
+        <img src="assets/cars/sr16-side-dims.png" alt="SR-16 side view" style="width:100%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
+        <!-- SVG overlay: viewBox matches image 1340x664 exactly -->
+        <svg class="dim-overlay" viewBox="0 0 1340 664" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);pointer-events:none">
+          <!-- 34.32 CG — measured from baked image -->
           <g class="dim-group" style="--delay:0.8s">
-            <rect x="220" y="555" width="140" height="18" fill="#fff"/>
-            <text class="dim-label" x="290" y="568" text-anchor="middle" style="font-size:12px">34.32 CG</text>
+            <rect x="305" y="495" width="130" height="16" fill="#fff"/>
+            <text class="dim-label" x="370" y="507" text-anchor="middle" style="font-size:11px">34.32 CG</text>
           </g>
-          <!-- 60.25 WHEEL BASE text cover + animated replacement -->
+          <!-- 60.25 WHEEL BASE -->
           <g class="dim-group" style="--delay:1.2s">
-            <rect x="220" y="576" width="220" height="18" fill="#fff"/>
-            <text class="dim-label" x="330" y="589" text-anchor="middle" style="font-size:12px">60.25 WHEEL BASE</text>
+            <rect x="310" y="520" width="200" height="16" fill="#fff"/>
+            <text class="dim-label" x="410" y="532" text-anchor="middle" style="font-size:11px">60.25 WHEEL BASE</text>
           </g>
-          <!-- 113.20 text cover + animated replacement -->
+          <!-- 113.20 -->
           <g class="dim-group" style="--delay:1.6s">
-            <rect x="235" y="598" width="90" height="18" fill="#fff"/>
-            <text class="dim-label" x="280" y="611" text-anchor="middle" style="font-size:12px">113.20</text>
+            <rect x="310" y="546" width="80" height="16" fill="#fff"/>
+            <text class="dim-label" x="350" y="558" text-anchor="middle" style="font-size:11px">113.20</text>
           </g>
-          <!-- 10.41 CG text cover + animated replacement -->
+          <!-- 10.41 CG (vertical label, right side) -->
           <g class="dim-group" style="--delay:2.0s">
-            <rect x="955" y="435" width="85" height="18" fill="#fff"/>
-            <text class="dim-label" x="997" y="448" text-anchor="middle" style="font-size:12px">10.41 CG</text>
+            <rect x="1245" y="378" width="80" height="16" fill="#fff"/>
+            <text class="dim-label" x="1285" y="390" text-anchor="middle" style="font-size:11px">10.41 CG</text>
           </g>
         </svg>
       </div>
@@ -817,21 +816,22 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       </div>
     </div>
 
-    <!-- FRONT — original image with dims baked in + animated overlay on top -->
+    <!-- FRONT — dims image as base, animated text overlaid exactly on top -->
     <div class="view" style="background:#fff">
       <div class="fig-label"><span>FIG 01.2</span><span>VIEW — FRONT</span></div>
       <div class="ortho-box reveal" id="frontView" style="display:block;padding:8px;background:#fff;border:none;position:relative">
-        <img src="assets/cars/sr16-front.png" alt="SR-16 front view" style="width:100%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
-        <svg class="dim-overlay" viewBox="0 0 1164 750" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);pointer-events:none">
-          <!-- 48"/47" text cover + animated replacement -->
+        <img src="assets/cars/sr16-front-dims.png" alt="SR-16 front view" style="width:100%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
+        <!-- SVG overlay: viewBox matches image 840x776 exactly -->
+        <svg class="dim-overlay" viewBox="0 0 840 776" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);pointer-events:none">
+          <!-- 48"/47" FRONT / REAR TRACK WIDTH -->
           <g class="dim-group" style="--delay:1.0s">
-            <rect x="380" y="525" width="460" height="20" fill="#fff"/>
-            <text class="dim-label" x="610" y="540" text-anchor="middle" style="font-size:13px">48"/47" FRONT / REAR TRACK WIDTH</text>
+            <rect x="210" y="680" width="400" height="16" fill="#fff"/>
+            <text class="dim-label" x="410" y="692" text-anchor="middle" style="font-size:11px">48"/47" FRONT / REAR TRACK WIDTH</text>
           </g>
-          <!-- 56.40" OVERALL text cover + animated replacement -->
+          <!-- 56.40" OVERALL -->
           <g class="dim-group" style="--delay:1.4s">
-            <rect x="440" y="555" width="260" height="20" fill="#fff"/>
-            <text class="dim-label" x="570" y="570" text-anchor="middle" style="font-size:13px">56.40" OVERALL</text>
+            <rect x="290" y="710" width="220" height="16" fill="#fff"/>
+            <text class="dim-label" x="400" y="722" text-anchor="middle" style="font-size:11px">56.40" OVERALL</text>
           </g>
         </svg>
       </div>
@@ -1146,7 +1146,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;font-size:11px">
-        <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">BEST LAP</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">58.24<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
+        <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">BEST LAP</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">59.83<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
         <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">ACCEL</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">3.84<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
         <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">SKIDPAD</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">5.12<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
       </div>
