@@ -1431,11 +1431,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       pageEl.appendChild(div);
     }
 
-    function onImgReady(){
-      loaded++;
-      loading.querySelector('span').textContent = 'PAGE ' + loaded + ' / ' + count;
-      if (loaded < count) return;
-      // All images loaded — init flipbook
+    function initFlipbook(){
       loading.style.display = 'none';
       var wrap = pageEl.parentElement;
       var availW = wrap.clientWidth - 110;
@@ -1456,8 +1452,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       flipBook.on('flip', function(){ playFlip(); updateButtons(); });
       updateButtons();
     }
+    function onImgReady(){
+      loaded++;
+      loading.querySelector('span').textContent = 'PAGE ' + loaded + ' / ' + count;
+      if (loaded < count) return;
+      // All images loaded — wait a frame for browser to paint, then init
+      requestAnimationFrame(function(){ requestAnimationFrame(initFlipbook); });
+    }
     imgs.forEach(function(im){
-      if (im.complete) onImgReady();
+      if (im.complete && im.naturalWidth > 0) onImgReady();
       else { im.onload = onImgReady; im.onerror = onImgReady; }
     });
   }
