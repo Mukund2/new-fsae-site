@@ -1329,6 +1329,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var prevBtn  = document.getElementById('ltPrev');
   var nextBtn  = document.getElementById('ltNext');
   var flipBook = null;
+  var loadCancelled = false;  // cancel flag for in-progress PDF loads
 
   // Build index
   issues.forEach(function(issue, i){
@@ -1360,35 +1361,51 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   }
 
   function loadIssue(idx){
+    // Cancel any in-progress load
+    loadCancelled = true;
     // Destroy previous flipbook
     if (flipBook){ flipBook.destroy(); flipBook = null; }
     pageEl.innerHTML = '';
     loading.style.display = 'flex';
+    loading.innerHTML = '<div class="lt-spin"></div><span>RENDERING</span>';
     pageEl.appendChild(loading);
     pageNum.textContent = '— / —';
     prevBtn.disabled = true;
     nextBtn.disabled = true;
     scaleEl.textContent = 'LOADING';
 
+    // Start new load with fresh cancel token
+    var myLoad = {};
+    loadCancelled = false;
+    var cancelRef = myLoad;
+
     pdfjsLib.getDocument(issues[idx].pdf).promise.then(function(pdf){
+      if (loadCancelled) return;
       var total = pdf.numPages;
       var rendered = [];
       var chain = Promise.resolve();
       for (var p = 1; p <= total; p++){
         (function(pageNo){
           chain = chain.then(function(){
+            if (loadCancelled) return;
             return pdf.getPage(pageNo).then(function(page){
-              var vp = page.getViewport({scale:2});
+              if (loadCancelled) return;
+              // Use scale 1 for speed — pages are displayed small anyway
+              var vp = page.getViewport({scale:1.2});
               var c = document.createElement('canvas');
               c.width = vp.width; c.height = vp.height;
               return page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise.then(function(){
-                rendered[pageNo-1] = c.toDataURL('image/jpeg',0.85);
+                if (loadCancelled) return;
+                rendered[pageNo-1] = c.toDataURL('image/jpeg',0.78);
+                // Update loading progress
+                loading.querySelector('span').textContent = 'PAGE ' + pageNo + ' / ' + total;
               });
             });
           });
         })(p);
       }
       return chain.then(function(){
+        if (loadCancelled) return;
         loading.style.display = 'none';
         // Build page elements
         pageEl.innerHTML = '';
@@ -1423,9 +1440,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           showPageCorners: true,
           disableFlipByClick: false
         });
+        console.log('Initializing PageFlip with ' + rendered.length + ' pages, ' + pageW + 'x' + pageH);
         flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
         flipBook.on('flip', function(){ updateButtons(); });
         updateButtons();
+        console.log('PageFlip initialized successfully');
       });
     }).catch(function(){
       loading.innerHTML = '<span style="color:var(--gold)">FAILED TO LOAD</span>';
