@@ -142,6 +142,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 @keyframes dimExpand{from{stroke-dashoffset:600}to{stroke-dashoffset:0}}
 @keyframes dimFadeIn{from{opacity:0}to{opacity:1}}
+/* subtle pulse on dimension labels after animation completes */
+.in .dim-group .dim-label[data-typed="1"]{
+  animation:dimPulse 3s ease-in-out infinite;
+  animation-delay:calc(var(--delay,0.8s) + 2s);
+}
+@keyframes dimPulse{0%,100%{opacity:1}50%{opacity:.55}}
 
 /* ============ SHARED SVG LINE-DRAW ============ */
 .draw path, .draw line, .draw rect, .draw circle, .draw polyline{
@@ -782,38 +788,38 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="ortho-box reveal" id="sideView" style="position:relative;display:flex;align-items:center;justify-content:center;padding:8px;background:#fff;border:none">
         <img src="assets/cars/sr16-side-clean.png" alt="SR-16 side view" style="width:100%;height:auto;object-fit:contain;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
         <!-- Animated dimension overlays -->
-        <svg class="dim-overlay" viewBox="0 0 1000 780" preserveAspectRatio="xMidYMid meet" style="position:absolute;left:0;right:0;bottom:-60px;width:100%;height:calc(100% + 60px);pointer-events:none">
-          <!-- 34.32 CG — topmost line -->
+        <svg class="dim-overlay" viewBox="0 0 1480 780" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible">
+          <!-- 34.32 CG — below the car -->
           <g class="dim-group" style="--delay:0.8s">
-            <line class="dim-arrow-l" x1="350" y1="680" x2="180" y2="680"/>
-            <line class="dim-arrow-r" x1="350" y1="680" x2="520" y2="680"/>
-            <line class="dim-tick" x1="180" y1="670" x2="180" y2="690"/>
-            <line class="dim-tick" x1="520" y1="670" x2="520" y2="690"/>
-            <text class="dim-label" x="350" y="676" text-anchor="middle">34.32 CG</text>
+            <line class="dim-arrow-l" x1="520" y1="650" x2="260" y2="650"/>
+            <line class="dim-arrow-r" x1="520" y1="650" x2="780" y2="650"/>
+            <line class="dim-tick" x1="260" y1="640" x2="260" y2="660"/>
+            <line class="dim-tick" x1="780" y1="640" x2="780" y2="660"/>
+            <text class="dim-label" x="520" y="646" text-anchor="middle">34.32 CG</text>
           </g>
-          <!-- 60.25 wheelbase -->
+          <!-- 60.25 wheelbase — below 34.32 -->
           <g class="dim-group" style="--delay:1.2s">
-            <line class="dim-arrow-l" x1="400" y1="710" x2="180" y2="710"/>
-            <line class="dim-arrow-r" x1="400" y1="710" x2="780" y2="710"/>
-            <line class="dim-tick" x1="180" y1="700" x2="180" y2="720"/>
-            <line class="dim-tick" x1="780" y1="700" x2="780" y2="720"/>
-            <text class="dim-label" x="400" y="706" text-anchor="middle">60.25 WHEELBASE</text>
+            <line class="dim-arrow-l" x1="540" y1="690" x2="260" y2="690"/>
+            <line class="dim-arrow-r" x1="540" y1="690" x2="1100" y2="690"/>
+            <line class="dim-tick" x1="260" y1="680" x2="260" y2="700"/>
+            <line class="dim-tick" x1="1100" y1="680" x2="1100" y2="700"/>
+            <text class="dim-label" x="540" y="686" text-anchor="middle">60.25 WHEEL BASE</text>
           </g>
           <!-- 113.20 overall length — bottom -->
           <g class="dim-group" style="--delay:1.6s">
-            <line class="dim-arrow-l" x1="500" y1="740" x2="60" y2="740"/>
-            <line class="dim-arrow-r" x1="500" y1="740" x2="940" y2="740"/>
-            <line class="dim-tick" x1="60" y1="730" x2="60" y2="750"/>
-            <line class="dim-tick" x1="940" y1="730" x2="940" y2="750"/>
-            <text class="dim-label" x="500" y="736" text-anchor="middle">113.20</text>
+            <line class="dim-arrow-l" x1="600" y1="730" x2="80" y2="730"/>
+            <line class="dim-arrow-r" x1="600" y1="730" x2="1380" y2="730"/>
+            <line class="dim-tick" x1="80" y1="720" x2="80" y2="740"/>
+            <line class="dim-tick" x1="1380" y1="720" x2="1380" y2="740"/>
+            <text class="dim-label" x="600" y="726" text-anchor="middle">113.20</text>
           </g>
-          <!-- 10.41 CG height — vertical, far right margin -->
+          <!-- 10.41 CG height — vertical right, horizontal text like original -->
           <g class="dim-group" style="--delay:2.0s">
-            <line class="dim-arrow-l" x1="980" y1="420" x2="980" y2="280"/>
-            <line class="dim-arrow-r" x1="980" y1="420" x2="980" y2="570"/>
-            <line class="dim-tick" x1="970" y1="280" x2="990" y2="280"/>
-            <line class="dim-tick" x1="970" y1="570" x2="990" y2="570"/>
-            <text class="dim-label" x="978" y="418" text-anchor="end" style="font-size:10px" transform="rotate(-90,978,418)">10.41 CG</text>
+            <line class="dim-arrow-l" x1="1380" y1="380" x2="1380" y2="250"/>
+            <line class="dim-arrow-r" x1="1380" y1="380" x2="1380" y2="530"/>
+            <line class="dim-tick" x1="1370" y1="250" x2="1390" y2="250"/>
+            <line class="dim-tick" x1="1370" y1="530" x2="1390" y2="530"/>
+            <text class="dim-label" x="1400" y="385" text-anchor="start" style="font-size:12px">10.41 CG</text>
           </g>
         </svg>
       </div>
@@ -828,22 +834,22 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="ortho-box reveal" id="frontView" style="position:relative;display:flex;align-items:center;justify-content:center;padding:8px;background:#fff;border:none">
         <img src="assets/cars/sr16-front-clean.png" alt="SR-16 front view" style="width:100%;height:auto;object-fit:contain;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
         <!-- Animated dimension overlays -->
-        <svg class="dim-overlay" viewBox="0 0 700 880" preserveAspectRatio="xMidYMid meet" style="position:absolute;left:0;right:0;bottom:-50px;width:100%;height:calc(100% + 50px);pointer-events:none">
-          <!-- 48/47 track width — top line -->
+        <svg class="dim-overlay" viewBox="0 0 772 700" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible">
+          <!-- 48/47 track width — below the car -->
           <g class="dim-group" style="--delay:1.0s">
-            <line class="dim-arrow-l" x1="350" y1="790" x2="155" y2="790"/>
-            <line class="dim-arrow-r" x1="350" y1="790" x2="545" y2="790"/>
-            <line class="dim-tick" x1="155" y1="780" x2="155" y2="800"/>
-            <line class="dim-tick" x1="545" y1="780" x2="545" y2="800"/>
-            <text class="dim-label" x="350" y="786" text-anchor="middle" style="font-size:10px">48"/47" FRONT / REAR TRACK</text>
+            <line class="dim-arrow-l" x1="480" y1="620" x2="200" y2="620"/>
+            <line class="dim-arrow-r" x1="480" y1="620" x2="620" y2="620"/>
+            <line class="dim-tick" x1="200" y1="610" x2="200" y2="630"/>
+            <line class="dim-tick" x1="620" y1="610" x2="620" y2="630"/>
+            <text class="dim-label" x="480" y="616" text-anchor="middle" style="font-size:10px">48"/47" FRONT / REAR TRACK WIDTH</text>
           </g>
-          <!-- 56.40 overall — bottom line -->
+          <!-- 56.40 overall — below track width -->
           <g class="dim-group" style="--delay:1.4s">
-            <line class="dim-arrow-l" x1="350" y1="830" x2="110" y2="830"/>
-            <line class="dim-arrow-r" x1="350" y1="830" x2="590" y2="830"/>
-            <line class="dim-tick" x1="110" y1="820" x2="110" y2="840"/>
-            <line class="dim-tick" x1="590" y1="820" x2="590" y2="840"/>
-            <text class="dim-label" x="350" y="826" text-anchor="middle">56.40" OVERALL</text>
+            <line class="dim-arrow-l" x1="450" y1="660" x2="130" y2="660"/>
+            <line class="dim-arrow-r" x1="450" y1="660" x2="660" y2="660"/>
+            <line class="dim-tick" x1="130" y1="650" x2="130" y2="670"/>
+            <line class="dim-tick" x1="660" y1="650" x2="660" y2="670"/>
+            <text class="dim-label" x="450" y="656" text-anchor="middle">56.40" OVERALL</text>
           </g>
         </svg>
       </div>
