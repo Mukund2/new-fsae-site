@@ -46,6 +46,22 @@ body::before{display:none}
           mask-image: radial-gradient(circle var(--spot-r) at var(--mx) var(--my), #000 0%, rgba(0,0,0,.6) 40%, transparent 78%);
 }
 body.motion-off .grid-spot{opacity:0 !important}
+@keyframes gridDrift{
+  0%,100%{transform:translate(0,0)}
+  25%{transform:translate(14px,-8px)}
+  50%{transform:translate(-6px,10px)}
+  75%{transform:translate(10px,6px)}
+}
+@keyframes gridDrift2{
+  0%,100%{transform:translate(0,0)}
+  33%{transform:translate(-18px,10px)}
+  66%{transform:translate(8px,-14px)}
+}
+@keyframes gridBreathe{
+  0%,100%{opacity:var(--op-from,.7)}
+  50%{opacity:var(--op-to,.18)}
+}
+body.motion-off::before{animation:none}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
@@ -218,6 +234,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .foot-sign .big.swept .gold{-webkit-text-fill-color:var(--gold)}
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
 .foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+
+/* ============ SIGNATURES (match homepage) ============ */
+.signature{font-family:"Dancing Script",cursive;font-size:28px;font-weight:500;color:var(--ink);letter-spacing:0;text-transform:none;
+  display:inline-block;clip-path:inset(0 100% 0 0);opacity:0;padding:0 4px}
+.signature.writing{opacity:1;animation:signWrite 1.2s cubic-bezier(.4,0,.2,1) forwards}
+.signature.writing-delay{opacity:1;animation:signWrite 1.2s .6s cubic-bezier(.4,0,.2,1) forwards;clip-path:inset(0 100% 0 0)}
+@keyframes signWrite{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 
 /* ============ SCROLL REVEAL ============ */
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
@@ -490,10 +513,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
-  <div class="foot-sign reveal" style="margin-top:0;border-top:0">
+  <div class="foot-sign reveal">
     <div class="k">END OF DOCUMENT · APPROVED FOR DISTRIBUTION</div>
     <div class="big">SR-<span class="gold">17</span></div>
-    <div class="approval">Spartan Racing · San Jos&eacute; State University · Formula SAE</div>
+    <div class="approval">
+      <span style="font-size:10px;letter-spacing:.12em;color:var(--ink-2);display:block;margin-bottom:12px">SIGNED · 23 APR 2026</span>
+      <span class="signature" id="sig1">Will Kittinger</span><span style="font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin:0 8px">PRESIDENT</span>
+      <span style="color:var(--ink-3);margin:0 12px">&middot;</span>
+      <span class="signature" id="sig2">Hiren Patel</span><span style="font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin:0 8px">CHIEF ENGINEER</span>
+    </div>
   </div>
 
   <div class="foot-colophon">
@@ -518,14 +546,26 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 })();
 
-/* ============ FOOTER SIGN SWEEP ============ */
+/* ============ FOOTER SIGN SWEEP + SIGNATURES ============ */
 (function(){
-  const big = document.querySelector('.foot-sign .big');
-  if (!big) return;
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if(e.isIntersecting){ big.classList.add('swept'); io.unobserve(e.target); }
-  }), {threshold:.3});
-  io.observe(big);
+  var sig1 = document.getElementById('sig1');
+  var sig2 = document.getElementById('sig2');
+  var footSign = sig1 ? sig1.closest('.foot-sign') : null;
+  if (!sig1 || !sig2 || !footSign) return;
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting){
+        var bigEl = footSign.querySelector('.big');
+        if (bigEl) setTimeout(function(){ bigEl.classList.add('swept'); }, 400);
+        setTimeout(function(){
+          sig1.classList.add('writing');
+          sig2.classList.add('writing-delay');
+        }, 1600);
+        io.disconnect();
+      }
+    });
+  }, {threshold: 0.3});
+  io.observe(footSign);
 })();
 
 /* ============ CURSOR GRID SPOTLIGHT ============ */
