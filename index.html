@@ -484,12 +484,24 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .foot-sign .big .gold{
   position:relative;display:inline-block;
   color:var(--ink);
-  -webkit-text-fill-color:var(--ink);
-  transition:color .6s ease, -webkit-text-fill-color .6s ease;
+  -webkit-text-fill-color:transparent;
+  background:linear-gradient(120deg, var(--ink) 0%, var(--ink) 30%, var(--gold) 42%, #fff 50%, var(--gold) 58%, var(--ink) 70%, var(--ink) 100%);
+  background-size:300% 100%;
+  background-position:0% 0;
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+.foot-sign .big .gold.swept{
+  animation:goldGleam .7s cubic-bezier(.4,.0,.2,1) forwards;
+}
+@keyframes goldGleam{
+  0%{background-position:100% 0}
+  100%{background-position:-100% 0}
 }
 .foot-sign .big .gold.show{
-  color:var(--gold);
+  background:none;
   -webkit-text-fill-color:var(--gold);
+  color:var(--gold);
 }
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
 .signature{font-family:"Dancing Script",cursive;font-size:28px;font-weight:500;color:var(--ink);letter-spacing:0;text-transform:none;
@@ -2174,16 +2186,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if (e.isIntersecting){
-        // Fade "17" from black to gold
+        // Diagonal gleam on "17", then fade to gold
         var goldEl = footSign.querySelector('.big .gold');
         if (goldEl) {
-          setTimeout(function(){ goldEl.classList.add('show'); }, 400);
+          setTimeout(function(){ goldEl.classList.add('swept'); }, 300);
+          // After gleam finishes (.7s), swap to solid gold
+          setTimeout(function(){ goldEl.classList.add('show'); }, 1000);
         }
-        // Delay signatures until after wink shimmer
+        // Signatures start right after gold settles
         setTimeout(function(){
           sig1.classList.add('writing');
           sig2.classList.add('writing-delay');
-        }, 1600);
+        }, 1100);
         io.disconnect();
       }
     });
