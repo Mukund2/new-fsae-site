@@ -1514,7 +1514,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   if (!grid) return;
 
   var SHOP = 'spartan-racing-formula-sae-shop.fourthwall.com';
-  var TOKEN = ['ptkn','1a2d510e','449c','42ad','bbd2','1cad46a68b19'].join('_');
+  var TOKEN = 'ptkn_' + ['1a2d510e','449c','42ad','bbd2','1cad46a68b19'].join('-');
   var API = 'https://storefront-api.fourthwall.com/v1/collections/all/products?limit=100&storefront_token=' + TOKEN;
 
   fetch(API)
