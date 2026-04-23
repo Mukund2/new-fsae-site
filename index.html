@@ -256,10 +256,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ============ SHEET 01 — SLIDE-IN VIEWS ============ */
-@keyframes slideFromLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
-@keyframes slideFromRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
-.slide-left{opacity:0;animation:slideFromLeft .9s .2s cubic-bezier(.2,.7,.2,1) forwards}
-.slide-right{opacity:0;animation:slideFromRight .9s .4s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes slideFromLeft{from{opacity:0;transform:translateX(-100%)}to{opacity:1;transform:none}}
+@keyframes slideFromRight{from{opacity:0;transform:translateX(100%)}to{opacity:1;transform:none}}
+.slide-left{opacity:0}
+.slide-right{opacity:0}
+.slide-left.in{animation:slideFromLeft 1s cubic-bezier(.2,.7,.2,1) forwards}
+.slide-right.in{animation:slideFromRight 1s .15s cubic-bezier(.2,.7,.2,1) forwards}
 
 /* ============ SHEET 01 — ORTHOGRAPHIC TRIPTYCH ============ */
 .triptych{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--ink);border-top:0}
@@ -1213,7 +1215,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============ GENERIC REVEAL ============ */
 (function(){
   const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }), {threshold:.15});
-  document.querySelectorAll('.reveal, .draw, .dim-line, .track-svg').forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal, .draw, .dim-line, .track-svg, .slide-left, .slide-right').forEach(el => io.observe(el));
 })();
 
 
