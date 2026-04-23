@@ -481,17 +481,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .foot-sign{text-align:center;padding:80px 0;border:1px solid var(--ink);position:relative}
 .foot-sign .k{font-size:10px;color:var(--ink-2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
 .foot-sign .big{
-  font-family:"Oswald",sans-serif;font-size:clamp(90px,14vw,200px);font-weight:700;letter-spacing:-.03em;line-height:.85;text-transform:uppercase;
-  background:linear-gradient(135deg, var(--ink) 30%, var(--gold) 60%, var(--ink) 90%);
-  background-size:200% 200%;
+  font-family:"Oswald",sans-serif;font-size:clamp(90px,14vw,200px);font-weight:700;letter-spacing:-.03em;line-height:1;text-transform:uppercase;
+  padding-bottom:8px;
+  background:linear-gradient(90deg, var(--gold) 0%, var(--ink) 40%, var(--ink) 100%);
+  background-size:300% 100%;
+  background-position:100% 0;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
-  filter:drop-shadow(0 4px 20px rgba(229,168,35,.25));
-  animation:signGlow 4s ease-in-out infinite;
 }
-@keyframes signGlow{
-  0%,100%{background-position:0% 50%;filter:drop-shadow(0 4px 20px rgba(229,168,35,.2))}
-  50%{background-position:100% 50%;filter:drop-shadow(0 4px 30px rgba(229,168,35,.4))}
+.foot-sign .big.swept{
+  animation:signSweep 1.8s cubic-bezier(.25,.1,.25,1) forwards;
+}
+@keyframes signSweep{
+  from{background-position:100% 0}
+  to{background-position:0% 0}
 }
 .foot-sign .big .gold{-webkit-text-fill-color:var(--gold)}
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
@@ -2010,11 +2013,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if (e.isIntersecting){
-        // Delay signatures until after the parent reveal animation (.9s)
+        // Trigger SR-17 gold sweep
+        var bigEl = footSign.querySelector('.big');
+        if (bigEl) setTimeout(function(){ bigEl.classList.add('swept'); }, 400);
+        // Delay signatures until after sweep
         setTimeout(function(){
           sig1.classList.add('writing');
           sig2.classList.add('writing-delay');
-        }, 1000);
+        }, 1800);
         io.disconnect();
       }
     });
