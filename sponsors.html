@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Sponsor Spartan Racing — SJSU Formula SAE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper: #f7f8fa;
+  --paper-2: #eceef2;
+  --ink: #0a0b0d;
+  --ink-2: #4b5563;
+  --ink-3: #9aa0a6;
+  --hair: #d7dae0;
+  --red: #d13d2a;
+  --blue: #0055A2;
+  --gold: #E5A823;
+  --mono: "Geist Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --sans: "Geist", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+body{
+  --mx: 50vw; --my: 50vh;
+  --spot: 0;
+  --spot-r: 360px;
+}
+body::before{display:none}
+.grid-spot{
+  position:fixed;inset:0;pointer-events:none;z-index:1;
+  opacity: calc(var(--spot) * 1);
+  transition: opacity .45s ease;
+  background-image:
+    linear-gradient(to right, rgba(30,41,59,.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30,41,59,.08) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mix-blend-mode:multiply;
+  -webkit-mask-image: radial-gradient(circle var(--spot-r) at var(--mx) var(--my), #000 0%, rgba(0,0,0,.6) 40%, transparent 78%);
+          mask-image: radial-gradient(circle var(--spot-r) at var(--mx) var(--my), #000 0%, rgba(0,0,0,.6) 40%, transparent 78%);
+}
+body.motion-off .grid-spot{opacity:0 !important}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* ============ SHEET CHROME ============ */
+.sheet-header{
+  position:sticky;top:0;z-index:50;
+  display:flex;justify-content:space-between;gap:16px;
+  padding:11px 28px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(243,239,229,.94);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--ink);
+}
+.sheet-header .live::before{
+  content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--gold);margin-right:7px;vertical-align:middle;
+  animation:pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.75)}}
+
+.sheet{padding:40px 28px 28px;border-bottom:1px solid var(--ink);position:relative;z-index:1;background:transparent}
+.sheet::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 0%, rgba(243,239,229,.55), transparent 60%);z-index:-1}
+
+.title-block{
+  display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr 1fr;
+  border:1px solid var(--ink);font-size:10px;letter-spacing:.04em;text-transform:uppercase;
+}
+.title-block > div{border-right:1px solid var(--ink);padding:8px 12px}
+.title-block > div:last-child{border-right:0}
+.title-block .k{color:var(--ink-3);font-size:9px}
+.title-block .v{margin-top:2px;font-weight:500;color:var(--ink)}
+
+/* ============ HERO ============ */
+.hero-body{display:grid;grid-template-columns:1.2fr 1fr;border:1px solid var(--ink);border-top:0;min-height:420px}
+.hero-left{padding:56px 48px;border-right:1px solid var(--ink);display:flex;flex-direction:column;justify-content:center}
+.hero-eyebrow{font-size:10px;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.hero-title{
+  font-family:var(--sans);font-weight:200;font-size:clamp(36px,4.5vw,64px);
+  line-height:1;letter-spacing:-.025em;color:var(--ink);margin:0;
+}
+.hero-title em{font-style:italic;color:var(--gold);font-weight:300}
+.hero-desc{font-size:12px;line-height:1.85;color:var(--ink-2);max-width:52ch;margin-top:24px;letter-spacing:.02em}
+.hero-desc b{color:var(--ink)}
+.hero-right{padding:40px;display:flex;flex-direction:column;justify-content:center;gap:20px}
+.hero-stat{border:1px dashed var(--hair);padding:18px 22px;display:flex;align-items:baseline;gap:16px}
+.hero-stat .num{font-family:var(--sans);font-size:clamp(28px,3vw,42px);font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+.hero-stat .num .gold{color:var(--gold)}
+.hero-stat .label{font-size:10px;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase;line-height:1.5}
+.hero-stamp{
+  align-self:flex-start;border:2px solid var(--gold);color:var(--gold);
+  padding:10px 16px;transform:rotate(-3deg);font-size:10px;letter-spacing:.14em;font-weight:600;
+  margin-top:8px;
+}
+
+/* ============ TIERS ============ */
+.tiers-grid{border:1px solid var(--ink);border-top:0}
+.tier-head{display:grid;grid-template-columns:140px 1fr 1fr 120px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.tier-head > div{padding:12px 16px;border-right:1px solid #333}
+.tier-head > div:last-child{border-right:0}
+.tier-row{display:grid;grid-template-columns:140px 1fr 1fr 120px;font-size:11px;border-bottom:1px solid var(--hair);
+  opacity:0;transform:translateY(8px);transition:opacity .5s, transform .5s;
+}
+.tier-row:last-child{border-bottom:0}
+.tier-row.in{opacity:1;transform:none}
+.tier-row > div{padding:16px;border-right:1px solid var(--hair)}
+.tier-row > div:last-child{border-right:0}
+.tier-name{font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.tier-name.title-tier{color:var(--gold)}
+.tier-name.plat-tier{color:var(--ink)}
+.tier-name.gold-tier{color:var(--gold)}
+.tier-name.silver-tier{color:var(--ink-2)}
+.tier-name.bronze-tier{color:#a0724e}
+.tier-name.partner-tier{color:var(--ink-3)}
+.tier-amt{font-variant-numeric:tabular-nums;font-weight:500}
+.tier-benefits{color:var(--ink-2);letter-spacing:.02em;line-height:1.7}
+.tier-slots{color:var(--ink-3);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+
+/* ============ BENEFITS TABLE ============ */
+.benefits-body{border:1px solid var(--ink);border-top:0}
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.benefit-cell{padding:28px 24px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  opacity:0;transform:translateY(10px);transition:opacity .5s, transform .5s;
+}
+.benefit-cell:nth-child(3n){border-right:0}
+.benefit-cell.in{opacity:1;transform:none}
+.benefit-n{font-size:9px;color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.benefit-title{font-size:14px;font-weight:500;letter-spacing:.02em;color:var(--ink);margin-bottom:8px}
+.benefit-desc{font-size:11px;color:var(--ink-2);line-height:1.7;letter-spacing:.02em}
+
+/* ============ CONTACT CTA ============ */
+.cta-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0}
+.cta-left{padding:56px 48px;border-right:1px solid var(--ink);display:flex;flex-direction:column;justify-content:center}
+.cta-left h3{
+  font-family:var(--sans);font-weight:200;font-size:clamp(32px,4vw,56px);letter-spacing:-.02em;line-height:1.05;margin:0;color:var(--ink)
+}
+.cta-left h3 em{font-style:italic;color:var(--gold);font-weight:300}
+.cta-left p{font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:20px;max-width:46ch;letter-spacing:.02em}
+.cta-btn{display:inline-flex;align-items:center;gap:14px;margin-top:28px;padding:16px 22px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.14em;text-transform:uppercase;transition:background .25s}
+.cta-btn:hover{background:var(--gold)}
+.cta-btn .arr{transition:transform .3s}
+.cta-btn:hover .arr{transform:translateX(6px)}
+.cta-right{padding:40px;display:flex;flex-direction:column;gap:0}
+.contact-row{display:grid;grid-template-columns:90px 1fr;padding:16px 0;border-bottom:1px solid var(--hair);font-size:11px;
+  opacity:0;transform:translateX(-10px);transition:opacity .4s, transform .4s;
+}
+.contact-row.in{opacity:1;transform:none}
+.contact-row:last-child{border-bottom:0}
+.contact-row .ck{font-size:10px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase}
+.contact-row .cv{color:var(--ink);letter-spacing:.02em}
+.contact-row .cv a{border-bottom:1px dashed var(--hair);transition:color .2s, border-color .2s}
+.contact-row .cv a:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ============ BACK LINK ============ */
+.back-link{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 20px;border:1px solid var(--ink);
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  transition:background .2s, color .2s;margin-top:28px;
+}
+.back-link:hover{background:var(--ink);color:var(--paper)}
+.back-link .arr{transition:transform .3s}
+.back-link:hover .arr{transform:translateX(-4px)}
+
+/* ============ FOOTER ============ */
+.footer-sheet{padding:60px 28px 28px}
+.foot-sign{text-align:center;padding:80px 0;border:1px solid var(--ink);position:relative}
+.foot-sign .k{font-size:10px;color:var(--ink-2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+.foot-sign .big{
+  font-family:var(--mono);font-size:clamp(72px,11vw,160px);font-weight:500;letter-spacing:-.03em;line-height:.9;
+}
+.foot-sign .big .gold{color:var(--gold)}
+.foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
+.foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .hero-body,.cta-body{grid-template-columns:1fr}
+  .hero-left,.cta-left{border-right:0;border-bottom:1px solid var(--ink)}
+  .tier-head,.tier-row{grid-template-columns:100px 1fr 1fr 100px}
+  .benefits-grid{grid-template-columns:1fr}
+  .benefit-cell{border-right:0}
+  .title-block{grid-template-columns:1fr 1fr}
+  .title-block > div:nth-child(2n){border-right:0}
+  .foot-colophon{flex-direction:column;gap:6px;text-align:center}
+}
+@media (max-width:600px){
+  .tier-head,.tier-row{grid-template-columns:1fr}
+  .tier-head > div,.tier-row > div{border-right:0;border-bottom:1px solid var(--hair)}
+  .sheet-header{flex-wrap:wrap;gap:8px}
+}
+</style>
+</head>
+<body>
+<div class="grid-spot" id="grid-spot"></div>
+
+<!-- SHEET HEADER -->
+<div class="sheet-header">
+  <span style="display:inline-flex;align-items:center;gap:10px"><img src="assets/spartan-racing-logo.png" alt="Spartan Racing" style="height:22px;width:auto;vertical-align:middle"><b style="font-weight:600">SPARTAN RACING</b> · PARTNERSHIP PROGRAMME</span>
+  <span class="live">ACCEPTING SPONSORS · <span id="clock">—</span></span>
+  <span>DOC SR-17-SPO-001</span>
+  <span>REV A · 22 APR 2026</span>
+</div>
+
+<main>
+
+<!-- ============ SHEET 00 — HERO ============ -->
+<section class="sheet">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">00 / 04</div></div>
+    <div><div class="k">Title</div><div class="v">PARTNERSHIP OVERVIEW</div></div>
+    <div><div class="k">Rev</div><div class="v">A</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="hero-body">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Partnership Programme · Season 2025–26</div>
+      <h1 class="hero-title">Invest in the <em>next generation</em> of engineers.</h1>
+      <p class="hero-desc">
+        Spartan Racing is San Jos&eacute; State University's Formula SAE team — a student-run engineering organization that designs, manufactures, and races open-wheel electric race cars. We compete against <b>600+ universities worldwide</b> in the world's largest collegiate engineering competition.<br/><br/>
+        Your sponsorship directly funds student hands-on engineering education: carbon fiber layups, PCB design, embedded firmware, powertrain integration, and aerodynamic development — all built from scratch by students.
+      </p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat reveal">
+        <div class="num">38<span class="gold">+</span></div>
+        <div class="label">Years of competition history<br/>since 1986</div>
+      </div>
+      <div class="hero-stat reveal">
+        <div class="num">60<span class="gold">+</span></div>
+        <div class="label">Active members across<br/>eight subteams</div>
+      </div>
+      <div class="hero-stat reveal">
+        <div class="num">1<span class="gold">st</span></div>
+        <div class="label">Endurance — FSAE Michigan 2025<br/>2nd Overall / 120 teams</div>
+      </div>
+      <div class="hero-stamp">OPEN FOR 2025–26 PARTNERSHIPS</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 01 — SPONSORSHIP TIERS ============ -->
+<section class="sheet">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">01 / 04</div></div>
+    <div><div class="k">Title</div><div class="v">SPONSORSHIP TIERS</div></div>
+    <div><div class="k">Rev</div><div class="v">A</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="tiers-grid">
+    <div class="tier-head">
+      <div>TIER</div>
+      <div>INVESTMENT</div>
+      <div>KEY BENEFITS</div>
+      <div>AVAILABILITY</div>
+    </div>
+
+    <div class="tier-row reveal">
+      <div><span class="tier-name title-tier">Title</span></div>
+      <div class="tier-amt">$30,000+</div>
+      <div class="tier-benefits">Primary car livery · Exclusive naming rights · Direct recruitment access · VIP competition passes · Monthly engineering reports · Social media feature</div>
+      <div class="tier-slots">1 SLOT</div>
+    </div>
+
+    <div class="tier-row reveal">
+      <div><span class="tier-name plat-tier">Platinum</span></div>
+      <div class="tier-amt">$20,000+</div>
+      <div class="tier-benefits">Large car livery placement · Competition event passes · Quarterly newsletters · Resume book access · Logo on team apparel</div>
+      <div class="tier-slots">2 SLOTS</div>
+    </div>
+
+    <div class="tier-row reveal">
+      <div><span class="tier-name gold-tier">Gold</span></div>
+      <div class="tier-amt">$10,000+</div>
+      <div class="tier-benefits">Medium car livery · Competition passes · Newsletter features · Logo on website &amp; banner · Shop visit invitation</div>
+      <div class="tier-slots">4 SLOTS</div>
+    </div>
+
+    <div class="tier-row reveal">
+      <div><span class="tier-name silver-tier">Silver</span></div>
+      <div class="tier-amt">$5,000+</div>
+      <div class="tier-benefits">Small car livery · Logo on website &amp; banner · Newsletter mention · Social media recognition</div>
+      <div class="tier-slots">6 SLOTS</div>
+    </div>
+
+    <div class="tier-row reveal">
+      <div><span class="tier-name bronze-tier">Bronze</span></div>
+      <div class="tier-amt">$2,500+</div>
+      <div class="tier-benefits">Logo on team banner · Website recognition · Newsletter mention</div>
+      <div class="tier-slots">OPEN</div>
+    </div>
+
+    <div class="tier-row reveal">
+      <div><span class="tier-name partner-tier">Partner</span></div>
+      <div class="tier-amt">In-Kind</div>
+      <div class="tier-benefits">Materials, tooling, software, or services donation · Logo on website · Newsletter acknowledgment</div>
+      <div class="tier-slots">OPEN</div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;font-size:10px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between">
+    <span>NOTE — Custom packages available upon request</span>
+    <span>All tiers include tax-deductible receipt</span>
+  </div>
+</section>
+
+<!-- ============ SHEET 02 — WHAT SPONSORS GET ============ -->
+<section class="sheet">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">02 / 04</div></div>
+    <div><div class="k">Title</div><div class="v">SPONSOR BENEFITS</div></div>
+    <div><div class="k">Rev</div><div class="v">A</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="benefits-body">
+    <div class="benefits-grid">
+      <div class="benefit-cell reveal">
+        <div class="benefit-n">01</div>
+        <div class="benefit-title">Car Livery Placement</div>
+        <div class="benefit-desc">Your logo on the race car — seen by 3,000+ attendees at FSAE Michigan, media coverage, and across our social channels. Tier determines logo size and placement priority.</div>
+      </div>
+      <div class="benefit-cell reveal">
+        <div class="benefit-n">02</div>
+        <div class="benefit-title">Recruitment Pipeline</div>
+        <div class="benefit-desc">Direct access to our resume book: 60+ engineering students trained in CAD, FEA, CFD, embedded systems, composites manufacturing, and project management. Our alumni work at Tesla, Apple, Rivian, Lockheed Martin.</div>
+      </div>
+      <div class="benefit-cell reveal">
+        <div class="benefit-n">03</div>
+        <div class="benefit-title">Competition Exposure</div>
+        <div class="benefit-desc">FSAE competitions draw top engineering talent and industry professionals. Your brand is visible on our car, pit setup, team apparel, and all printed materials at every event.</div>
+      </div>
+      <div class="benefit-cell reveal">
+        <div class="benefit-n">04</div>
+        <div class="benefit-title">Newsletter &amp; Social</div>
+        <div class="benefit-desc">Sponsor features in our quarterly newsletter sent to 1,200+ subscribers. Social media shout-outs across Instagram, LinkedIn, and YouTube — combined 5K+ followers.</div>
+      </div>
+      <div class="benefit-cell reveal">
+        <div class="benefit-n">05</div>
+        <div class="benefit-title">Shop Visits &amp; Events</div>
+        <div class="benefit-desc">Invite your team to our shop for a build tour. See the car on the jig, watch a layup, meet the students. Available for Gold tier and above — great for team outings and recruiting events.</div>
+      </div>
+      <div class="benefit-cell reveal">
+        <div class="benefit-n">06</div>
+        <div class="benefit-title">Engineering Reports</div>
+        <div class="benefit-desc">Title and Platinum sponsors receive detailed monthly engineering updates: design progress, test results, simulation data, and build milestones. See exactly how your investment drives innovation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 03 — CONTACT / HOW TO SPONSOR ============ -->
+<section class="sheet">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">03 / 04</div></div>
+    <div><div class="k">Title</div><div class="v">HOW TO SPONSOR</div></div>
+    <div><div class="k">Rev</div><div class="v">A</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="cta-body">
+    <div class="cta-left">
+      <h3>Ready to <em>partner</em> with us?</h3>
+      <p>
+        Reach out to our business team and we'll put together a custom sponsorship package that meets your goals — whether that's brand visibility, recruitment access, or supporting STEM education at SJSU. We're flexible and eager to build lasting partnerships.
+      </p>
+      <a href="mailto:sponsorship@sjsuformulasae.com" class="cta-btn">
+        <span>EMAIL OUR TEAM</span>
+        <span class="arr">&rarr;</span>
+      </a>
+    </div>
+    <div class="cta-right">
+      <div class="contact-row reveal">
+        <div class="ck">EMAIL</div>
+        <div class="cv"><a href="mailto:sponsorship@sjsuformulasae.com">sponsorship@sjsuformulasae.com</a></div>
+      </div>
+      <div class="contact-row reveal">
+        <div class="ck">WEBSITE</div>
+        <div class="cv"><a href="https://sjsuformulasae.com">sjsuformulasae.com</a></div>
+      </div>
+      <div class="contact-row reveal">
+        <div class="ck">LOCATION</div>
+        <div class="cv">Engineering Building, Room 344<br/>San Jos&eacute; State University<br/>San Jos&eacute;, CA 95192</div>
+      </div>
+      <div class="contact-row reveal">
+        <div class="ck">SOCIAL</div>
+        <div class="cv"><a href="#">Instagram</a> · <a href="#">YouTube</a> · <a href="#">LinkedIn</a></div>
+      </div>
+      <div class="contact-row reveal">
+        <div class="ck">PROCESS</div>
+        <div class="cv">1. Reach out via email<br/>2. We'll schedule a call or shop visit<br/>3. Agree on tier &amp; custom terms<br/>4. Invoice / donation receipt issued</div>
+      </div>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link" style="margin-top:28px">
+    <span class="arr">&larr;</span>
+    <span>BACK TO MAIN SITE</span>
+  </a>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<section class="footer-sheet">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">04 / 04</div></div>
+    <div><div class="k">Title</div><div class="v">APPROVAL · END OF DOCUMENT</div></div>
+    <div><div class="k">Rev</div><div class="v">A</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="foot-sign reveal" style="margin-top:0;border-top:0">
+    <div class="k">END OF DOCUMENT · APPROVED FOR DISTRIBUTION</div>
+    <div class="big">SR-<span class="gold">17</span></div>
+    <div class="approval">Spartan Racing · San Jos&eacute; State University · Formula SAE</div>
+  </div>
+
+  <div class="foot-colophon">
+    <span>&copy; 1986–2026 Spartan Racing · SJSU FSAE</span>
+    <span>Partnership programme · do not redistribute without credit</span>
+    <span>Sheet 04 / 04</span>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ============ CLOCK ============ */
+(function(){
+  const el = document.getElementById('clock');
+  const pad = n => String(n).padStart(2,'0');
+  const tick = () => { const d = new Date(); el.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} PDT`; };
+  tick(); setInterval(tick,1000);
+})();
+
+/* ============ GENERIC REVEAL ============ */
+(function(){
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }), {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+
+/* ============ CURSOR GRID SPOTLIGHT ============ */
+(function(){
+  const body = document.body;
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let tx = mx, ty = my;
+  let active = false;
+  let raf = null;
+  const tick = () => {
+    mx += (tx - mx) * 0.18;
+    my += (ty - my) * 0.18;
+    body.style.setProperty('--mx', mx + 'px');
+    body.style.setProperty('--my', my + 'px');
+    if (Math.abs(tx-mx) > 0.3 || Math.abs(ty-my) > 0.3) {
+      raf = requestAnimationFrame(tick);
+    } else { raf = null; }
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
+  window.addEventListener('pointermove', (e) => {
+    tx = e.clientX; ty = e.clientY;
+    if (!active){ active = true; body.style.setProperty('--spot', '1'); }
+    kick();
+  }, {passive:true});
+  window.addEventListener('pointerleave', () => { active = false; body.style.setProperty('--spot', '0'); });
+  document.addEventListener('mouseleave', () => { active = false; body.style.setProperty('--spot', '0'); });
+  let idleT = null;
+  window.addEventListener('pointermove', () => {
+    if (idleT) clearTimeout(idleT);
+    body.style.setProperty('--spot', '1');
+    idleT = setTimeout(() => body.style.setProperty('--spot', '.35'), 2200);
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>

@@ -6,7 +6,7 @@
 <title>SJSU Formula SAE — SR-17</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet">
 <!-- Preload critical images -->
 <link rel="preload" as="image" href="assets/cars/sr16-side-clean.png">
 <link rel="preload" as="image" href="assets/cars/sr16-front-clean.png">
@@ -307,6 +307,24 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 .roster-strip{padding:26px 0 0;display:flex;justify-content:space-between;border-top:1px dashed var(--hair);margin-top:44px;font-size:10px;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase}
 
+/* ============ SPONSOR CTA ============ */
+.sponsor-cta{
+  display:block;margin-top:20px;padding:20px 28px;
+  background:linear-gradient(135deg, rgba(229,168,35,.08) 0%, rgba(229,168,35,.15) 100%);
+  border:1.5px solid var(--gold);cursor:pointer;
+  transition:background .25s, transform .2s, box-shadow .25s;
+  text-decoration:none;color:inherit;
+}
+.sponsor-cta:hover{
+  background:linear-gradient(135deg, rgba(229,168,35,.14) 0%, rgba(229,168,35,.24) 100%);
+  transform:translateY(-1px);
+  box-shadow:0 8px 24px -8px rgba(229,168,35,.2);
+}
+.sponsor-cta-inner{display:flex;align-items:center;gap:20px}
+.sponsor-cta-icon{color:var(--gold);flex-shrink:0}
+.sponsor-cta-label{font-size:9px;letter-spacing:.16em;color:var(--ink-2);text-transform:uppercase;margin-bottom:4px}
+.sponsor-cta-title{font-family:var(--sans);font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--gold)}
+
 /* ============ SHEET 07 — RESULTS / DRIVER ============ */
 .track-body{display:grid;grid-template-columns:1.4fr 1fr;border:1px solid var(--ink);border-top:0}
 .track-left{padding:40px;border-right:1px solid var(--ink)}
@@ -341,8 +359,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .partner-tier .logos span:hover{color:var(--gold);transform:translateY(-1px)}
 
 /* ============ SHEET 09 — LIGHT TABLE NEWSLETTER ============ */
-.lt-body{display:grid;grid-template-columns:1fr 220px;border:1px solid var(--ink);border-top:0}
-.lt-surface{position:relative;padding:14px 20px 12px;display:flex;flex-direction:column;
+.lt-body{display:grid;grid-template-columns:1fr 220px;border:1px solid var(--ink);border-top:0;max-height:480px}
+.lt-surface{position:relative;padding:12px 18px 10px;display:flex;flex-direction:column;max-height:480px;
   background:linear-gradient(145deg,#e8e4da 0%,#f2efe6 30%,#eae6dc 100%);
   box-shadow:inset 0 0 120px rgba(200,190,170,.3);overflow:hidden}
 .lt-surface::before{content:"";position:absolute;inset:0;pointer-events:none;
@@ -374,7 +392,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lt-page-nav button:hover{background:var(--ink);color:var(--paper)}
 .lt-page-nav button:disabled{opacity:.2;cursor:default;background:var(--paper);color:var(--ink)}
 /* right index strip — scrollable, matches newsletter height */
-.lt-index{border-left:1px solid var(--ink);display:flex;flex-direction:column;max-height:inherit;overflow:hidden}
+.lt-index{border-left:1px solid var(--ink);display:flex;flex-direction:column;max-height:480px;overflow:hidden}
 .lt-index-head{padding:10px 14px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.12em;text-transform:uppercase;flex-shrink:0}
 .lt-index-list{flex:1;overflow-y:auto}
 .lt-index-list::-webkit-scrollbar{width:3px}
@@ -413,28 +431,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .role-row .name{font-size:15px;color:var(--ink);letter-spacing:.01em;font-weight:500}
 .role-row .cap{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
 
-/* ============ SHEET 11 — DONATE / DARK ============ */
-.donate{background:var(--ink);color:var(--paper);padding:80px 28px;position:relative;overflow:hidden;border-bottom:1px solid var(--ink)}
-.donate::before{
-  content:"";position:absolute;inset:0;
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size:96px 96px;pointer-events:none;
-  animation: gridDrift 48s ease-in-out infinite, gridBreathe 11s ease-in-out infinite;
-  --op-from:.9; --op-to:.4;
-}
-.donate-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1400px;margin:0 auto;align-items:center}
-.donate h3{font-family:var(--sans);font-weight:200;font-size:clamp(48px,6vw,92px);letter-spacing:-.03em;line-height:.98;margin:0}
-.donate h3 em{font-style:italic;color:var(--gold);font-weight:300}
-.donate p{font-size:12px;color:#c3c8d1;line-height:1.8;max-width:48ch;margin-top:30px;letter-spacing:.02em}
-.donate p b{color:var(--paper)}
-.dtier{display:grid;grid-template-columns:auto 1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.15);align-items:center;cursor:pointer;transition:padding .3s, border-color .3s}
-.dtier:hover{padding-left:12px;border-bottom-color:var(--gold)}
-.dtier .amt{font-family:var(--sans);font-size:28px;font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.dtier .d-name{font-size:10px;color:#c3c8d1;letter-spacing:.12em;text-transform:uppercase}
-.dtier .arr{transition:transform .3s,color .3s}
-.dtier:hover .arr{transform:translateX(8px);color:var(--gold)}
 
 /* ============ SHEET 12 — FOOTER / CONTACT ============ */
 .footer-sheet{padding:60px 28px 28px}
@@ -451,6 +447,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .foot-sign .big .gold{color:var(--gold)}
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
+.signature{font-family:"Dancing Script",cursive;font-size:28px;font-weight:500;color:var(--ink);letter-spacing:0;text-transform:none}
 .foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
 
 /* ============ SCROLL REVEAL ============ */
@@ -474,7 +471,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .cover-left,.cover-right,.triptych .view,.track-left,.join-left{border-right:0;border-bottom:1px solid var(--ink)}
   .nav-index{grid-template-columns:repeat(4,1fr)}
   .nav-index a:nth-child(4n){border-right:0}
-  .donate-inner{grid-template-columns:1fr;gap:40px}
   .rev-head,.rev-row{grid-template-columns:60px 70px 130px 1fr}
   .rev-head > div:nth-child(5),.rev-row > div:nth-child(5){display:none}
   .org-bottom{grid-template-columns:repeat(3,1fr)}
@@ -594,7 +590,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 <!-- SHEET HEADER (drawing frame) -->
 <div class="sheet-header">
-  <span><b style="font-weight:600">SPARTAN RACING</b> · SAN JOSÉ STATE UNIVERSITY FSAE</span>
+  <span style="display:inline-flex;align-items:center;gap:10px"><img src="assets/spartan-racing-logo.png" alt="Spartan Racing" style="height:22px;width:auto;vertical-align:middle"><b style="font-weight:600">SPARTAN RACING</b> · SAN JOSÉ STATE UNIVERSITY FSAE</span>
   <span class="live">LIVE · SHOP OPEN · <span id="clock">—</span></span>
   <span>DOC SR-17-WEB-001</span>
   <span>REV C · 21 APR 2026</span>
@@ -1010,6 +1006,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="logos"><span>Rexco</span><span>Chemtrend</span><span>SMC</span><span>Dremel</span><span>FibreGlast</span><span>XRP</span><span>MatterHackers</span><span>Bender</span><span>VectorNav</span><span>Bojo Tools</span><span>Shining 3D</span><span>Prismatic Powders</span><span>ThinBIT</span></div>
     </div>
   </div>
+
+  <a href="sponsors.html" class="sponsor-cta reveal">
+    <div class="sponsor-cta-inner">
+      <div class="sponsor-cta-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="14" cy="14" r="12"/><path d="M14 8v12M8 14h12"/>
+        </svg>
+      </div>
+      <div class="sponsor-cta-text">
+        <div class="sponsor-cta-label">INTERESTED IN PARTNERING?</div>
+        <div class="sponsor-cta-title">Become a Sponsor →</div>
+      </div>
+    </div>
+  </a>
 </section>
 
 <!-- ============ SHEET 09 — NEWSLETTER MICROFICHE ============ -->
@@ -1057,26 +1067,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="join-left">
       <h3>You don't <em>need</em><br/>experience.<br/>You need hours.</h3>
       <p>Spartan Racing hires on commitment — 10–20 hours a week, most of them on the shop floor. We will teach you FEA, carbon layup, wiring harnesses, engine tuning, and machining. The car is the classroom.</p>
-      <a class="join-btn" href="#">Open roles <span class="arr">→</span></a>
+      <a class="join-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSc5dX8x-oh8OP0M61hb4o8S3POhIpPr7bCrbw0sXiaoXK3l6g/viewform" target="_blank" rel="noopener">Join us <span class="arr">→</span></a>
     </div>
     <div class="roles" id="rolesList"></div>
-  </div>
-</section>
-
-<!-- ============ SHEET 11 — DONATE ============ -->
-<section id="s11" data-screen-label="11 Donate" class="donate">
-  <div class="donate-inner">
-    <div class="reveal">
-      <h3>Keep the Spartans<br/><em>on the grid.</em></h3>
-      <p>Every season costs over <b>$120,000</b> — design, materials, freight, registration, and the twelve-hour shop nights that turn students into engineers.</p>
-    </div>
-    <div class="reveal">
-      <div class="dtier"><div class="amt">$50</div><div class="d-name">Shop Fuel · Coffee & pizza, one build night</div><div class="arr">→</div></div>
-      <div class="dtier"><div class="amt">$250</div><div class="d-name">Consumables · Rivets, fasteners, hardware</div><div class="arr">→</div></div>
-      <div class="dtier"><div class="amt">$1,000</div><div class="d-name">Tyres · One set of Hoosier R20s</div><div class="arr">→</div></div>
-      <div class="dtier"><div class="amt">$5,000</div><div class="d-name">Travel · One competition for six students</div><div class="arr">→</div></div>
-      <div class="dtier"><div class="amt">Custom</div><div class="d-name">Legacy · Honor a Spartan alum</div><div class="arr">→</div></div>
-    </div>
   </div>
 </section>
 
@@ -1108,7 +1101,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <a href="https://sjsuformulasae.com">sjsuformulasae.com</a><br/>
         <a href="mailto:contact@sjsuformulasae.com">contact@sjsuformulasae.com</a><br/>
         <a href="mailto:sponsorship@sjsuformulasae.com">sponsorship@sjsuformulasae.com</a><br/><br/>
-        <a href="#">/instagram</a> · <a href="#">/youtube</a> · <a href="#">/linkedin</a>
+        <a href="https://www.instagram.com/sjsuformulasae/" target="_blank" rel="noopener">/instagram</a> · <a href="https://www.linkedin.com/school/sjsufsae/" target="_blank" rel="noopener">/linkedin</a> · <a href="https://www.facebook.com/SpartanRacingSJSU/" target="_blank" rel="noopener">/facebook</a>
       </div>
     </div>
   </div>
@@ -1116,12 +1109,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="foot-sign reveal">
     <div class="k">END OF SHEET SET · APPROVED FOR COMPETITION</div>
     <div class="big">SR-<span class="gold">17</span></div>
-    <div class="approval">Signed · WILL KITTINGER, President · HIREN PATEL, Chief Engineer · 21 APR 2026</div>
+    <div class="approval">
+      <span style="font-size:10px;letter-spacing:.12em;color:var(--ink-2);display:block;margin-bottom:12px">SIGNED · 21 APR 2026</span>
+      <span class="signature">Will Kittinger</span><span style="font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin:0 8px">PRESIDENT</span>
+      <span style="color:var(--ink-3);margin:0 12px">·</span>
+      <span class="signature">Hiren Patel</span><span style="font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin:0 8px">CHIEF ENGINEER</span>
+    </div>
   </div>
 
   <div class="foot-colophon">
-    <span>© 1986–2026 Spartan Racing · SJSU FSAE</span>
-    <span>Drawn by student team · do not redistribute without credit</span>
+    <span>Drawn by student team</span>
     <span>Sheet 08 / 08</span>
   </div>
 </section>
