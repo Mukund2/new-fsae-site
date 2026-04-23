@@ -6,11 +6,7 @@
 <title>SJSU Formula SAE — SR-17</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&family=Dancing+Script:wght@400;500;600&family=Caveat:wght@400;500;600&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
-<!-- Preload critical images -->
-<link rel="preload" as="image" href="assets/cars/sr16-side-clean.png">
-<link rel="preload" as="image" href="assets/cars/sr16-front-clean.png">
-<link rel="preload" as="image" href="assets/events/default-results.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Dancing+Script:wght@400;500;600&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <style>
 :root{
   /* Cool, fresh off-white — paper-like but bluish. Less sepia, more SF tech. */
@@ -483,21 +479,27 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .foot-sign .big{
   font-family:"Oswald",sans-serif;font-size:clamp(90px,14vw,200px);font-weight:700;letter-spacing:-.03em;line-height:1;text-transform:uppercase;
   padding-bottom:8px;
-  background:linear-gradient(120deg, var(--ink) 0%, var(--ink) 38%, var(--gold) 46%, #fff 50%, var(--gold) 54%, var(--ink) 62%, var(--ink) 100%);
-  background-size:400% 100%;
+  color:var(--ink);
+}
+.foot-sign .big .gold{
+  position:relative;display:inline-block;color:var(--ink);
+  background:linear-gradient(120deg, var(--ink) 0%, var(--ink) 30%, var(--gold) 42%, #fff 50%, var(--gold) 58%, var(--ink) 70%, var(--ink) 100%);
+  background-size:300% 100%;
   background-position:0% 0;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
 }
-.foot-sign .big.swept{
-  animation:signWink .9s cubic-bezier(.4,.0,.2,1) forwards;
+.foot-sign .big .gold.swept{
+  animation:goldGleam .8s cubic-bezier(.4,.0,.2,1) forwards;
 }
-@keyframes signWink{
-  from{background-position:0% 0}
-  to{background-position:100% 0}
+.foot-sign .big .gold.show{
+  background:none;-webkit-text-fill-color:var(--gold);color:var(--gold);
+  transition:-webkit-text-fill-color .5s ease, color .5s ease;
 }
-.foot-sign .big .gold{-webkit-text-fill-color:var(--ink)}
-.foot-sign .big .gold.show{-webkit-text-fill-color:var(--gold);transition:-webkit-text-fill-color .5s ease}
+@keyframes goldGleam{
+  from{background-position:100% 0}
+  to{background-position:-50% 0}
+}
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
 .signature{font-family:"Dancing Script",cursive;font-size:28px;font-weight:500;color:var(--ink);letter-spacing:0;text-transform:none;
   display:inline-block;clip-path:inset(0 100% 0 0);opacity:0;padding:0 4px}
@@ -687,14 +689,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .result-row:hover{ background: var(--paper-2); transform: translateY(-1px) scale(1.005); box-shadow: 0 4px 12px -4px rgba(0,0,0,.1); cursor: default; }
 .result-row:hover .place{ color: var(--gold); }
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="grid-spot" id="grid-spot"></div>
 
 <!-- SHEET HEADER (drawing frame) -->
 <div class="sheet-header">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none"><img src="assets/spartan-racing-logo.png" alt="Spartan Racing" style="height:22px;width:auto;vertical-align:middle"><b style="font-weight:600">SPARTAN RACING</b></a> · SAN JOSÉ STATE UNIVERSITY FSAE
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none"><picture><source srcset="assets/spartan-racing-logo.webp" type="image/webp"><img src="assets/spartan-racing-logo.png" alt="Spartan Racing" style="height:22px;width:auto;vertical-align:middle"></picture><b style="font-weight:600">SPARTAN RACING</b></a> · SAN JOSÉ STATE UNIVERSITY FSAE
   <span class="live">LIVE · <span id="clock">—</span></span>
   <span>DOC SR-17-WEB-001</span>
   <span>REV C · 23 APR 2026</span>
@@ -837,7 +838,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="view slide-left" style="background:#fff;position:relative">
       <div class="fig-label"><span>FIG 01.1</span><span>VIEW — SIDE</span></div>
       <div class="ortho-box reveal" id="sideView" style="display:block;padding:8px;background:#fff;border:none;position:relative">
-        <img src="assets/cars/sr16-side-clean.png" alt="SR-16 side view" style="width:80%;height:auto;display:block;margin:0 auto;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
+        <picture><source srcset="assets/cars/sr16-side-clean.webp" type="image/webp"><img src="assets/cars/sr16-side-clean.png" alt="SR-16 side view" loading="lazy" style="width:80%;height:auto;display:block;margin:0 auto;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/></picture>
       </div>
       <div class="dim-line reveal" style="width:75%;margin:0 auto">
         <span class="tick"></span><span class="bar"></span><span class="val"><span class="dim-text" data-text="113.20" data-delay="800"></span></span><span class="bar"></span><span class="tick"></span>
@@ -848,7 +849,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="view slide-right" style="background:#fff;display:flex;flex-direction:column">
       <div class="fig-label"><span>FIG 01.2</span><span>VIEW — FRONT</span></div>
       <div class="ortho-box reveal" id="frontView" style="display:flex;align-items:center;justify-content:center;padding:8px;background:#fff;border:none;position:relative;flex:1">
-        <img src="assets/cars/sr16-front-clean.png" alt="SR-16 front view" style="width:85%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
+        <picture><source srcset="assets/cars/sr16-front-clean.webp" type="image/webp"><img src="assets/cars/sr16-front-clean.png" alt="SR-16 front view" loading="lazy" style="width:85%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/></picture>
       </div>
       <div class="dim-line reveal" style="width:81%;margin:0 auto">
         <span class="tick"></span><span class="bar"></span><span class="val"><span class="dim-text" data-text='56.40" OVERALL' data-delay="1000"></span></span><span class="bar"></span><span class="tick"></span>
@@ -890,7 +891,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="lead-group-label"><span class="lead-group-n">06.A</span><span>EXECUTIVE BOARD — 5 OFFICERS</span><span class="lead-group-rule"></span></div>
     <div class="lead-grid lead-grid--exec">
       <div class="lead-card lead-card--exec" data-slug="hiren-patel">
-        <div class="lead-photo"><img src="assets/leads/hiren-patel.jpg" alt="HIREN PATEL" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/hiren-patel-400w.webp 400w, assets/leads/hiren-patel.webp 800w" type="image/webp"><img src="assets/leads/hiren-patel.jpg" alt="HIREN PATEL" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">T-01</div>
           <div class="lead-name">HIREN PATEL</div>
@@ -899,7 +900,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HIREN PATEL — Chief Engineer</div><p>Hiren Patel is a first-year Mechanical Engineering Masters student who joined the team during SR-13 as an intern. He completed his undergraduate Mechanical Engineering program here at SJSU. During SR-15 he was a chassis designer and helped manufacture the wiring harness. During SR-16 he worked as a Systems Integration member ensuring all aspects of the vehicle worked together. Due to his knowledge and skill level, Hiren was asked to step up during completion as a Project Manager ensuring the team made it through all technical inspections and dynamic events. After serving in multiple design roles, Hiren is this year's Chief Engineer and looks forward to striving for a podium finish at this year's competition.</p></div></div>
       </div>
       <div class="lead-card lead-card--exec" data-slug="will-kittinger">
-        <div class="lead-photo"><img src="assets/leads/will-kittinger.jpg" alt="WILL KITTINGER" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/will-kittinger-400w.webp 400w, assets/leads/will-kittinger.webp 800w" type="image/webp"><img src="assets/leads/will-kittinger.jpg" alt="WILL KITTINGER" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">T-02</div>
           <div class="lead-name">WILL KITTINGER</div>
@@ -908,7 +909,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">WILL KITTINGER — President</div><p>Will Kittinger is a fifth year Management Information Systems major who began with Spartan Racing as a Business Team intern during SR-15. He quickly expanded his role, contributing to both business operations and mechanical subteams such as Suspension and Final Drive during SR-16. He developed the foundation of the Cost Report while leading sponsor outreach efforts. Will now serves as President and Business Lead for SR-17, where he is focused on guiding the team forward. His goal is to bring home a first place finish at competition next June.</p></div></div>
       </div>
       <div class="lead-card lead-card--exec" data-slug="ally-almiranez">
-        <div class="lead-photo"><img src="assets/leads/ally-almiranez.jpg" alt="ALLY ALMIRANEZ" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/ally-almiranez-400w.webp 400w, assets/leads/ally-almiranez.webp 800w" type="image/webp"><img src="assets/leads/ally-almiranez.jpg" alt="ALLY ALMIRANEZ" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">T-03</div>
           <div class="lead-name">ALLY ALMIRANEZ</div>
@@ -917,7 +918,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">ALLY ALMIRANEZ — Treasurer</div><p>Ally Almiranez is a second-year Marketing major who joined the team during SR-16. Since then, she has supported the team by sending gifts to top-tier sponsors, managing the club's website, and assisting with logistics for the team's largest annual competition. This year, she's excited to be our Treasurer and looks forward to what the year will bring!</p></div></div>
       </div>
       <div class="lead-card lead-card--exec" data-slug="angel-lopez">
-        <div class="lead-photo"><img src="assets/leads/angel-lopez.jpg" alt="ANGEL LOPEZ" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/angel-lopez-400w.webp 400w, assets/leads/angel-lopez.webp 800w" type="image/webp"><img src="assets/leads/angel-lopez.jpg" alt="ANGEL LOPEZ" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">T-04</div>
           <div class="lead-name">ANGEL LOPEZ</div>
@@ -926,7 +927,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">ANGEL LOPEZ — Project Manager</div><p>Angel Lopez is a third-year Mechanical Engineering student who joined the team during SR-15 as an Aerodynamic and Final Drive intern. During SR-16, he served as both an Aerodynamics Designer and a Differential Carrier Designer. This year Angel has taken role as Project Manager for SR-17 and looks forward in guiding the team through new challenges and achievements.</p></div></div>
       </div>
       <div class="lead-card lead-card--exec" data-slug="aidan-garcia">
-        <div class="lead-photo"><img src="assets/leads/aidan-garcia.jpg" alt="AIDAN GARCIA" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/aidan-garcia-400w.webp 400w, assets/leads/aidan-garcia.webp 800w" type="image/webp"><img src="assets/leads/aidan-garcia.jpg" alt="AIDAN GARCIA" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">T-05</div>
           <div class="lead-name">AIDAN GARCIA</div>
@@ -947,7 +948,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="lead-group-label"><span class="lead-group-n">06.B</span><span>SUBTEAM LEADS — 9 LEADS · 8 SUBTEAMS</span><span class="lead-group-rule"></span></div>
     <div class="lead-grid lead-grid--subs">
       <div class="lead-card" data-slug="damon-haberman">
-        <div class="lead-photo"><img src="assets/leads/damon-haberman.jpg" alt="DAMON HABERMAN" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/damon-haberman-400w.webp 400w, assets/leads/damon-haberman.webp 800w" type="image/webp"><img src="assets/leads/damon-haberman.jpg" alt="DAMON HABERMAN" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">L-01</div>
           <div class="lead-name">DAMON HABERMAN</div>
@@ -956,7 +957,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">DAMON HABERMAN — Aerodynamics Lead</div><p>Damon Haberman is a fourth-year Aerospace Engineering student who joined Spartan Racing during SR-13 and SRE-6 as a member of the aerodynamics team. Over his first three years, he focused on iterative aero design of the front wing and undertray, contributing to a 20% increase in downforce. Building on that experience, Damon redesigned the entire package from front to back in his fourth year, achieving a further 25% improvement in vehicle downforce. Now serving as Aerodynamics Lead for SR-17, he aims to refine the package into a reliable and durable system while expanding the team's understanding of its performance on track.</p></div></div>
       </div>
       <div class="lead-card" data-slug="hayat-dlala">
-        <div class="lead-photo"><img src="assets/leads/hayat-dlala.jpg" alt="HAYAT DLALA" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/hayat-dlala-400w.webp 400w, assets/leads/hayat-dlala.webp 800w" type="image/webp"><img src="assets/leads/hayat-dlala.jpg" alt="HAYAT DLALA" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">L-02</div>
           <div class="lead-name">HAYAT DLALA</div>
@@ -965,7 +966,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HAYAT DLALA — Business Lead</div><p>Hayat is a 2nd-year Finance major who joined Spartan Racing as an intern during the SR-17 season. She contributed across logistics, media, newsletters, and graphic design, before taking on responsibilities in project management and business operations. She currently serves as Business Lead, focused on building a sustainable and efficient business team capable of operating year-round and competing for 1st place.</p></div></div>
       </div>
       <div class="lead-card" data-slug="emmett-miura">
-        <div class="lead-photo"><img src="assets/leads/emmett-miura.jpg" alt="EMMETT MIURA" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/emmett-miura-400w.webp 400w, assets/leads/emmett-miura.webp 800w" type="image/webp"><img src="assets/leads/emmett-miura.jpg" alt="EMMETT MIURA" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">L-03</div>
           <div class="lead-name">EMMETT MIURA</div>
@@ -974,7 +975,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">EMMETT MIURA — Chassis Lead</div><p>Emmett Miura is a third-year Mechanical Engineering student who joined Spartan Racing during SR-15 as an intern. In his first season, he worked on the steering wheel, designed and machined jigs, and contributed to various suspension tasks. The following year, he designed the SR-16 steering system, and he now serves as SR-17's Chassis Lead and kinematics designer.</p></div></div>
       </div>
       <div class="lead-card" data-slug="william-la-poll">
-        <div class="lead-photo"><img src="assets/leads/william-la-poll.jpg" alt="WILLIAM LA POLL" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/william-la-poll-400w.webp 400w, assets/leads/william-la-poll.webp 800w" type="image/webp"><img src="assets/leads/william-la-poll.jpg" alt="WILLIAM LA POLL" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">L-04</div>
           <div class="lead-name">WILLIAM LA POLL</div>
@@ -983,7 +984,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">WILLIAM LA POLL — Electronics Lead</div><p>William La Poll is a third-year Electrical Engineering student who joined Spartan Racing during SR-15 as an intern supporting the wire harness. In SR-16 he contributed as a wire harness designer and co-designed the motherboard. This year he serves as Electronics Lead, focused on building a reliable and fast race car.</p></div></div>
       </div>
       <div class="lead-card" data-slug="harleen-sandhu">
-        <div class="lead-photo"><img src="assets/leads/harleen-sandhu.jpg" alt="HARLEEN SANDHU" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/harleen-sandhu-400w.webp 400w, assets/leads/harleen-sandhu.webp 800w" type="image/webp"><img src="assets/leads/harleen-sandhu.jpg" alt="HARLEEN SANDHU" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">L-05</div>
           <div class="lead-name">HARLEEN SANDHU</div>
@@ -992,7 +993,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HARLEEN SANDHU — Software Lead</div><p>Harleen Sandhu is a fourth-year Computer Science student who initially joined the team doing Torque Vectoring for the R&D team. The following year she joined the competition team during SR-16 as a designer for Controls designing a Power Limiting algorithm. After being on software for about a year and a half she is this year's software lead, looking forward to expanding on control systems this year.</p></div></div>
       </div>
       <div class="lead-card" data-slug="nicholas-ng">
-        <div class="lead-photo"><img src="assets/leads/nicholas-ng.jpg" alt="NICHOLAS NG" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/nicholas-ng-400w.webp 400w, assets/leads/nicholas-ng.webp 800w" type="image/webp"><img src="assets/leads/nicholas-ng.jpg" alt="NICHOLAS NG" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">L-06</div>
           <div class="lead-name">NICHOLAS NG</div>
@@ -1001,7 +1002,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">NICHOLAS NG — Suspension Lead</div><p>Nicholas Ng is an Industrial &amp; Systems Engineering student who joined Spartan Racing during SR-14 as a suspension intern. The following year, he designed the dampers and inboard suspension for SR-15. Last year he designed the kinematics and inboard suspension for SR-16. This year, as suspension lead, Nicholas wants to guide the next generation of Spartan Racing's suspension designers to master the basics of suspension design and vehicle tuning. He looks forward to creating an iconic car that builds on the success of SR-16.</p></div></div>
       </div>
       <div class="lead-card" data-slug="aidan-garcia">
-        <div class="lead-photo"><img src="assets/leads/aidan-garcia.jpg" alt="AIDAN GARCIA" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/aidan-garcia-400w.webp 400w, assets/leads/aidan-garcia.webp 800w" type="image/webp"><img src="assets/leads/aidan-garcia.jpg" alt="AIDAN GARCIA" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">L-07</div>
           <div class="lead-name">AIDAN GARCIA</div>
@@ -1010,7 +1011,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">AIDAN GARCIA — Powertrain Co-Lead</div><p>Aidan Garcia is an Interdisciplinary Engineering student in his 5th year who joined Spartan Racing during SR-15 as an intern for the powertrain team. After a few short months, he was named as one of SR-16's battery pack designers. After an intense design season, Aidan was able to finish manufacturing the first of 2 accumulators 2 weeks ahead of schedule. Now, as Powertrain Co-Lead, Aidan hopes to make the powertrain even more reliable while still enabling his designers to innovate and learn.</p></div></div>
       </div>
       <div class="lead-card" data-slug="kevin-hong">
-        <div class="lead-photo"><img src="assets/leads/kevin-hong.jpg" alt="KEVIN HONG" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/kevin-hong-400w.webp 400w, assets/leads/kevin-hong.webp 800w" type="image/webp"><img src="assets/leads/kevin-hong.jpg" alt="KEVIN HONG" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">L-08</div>
           <div class="lead-name">KEVIN HONG</div>
@@ -1019,7 +1020,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">KEVIN HONG — Powertrain Co-Lead</div><p>Kevin Hong is a third-year Mechanical Engineering student with a deep passion for bicycles and automobiles. Since the beginning of his college journey, Kevin has been a dedicated member of Spartan Racing, carving out a niche in materials &amp; fatigue analysis. He played a key role in designing drivetrain components for both SR-15 &amp; SR-16. With SR-17, Kevin embarks on a new chapter, leading the charge on innovative and sound engineering practices for the Powertrain subsystem.</p></div></div>
       </div>
       <div class="lead-card" data-slug="shaun-gilmore">
-        <div class="lead-photo"><img src="assets/leads/shaun-gilmore.jpg" alt="SHAUN GILMORE" loading="lazy"/></div>
+        <div class="lead-photo"><picture><source srcset="assets/leads/shaun-gilmore-400w.webp 400w, assets/leads/shaun-gilmore.webp 800w" type="image/webp"><img src="assets/leads/shaun-gilmore.jpg" alt="SHAUN GILMORE" loading="lazy"/></picture></div>
         <div class="lead-caption">
           <div class="lead-tag">L-09</div>
           <div class="lead-name">SHAUN GILMORE</div>
@@ -1052,7 +1053,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="fig-label"><span id="figLabel">FIG 07.1 — SPARTAN RACING · FIVE-SEASON HIGHLIGHTS</span><span>BEST SHOT</span></div>
       <div class="track-svg reveal" style="position:relative;min-height:300px;aspect-ratio:4/2.5;background:var(--ink)">
         <div id="resultPreview" class="result-preview show" aria-hidden="false">
-          <img id="resultPreviewImg" src="assets/events/default-results.jpg" alt=""/>
+          <picture><source srcset="assets/events/default-results.webp" type="image/webp"><img id="resultPreviewImg" src="assets/events/default-results.jpg" alt="" loading="lazy"/></picture>
           <div class="result-preview-cnr tl"></div><div class="result-preview-cnr tr"></div>
           <div class="result-preview-cnr bl"></div><div class="result-preview-cnr br"></div>
           <div class="result-preview-meta"><span>FIG 07.1</span><span id="resultPreviewCap">SPARTAN RACING · FIVE-SEASON HIGHLIGHTS</span></div>
@@ -1186,7 +1187,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="role-detail" id="roleDetail">
     <div class="role-detail-inner" id="roleDetailInner">
       <div class="role-detail-img" id="roleDetailImgWrap">
-        <img id="roleDetailImg" src="" alt=""/>
+        <img id="roleDetailImg" src="" alt="" loading="lazy"/>
         <div class="fig-tag" id="roleDetailFig">FIG 08.1</div>
       </div>
       <div class="role-detail-text">
@@ -1214,7 +1215,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="body">
         <div style="float:right;width:220px;margin:0 0 14px 18px">
           <div class="contact-fig">
-            <img src="assets/location-shop.jpg" alt="Spartan Racing shop"/>
+            <picture><source srcset="assets/location-shop.webp" type="image/webp"><img src="assets/location-shop.jpg" alt="Spartan Racing shop" loading="lazy"/></picture>
             <div class="fig-corner tl"></div><div class="fig-corner tr"></div>
             <div class="fig-corner bl"></div><div class="fig-corner br"></div>
           </div>
@@ -1233,7 +1234,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="body">
         <div style="float:right;width:200px;margin:0 0 14px 18px">
           <div class="contact-fig">
-            <img src="assets/shop-aero.jpg" alt="Aero package"/>
+            <picture><source srcset="assets/shop-aero.webp" type="image/webp"><img src="assets/shop-aero.jpg" alt="Aero package" loading="lazy"/></picture>
             <div class="fig-corner tl"></div><div class="fig-corner tr"></div>
             <div class="fig-corner bl"></div><div class="fig-corner br"></div>
           </div>
@@ -1644,12 +1645,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   }
 
   function loadIssue(idx){
-    // Keep old flipbook visible — build new one alongside, then swap
     var oldPageEl = pageEl;
     var oldFlipBook = flipBook;
     flipBook = null;
 
-    // Create fresh container (hidden initially)
     pageEl = document.createElement('div');
     pageEl.className = 'lt-page';
     pageEl.style.display = 'none';
@@ -1665,27 +1664,32 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       return;
     }
 
-    // Add invisible blank page at start (cover shows on right of first spread)
+    // Add invisible blank page at start
     var blankFront = document.createElement('div');
     blankFront.className = 'page-wrapper page-blank';
     pageEl.appendChild(blankFront);
 
-    // Build page elements and wait for ALL images to load before init
-    var loaded = 0;
-    var imgs = [];
+    // Build ALL page wrappers but only load first WINDOW_SIZE images
+    var WINDOW_SIZE = 4;
+    var allImgs = [];
+    var initialImgs = [];
     for (var i = 1; i <= count; i++){
       var div = document.createElement('div');
       div.className = 'page-wrapper';
       var img = document.createElement('img');
-      img.src = 'assets/newsletters/' + issue.slug + '/page-' + String(i).padStart(2,'0') + '.jpg';
+      img.dataset.pageSrc = 'assets/newsletters/' + issue.slug + '/page-' + String(i).padStart(2,'0') + '.webp';
       img.alt = 'Page ' + i;
       img.draggable = false;
-      imgs.push(img);
+      if (i <= WINDOW_SIZE){
+        img.src = img.dataset.pageSrc;
+        initialImgs.push(img);
+      }
+      allImgs.push(img);
       div.appendChild(img);
       pageEl.appendChild(div);
     }
 
-    // Add blank page at end so total (1 + count + pad) is even
+    // Add blank page at end so total is even
     var totalWithFront = 1 + count;
     if (totalWithFront % 2 !== 0){
       var blank = document.createElement('div');
@@ -1693,11 +1697,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       pageEl.appendChild(blank);
     }
 
-    // Wait for all images then init flipbook
+    // Only wait for initial window of images to load
     var checkReady = setInterval(function(){
       var allDone = true;
-      for (var j = 0; j < imgs.length; j++){
-        if (!imgs[j].complete){ allDone = false; break; }
+      for (var j = 0; j < initialImgs.length; j++){
+        if (!initialImgs[j].complete){ allDone = false; break; }
       }
       if (!allDone) return;
       clearInterval(checkReady);
@@ -1718,13 +1722,27 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         startZIndex: 0, autoSize: false
       });
       flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
-      flipBook.on('flip', function(){ playFlip(); updateButtons(); });
+
+      // Lazy-load pages as user flips
+      function loadNearby(){
+        var current = flipBook.getCurrentPageIndex();
+        // Load current page and 3 pages ahead (account for blank at index 0)
+        for (var k = Math.max(0, current - 2); k < Math.min(allImgs.length, current + 4); k++){
+          var im = allImgs[k];
+          if (im && !im.src && im.dataset.pageSrc){
+            im.src = im.dataset.pageSrc;
+          }
+        }
+        updateButtons();
+      }
+
+      flipBook.on('flip', function(){ playFlip(); loadNearby(); });
       // Swap: show new, destroy old
       pageEl.style.display = '';
       loading.style.display = 'none';
       if (oldFlipBook){ try{ oldFlipBook.destroy(); }catch(e){} }
       if (oldPageEl && oldPageEl.parentNode) oldPageEl.parentNode.removeChild(oldPageEl);
-      updateButtons();
+      loadNearby();
     }, 50);
   }
 
@@ -1875,12 +1893,27 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 </script>
 <script type="module">
-  import * as THREE from 'three';
-  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-  import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-
   const mount = document.getElementById('car3d');
   if (mount) {
+    let loaded = false;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !loaded) {
+          loaded = true;
+          io.disconnect();
+          initThreeJS();
+        }
+      });
+    }, { rootMargin: '200px' });
+    io.observe(mount);
+  }
+
+  async function initThreeJS() {
+    const THREE = await import('three');
+    const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+    const { DRACOLoader } = await import('three/addons/loaders/DRACOLoader.js');
+
+    const mount = document.getElementById('car3d');
     const w = () => mount.clientWidth;
     const h = () => mount.clientHeight;
     const scene = new THREE.Scene();
@@ -1995,17 +2028,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   // Build placeholder plates (SVG data URIs) — cool, schematic, per-car tint.
   // Replace later with real photos by mapping key → url.
   const PHOTO_OVERRIDES = {
-    sr17: 'assets/cars/sr17.jpg',
-    sr16: 'assets/cars/sr16.jpg',
-    sr15: 'assets/cars/sr15.jpg',
-    sr14: 'assets/cars/sr14.png',
-    sr13: 'assets/cars/sr13.jpg',
-    sre6: 'assets/cars/sre6.jpg',
-    sre5: 'assets/cars/sre5.jpg',
-    sr11: 'assets/cars/sr11.png',
-    sr7:  'assets/cars/sr7.jpg',
-    sr1:  'assets/cars/sr1.jpg',
-    sr0:  'assets/cars/sr0.jpg',
+    sr17: 'assets/cars/sr17.webp',
+    sr16: 'assets/cars/sr16.webp',
+    sr15: 'assets/cars/sr15.webp',
+    sr14: 'assets/cars/sr14.webp',
+    sr13: 'assets/cars/sr13.webp',
+    sre6: 'assets/cars/sre6.webp',
+    sre5: 'assets/cars/sre5.webp',
+    sr11: 'assets/cars/sr11.webp',
+    sr7:  'assets/cars/sr7.webp',
+    sr1:  'assets/cars/sr1.webp',
+    sr0:  'assets/cars/sr0.webp',
   };
 
   const TINTS = {
@@ -2150,13 +2183,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if (e.isIntersecting){
-        // Trigger SR-17 gold sweep
-        var bigEl = footSign.querySelector('.big');
-        if (bigEl) {
-          setTimeout(function(){ bigEl.classList.add('swept'); }, 400);
-          // Show gold "17" only after wink animation fully completes
-          var goldEl = bigEl.querySelector('.gold');
-          if (goldEl) setTimeout(function(){ goldEl.classList.add('show'); }, 1400);
+        // Trigger gold gleam on "17" only
+        var goldEl = footSign.querySelector('.big .gold');
+        if (goldEl) {
+          setTimeout(function(){ goldEl.classList.add('swept'); }, 400);
+          // Show gold "17" after gleam animation completes
+          setTimeout(function(){ goldEl.classList.add('show'); }, 1300);
         }
         // Delay signatures until after wink shimmer
         setTimeout(function(){
@@ -2170,24 +2202,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   io.observe(footSign);
 })();
 
-/* ============ IMAGE PRELOADER ============ */
-(function(){
-  var imgs = document.querySelectorAll('img[loading="lazy"], img[src*="assets/"]');
-  imgs.forEach(function(img){
-    if (img.src) { var p = new Image(); p.src = img.src; }
-  });
-  // Also preload event photos and car photos used in hover previews
-  var preloadSrcs = [
-    'assets/events/default-results.jpg',
-    'assets/events/norcal-2025.jpg','assets/events/fsae-michigan-2025.png',
-    'assets/events/socal-shootout.jpg','assets/events/fsae-michigan-2024.png',
-    'assets/events/fsae-michigan-2021.png','assets/events/fsae-michigan-2015.png',
-    'assets/cars/sr16.jpg','assets/cars/sr15.jpg','assets/cars/sr14.png',
-    'assets/cars/sr13.jpg','assets/cars/sre6.jpg','assets/cars/sre5.jpg',
-    'assets/cars/sr11.png','assets/cars/sr7.jpg','assets/cars/sr1.jpg','assets/cars/sr0.jpg'
-  ];
-  preloadSrcs.forEach(function(s){ var p = new Image(); p.src = s; });
-})();
 </script>
 </body>
 </html>
