@@ -426,7 +426,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .join-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0}
 .join-left{padding:32px 40px;border-right:1px solid var(--ink)}
 .join-left h3{
-  font-family:"Orbitron",sans-serif;font-weight:500;font-size:clamp(28px,3.5vw,48px);letter-spacing:-.01em;line-height:1.1;margin:0;color:var(--ink)
+  font-family:var(--sans);font-weight:600;font-size:clamp(32px,4vw,56px);letter-spacing:-.03em;line-height:1;margin:0;color:var(--ink)
 }
 .join-left h3 em{font-style:italic;color:var(--gold);font-weight:300}
 .join-left p{font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:28px;max-width:46ch;letter-spacing:.02em}
@@ -980,7 +980,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
     <div class="lead-foot">
       <span>SEASON 2025–26 · 14 MEMBERS</span>
-      <span>APPLICATIONS ROLLING · SEE SHEET 07</span>
+      <span>JOIN ANYTIME · SEE SHEET 07</span>
       <span>FAC. ADVISOR — DR. RAYMOND YEE</span>
     </div>
   </div>
@@ -1383,14 +1383,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============ ROLES LIST ============ */
 (function(){
   const roles = [
-    {n:'R-01', name:'Aerodynamics',  cap:'ROLLING', img:'assets/subteams/aero.jpg',        desc:'Designing parts that create downforce and reduce drag — front and rear wings, canards, and side pods. CFD in the sim, carbon on the car.'},
-    {n:'R-02', name:'Chassis',       cap:'ROLLING', img:'assets/subteams/chassis.jpg',     desc:'The rigid skeleton everything bolts to. Designing and welding the steel tube frame that balances torsional stiffness with minimum weight.'},
-    {n:'R-03', name:'Suspension',    cap:'ROLLING', img:'assets/subteams/suspension.jpg',  desc:'Everything that controls the kinematics of the vehicle — brakes, steering, dampers, and suspension geometry. Every tenth on track starts here.'},
-    {n:'R-04', name:'Powertrain',    cap:'ROLLING', img:'assets/subteams/powertrain.jpg',  desc:'The systems that make the car move — electric motor, accumulator (battery), and final drive. From cell selection to torque delivery.'},
-    {n:'R-05', name:'Electronics',   cap:'ROLLING', img:'assets/subteams/electronics.jpg', desc:'All analog and digital circuits in the car — designing and installing the hardware so that every sensor, controller, and actuator works and outputs data properly.'},
-    {n:'R-06', name:'Software',      cap:'ROLLING', img:'assets/subteams/software.jpg',    desc:'Programming the electronic components to behave properly in different states. Also responsible for data collection, logging, and controls algorithms.'},
-    {n:'R-07', name:'Business',      cap:'ROLLING', img:'assets/subteams/business.jpg',    desc:'Data analytics, marketing, public relations, finances, and logistics. The operational backbone that keeps 80+ engineers funded, organized, and competing.'},
-    {n:'R-08', name:'R&D',           cap:'ROLLING', img:'assets/subteams/rnd.jpg',         desc:'Multi-year projects and an experimental in-hubs powertrain. Focused on developing and optimizing the future of Spartan Racing beyond the current season.'},
+    {n:'R-01', name:'Aerodynamics',  cap:'OPEN', img:'assets/subteams/aero.jpg',        desc:'Designing parts that create downforce and reduce drag — front and rear wings, canards, and side pods. CFD in the sim, carbon on the car.'},
+    {n:'R-02', name:'Chassis',       cap:'OPEN', img:'assets/subteams/chassis.jpg',     desc:'The rigid skeleton everything bolts to. Designing and welding the steel tube frame that balances torsional stiffness with minimum weight.'},
+    {n:'R-03', name:'Suspension',    cap:'OPEN', img:'assets/subteams/suspension.jpg',  desc:'Everything that controls the kinematics of the vehicle — brakes, steering, dampers, and suspension geometry. Every tenth on track starts here.'},
+    {n:'R-04', name:'Powertrain',    cap:'OPEN', img:'assets/subteams/powertrain.jpg',  desc:'The systems that make the car move — electric motor, accumulator (battery), and final drive. From cell selection to torque delivery.'},
+    {n:'R-05', name:'Electronics',   cap:'OPEN', img:'assets/subteams/electronics.jpg', desc:'All analog and digital circuits in the car — designing and installing the hardware so that every sensor, controller, and actuator works and outputs data properly.'},
+    {n:'R-06', name:'Software',      cap:'OPEN', img:'assets/subteams/software.jpg',    desc:'Programming the electronic components to behave properly in different states. Also responsible for data collection, logging, and controls algorithms.'},
+    {n:'R-07', name:'Business',      cap:'OPEN', img:'assets/subteams/business.jpg',    desc:'Data analytics, marketing, public relations, finances, and logistics. The operational backbone that keeps 80+ engineers funded, organized, and competing.'},
+    {n:'R-08', name:'R&D',           cap:'OPEN', img:'assets/subteams/rnd.jpg',         desc:'Multi-year projects and an experimental in-hubs powertrain. Focused on developing and optimizing the future of Spartan Racing beyond the current season.'},
   ];
   const body = document.getElementById('rolesList');
   const detail = document.getElementById('roleDetail');
@@ -1400,6 +1400,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   const detailFig = document.getElementById('roleDetailFig');
   const detailN = document.getElementById('roleDetailN');
 
+  // Preload all subteam images for instant switching
+  roles.forEach(function(r){ var p = new Image(); p.src = r.img; });
+
   function setRole(r, idx){
     detailLabel.textContent = r.name.toUpperCase();
     detailDesc.textContent = r.desc;
@@ -1408,27 +1411,24 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     detailFig.textContent = 'FIG 08.' + String(idx+1);
     detailN.textContent = r.n + ' · ' + r.name.toUpperCase();
   }
-  // Default state — show team image
-  detailLabel.textContent = 'SPARTAN RACING';
-  detailDesc.textContent = 'Hover a subteam to learn what they do. Applications are rolling — no experience required.';
-  detailImg.src = 'assets/subteams/default.avif';
-  detailN.textContent = '8 SUBTEAMS · 80+ MEMBERS';
-  detailFig.textContent = 'FIG 08.0';
+  function setDefault(){
+    detailLabel.textContent = 'SPARTAN RACING';
+    detailDesc.textContent = 'Hover a subteam to learn what they do. No experience required — just show up.';
+    detailImg.src = 'assets/subteams/default.avif';
+    detailN.textContent = '8 SUBTEAMS · 80+ MEMBERS';
+    detailFig.textContent = 'FIG 08.0';
+  }
+  setDefault();
 
   roles.forEach((r, idx) => {
     const el = document.createElement('div');
     el.className = 'role-row';
     el.innerHTML = `<div class="n">${r.n}</div><div class="name">${r.name}</div><div class="cap">${r.cap}</div>`;
     el.addEventListener('mouseenter', () => setRole(r, idx));
-    el.addEventListener('mouseleave', () => {
-      detailLabel.textContent = 'SPARTAN RACING';
-      detailDesc.textContent = 'Hover a subteam to learn what they do. Applications are rolling — no experience required.';
-      detailImg.src = 'assets/subteams/default.avif';
-      detailN.textContent = '8 SUBTEAMS · 80+ MEMBERS';
-      detailFig.textContent = 'FIG 08.0';
-    });
     body.appendChild(el);
   });
+  // Only reset to default when mouse leaves the entire roles list
+  body.addEventListener('mouseleave', setDefault);
   const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); io.unobserve(e.target);} }), {threshold:.3});
   [...body.children].forEach(el => io.observe(el));
 })();
