@@ -1030,9 +1030,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <button class="lt-arrow lt-arrow-l" id="ltPrev" disabled aria-label="Previous page">
           <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M12 15L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div style="position:relative;flex:1;min-height:360px">
+        <div style="position:relative;flex:1;min-height:360px" id="ltPageHost">
           <div class="lt-loading" id="ltLoading"><div class="lt-spin"></div><span>LOADING</span></div>
-          <div class="lt-page" id="ltPage"></div>
         </div>
         <button class="lt-arrow lt-arrow-r" id="ltNext" disabled aria-label="Next page">
           <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M8 5L13 10L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1355,8 +1354,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   function playFlip(){ flipSound.currentTime = 0; flipSound.play().catch(function(){}); }
 
   var list     = document.getElementById('ltList');
-  var pageEl   = document.getElementById('ltPage');
+  var pageHost = document.getElementById('ltPageHost');
   var loading  = document.getElementById('ltLoading');
+  var pageEl   = null; // created fresh each load
   var figEl    = document.getElementById('ltFig');
   var scaleEl  = document.getElementById('ltScale');
   var pageNum  = document.getElementById('ltPageNum');
@@ -1393,14 +1393,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   }
 
   function loadIssue(idx){
-    // Destroy old flipbook and replace container with a fresh one
+    // Destroy old flipbook — nuke everything in host except loading overlay
     if (flipBook){ try{ flipBook.destroy(); }catch(e){} flipBook = null; }
-    var parent = pageEl.parentElement;
-    var fresh = document.createElement('div');
-    fresh.className = 'lt-page';
-    fresh.id = 'ltPage';
-    parent.replaceChild(fresh, pageEl);
-    pageEl = fresh;
+    // Remove all children except loading
+    Array.from(pageHost.children).forEach(function(ch){
+      if (ch !== loading) pageHost.removeChild(ch);
+    });
+    // Create fresh container
+    pageEl = document.createElement('div');
+    pageEl.className = 'lt-page';
+    pageHost.appendChild(pageEl);
 
     loading.style.display = 'flex';
     loading.querySelector('span').textContent = 'LOADING';
@@ -1433,8 +1435,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
     function initFlipbook(){
       loading.style.display = 'none';
-      var wrap = pageEl.parentElement;
-      var availW = wrap.clientWidth - 110;
+      var availW = pageHost.clientWidth - 110;
       var pageRatio = 8.5 / 11;
       var pageW = Math.min(Math.round(availW / 2), 320);
       var pageH = Math.round(pageW / pageRatio);
