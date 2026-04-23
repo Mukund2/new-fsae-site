@@ -492,16 +492,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background-clip:text;
 }
 .foot-sign .big .gold.swept{
-  animation:goldGleam .7s cubic-bezier(.4,.0,.2,1) forwards;
+  animation:goldGleam 1.6s cubic-bezier(.4,.0,.2,1) forwards;
 }
 @keyframes goldGleam{
-  0%{background-position:100% 0}
-  100%{background-position:-100% 0}
-}
-.foot-sign .big .gold.show{
-  background:none;
-  -webkit-text-fill-color:var(--gold);
-  color:var(--gold);
+  0%{background-position:100% 0;-webkit-text-fill-color:transparent}
+  45%{background-position:-100% 0;-webkit-text-fill-color:transparent}
+  100%{background-position:-100% 0;-webkit-text-fill-color:var(--gold)}
 }
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
 .signature{font-family:"Dancing Script",cursive;font-size:28px;font-weight:500;color:var(--ink);letter-spacing:0;text-transform:none;
@@ -2186,18 +2182,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if (e.isIntersecting){
-        // Diagonal gleam on "17", then fade to gold
+        // Diagonal gleam on "17", then fade to gold (all in one animation)
         var goldEl = footSign.querySelector('.big .gold');
         if (goldEl) {
           setTimeout(function(){ goldEl.classList.add('swept'); }, 300);
-          // After gleam finishes (.7s), swap to solid gold
-          setTimeout(function(){ goldEl.classList.add('show'); }, 1000);
         }
-        // Signatures start right after gold settles
+        // Signatures start as gold is fading in (~1.2s into the 1.6s animation)
         setTimeout(function(){
           sig1.classList.add('writing');
           sig2.classList.add('writing-delay');
-        }, 1100);
+        }, 1400);
         io.disconnect();
       }
     });
