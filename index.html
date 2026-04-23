@@ -392,7 +392,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lt-page-info{text-align:center;padding-top:8px;font-size:10px;letter-spacing:.1em;color:var(--ink-2);position:relative;z-index:1}
 /* Flipbook container from page-flip library */
 .lt-page .stf__parent{margin:0 auto}
-.lt-page .stf__wrapper{box-shadow:0 6px 30px -10px rgba(0,0,0,.25);transition:left .4s ease, width .4s ease}
+.lt-page .stf__wrapper{box-shadow:0 6px 30px -10px rgba(0,0,0,.25)}
+.lt-page .stf__parent{transition:none !important}
+.lt-page .stf__wrapper{transition:none !important}
 .lt-page .page-wrapper{background:#fff}
 .lt-page .page-wrapper img{width:100%;height:100%;object-fit:contain;display:block}
 .lt-loading{color:var(--ink-3);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
@@ -1441,6 +1443,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       imgs.push(img);
       div.appendChild(img);
       pageEl.appendChild(div);
+    }
+
+    // Add blank page at end if odd count (prevents single-page glitch on last page)
+    if (count % 2 !== 0){
+      var blank = document.createElement('div');
+      blank.className = 'page-wrapper';
+      blank.style.background = '#fff';
+      pageEl.appendChild(blank);
     }
 
     // Wait for all images then init flipbook
