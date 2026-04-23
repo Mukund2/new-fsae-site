@@ -444,6 +444,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .role-row .cap{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
 
 
+/* ============ CONTACT FIGURE PHOTOS ============ */
+.contact-fig{position:relative;margin-bottom:18px}
+.contact-fig img{width:100%;display:block;filter:saturate(.88) contrast(1.04);
+  box-shadow:2px 3px 18px -6px rgba(0,0,0,.2), 0 1px 4px rgba(0,0,0,.06)}
+.contact-fig .fig-corner{position:absolute;width:12px;height:12px;border:1.5px solid var(--paper);mix-blend-mode:difference;pointer-events:none}
+.contact-fig .fig-corner.tl{top:6px;left:6px;border-right:0;border-bottom:0}
+.contact-fig .fig-corner.tr{top:6px;right:6px;border-left:0;border-bottom:0}
+.contact-fig .fig-corner.bl{bottom:6px;left:6px;border-right:0;border-top:0}
+.contact-fig .fig-corner.br{bottom:6px;right:6px;border-left:0;border-top:0}
+.contact-fig-label{display:flex;justify-content:space-between;font-size:8px;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase;margin-top:5px}
+
 /* ============ SHEET 12 — FOOTER / CONTACT ============ */
 .footer-sheet{padding:60px 28px 28px}
 .foot-contact{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);margin-bottom:36px}
@@ -1094,10 +1105,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="k">FIG 10.1 — LOCATION</div>
       <div class="body">
         <div style="float:right;width:220px;margin:0 0 14px 18px">
-          <div style="border:1px solid var(--hair);overflow:hidden;position:relative">
-            <img src="assets/location-shop.jpg" alt="Spartan Racing shop" style="width:100%;display:block;filter:saturate(.85) contrast(1.05)"/>
+          <div class="contact-fig">
+            <img src="assets/location-shop.jpg" alt="Spartan Racing shop"/>
+            <div class="fig-corner tl"></div><div class="fig-corner tr"></div>
+            <div class="fig-corner bl"></div><div class="fig-corner br"></div>
           </div>
-          <div style="font-size:8px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;text-align:right">FIG 10.1A · SHOP</div>
+          <div class="contact-fig-label"><span>FIG 10.1A</span><span>SHOP · ENG 130</span></div>
         </div>
         Engineering Building, Room 344 — club room<br/>
         Rooms 123 &amp; 130 — build shops<br/>
@@ -1110,6 +1123,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div>
       <div class="k">FIG 10.2 — CORRESPONDENCE</div>
       <div class="body">
+        <div style="float:right;width:200px;margin:0 0 14px 18px">
+          <div class="contact-fig">
+            <img src="assets/shop-aero.jpg" alt="Aero package"/>
+            <div class="fig-corner tl"></div><div class="fig-corner tr"></div>
+            <div class="fig-corner bl"></div><div class="fig-corner br"></div>
+          </div>
+          <div class="contact-fig-label"><span>FIG 10.2A</span><span>AERO · SR-16</span></div>
+        </div>
         <a href="https://sjsuformulasae.com">sjsuformulasae.com</a><br/>
         <a href="mailto:contact@sjsuformulasae.com">contact@sjsuformulasae.com</a><br/>
         <a href="mailto:sponsorship@sjsuformulasae.com">sponsorship@sjsuformulasae.com</a><br/><br/>
