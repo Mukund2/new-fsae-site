@@ -225,23 +225,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   color:var(--ink);
 }
 .foot-sign .big .gold{
-  position:relative;display:inline-block;color:var(--ink);
-  background:linear-gradient(120deg, var(--ink) 0%, var(--ink) 30%, var(--gold) 42%, #fff 50%, var(--gold) 58%, var(--ink) 70%, var(--ink) 100%);
-  background-size:300% 100%;
-  background-position:0% 0;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.foot-sign .big .gold.swept{
-  animation:goldGleam .8s cubic-bezier(.4,.0,.2,1) forwards;
+  position:relative;display:inline-block;
+  color:var(--ink);
+  -webkit-text-fill-color:var(--ink);
+  transition:color .6s ease, -webkit-text-fill-color .6s ease;
 }
 .foot-sign .big .gold.show{
-  background:none;-webkit-text-fill-color:var(--gold);color:var(--gold);
-  transition:-webkit-text-fill-color .5s ease, color .5s ease;
-}
-@keyframes goldGleam{
-  from{background-position:100% 0}
-  to{background-position:-50% 0}
+  color:var(--gold);
+  -webkit-text-fill-color:var(--gold);
 }
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
 .foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
@@ -566,12 +557,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if (e.isIntersecting){
-        // Trigger gold gleam on "17" only
+        // Fade "17" from black to gold
         var goldEl = footSign.querySelector('.big .gold');
         if (goldEl) {
-          setTimeout(function(){ goldEl.classList.add('swept'); }, 400);
-          // Show gold "17" after gleam animation completes
-          setTimeout(function(){ goldEl.classList.add('show'); }, 1300);
+          setTimeout(function(){ goldEl.classList.add('show'); }, 400);
         }
         setTimeout(function(){
           sig1.classList.add('writing');
