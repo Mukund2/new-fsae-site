@@ -614,7 +614,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lead-group-label{display:grid;grid-template-columns:64px auto 1fr;gap:14px;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-2);text-transform:uppercase;margin:8px 0 18px}
 .lead-group-n{color:var(--gold);font-weight:500}
 .lead-group-rule{height:1px;background:var(--hair)}
-.lead-grid{display:grid;gap:10px}
+.lead-grid{display:grid;gap:10px;justify-content:center}
 .lead-grid--exec{grid-template-columns:repeat(6,1fr)}
 .lead-grid--subs{grid-template-columns:repeat(6,1fr)}
 @media (max-width: 1100px){ .lead-grid--exec,.lead-grid--subs{grid-template-columns:repeat(5,1fr)} }
@@ -632,8 +632,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lead-yr{color:var(--ink-3)}
 /* Hover bio overlay */
 .lead-desc{position:absolute;inset:0;background:rgba(10,11,13,.94);color:var(--paper);opacity:0;pointer-events:none;transition:opacity .22s ease;display:flex;align-items:flex-start;padding:16px;backdrop-filter:saturate(1.1)}
-.lead-card:hover .lead-desc{opacity:1}
-.lead-desc-inner{max-height:100%;overflow:auto}
+.lead-card:hover .lead-desc{opacity:1;pointer-events:auto}
+.lead-desc-inner{max-height:100%;overflow-y:auto;overscroll-behavior:contain}
 .lead-desc-head{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;padding-left:0;margin-bottom:10px}
 .lead-desc-head::before{content:"[ ";color:var(--gold)}
 .lead-desc-head::after{content:" ]";color:var(--gold)}
