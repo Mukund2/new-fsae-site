@@ -578,6 +578,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   color: var(--paper); text-transform: uppercase;
 }
 
+/* Result highlight tags */
+.result-tag{
+  padding:5px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;border:1px solid var(--hair);color:var(--ink-2);
+  transition:all .2s;
+}
+.result-tag.primary{border-color:var(--gold);color:var(--gold);font-weight:600}
+
 /* Stronger row-hover affordance */
 .result-row{ transition: background .16s, border-color .16s; border-left: 2px solid transparent; }
 .result-row:hover{ background: var(--paper-2); border-left-color: var(--gold); cursor: default; }
@@ -953,11 +961,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="result-preview-meta"><span>FIG 07.1</span><span id="resultPreviewCap">SPARTAN RACING · FIVE-SEASON HIGHLIGHTS</span></div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;font-size:11px">
-        <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">BEST LAP</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">59.83<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
-        <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">ACCEL</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">4.24<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
-        <div><div style="color:var(--ink-3);font-size:10px;letter-spacing:.1em">SKIDPAD</div><div style="font-family:var(--sans);font-size:24px;font-weight:300;letter-spacing:-.02em;margin-top:4px">5.22<span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:4px">S</span></div></div>
-      </div>
+      <div id="resultHighlights" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px"></div>
     </div>
 
     <div class="results" id="resultsList"></div>
@@ -1251,32 +1255,48 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     el.className = 'result-row';
     el.dataset.img = r.img || '';
     el.dataset.cap = r.cap || '';
+    el.dataset.desc = r.d || '';
     el.innerHTML = `<div class="place">${r.p}<sup>${r.s}</sup></div><div class="year">${r.y}</div><div class="event">${r.e}<em>${r.loc}</em></div><div class="div">${r.d}</div>`;
     body.appendChild(el);
   });
   const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*70); io.unobserve(e.target);} }), {threshold:.3});
   [...body.children].forEach(el => io.observe(el));
 
-  // Hover preview — swap event photo in FIG 07.1; revert to default when idle
+  // Hover preview — swap event photo + highlights in FIG 07.1
   const panel = document.getElementById('resultPreview');
   const pImg  = document.getElementById('resultPreviewImg');
   const pCap  = document.getElementById('resultPreviewCap');
   const pLab  = document.getElementById('figLabel');
+  const hBox  = document.getElementById('resultHighlights');
   if (panel && pImg){
     const DEFAULT_IMG = 'assets/events/default-results.jpg';
     const DEFAULT_CAP = 'SPARTAN RACING · FIVE-SEASON HIGHLIGHTS';
+    const DEFAULT_TAGS = ['2nd Overall FSAE Michigan','1st Endurance','Fastest SAE EV','37 Years'];
     const rowsEls = body.querySelectorAll('.result-row');
+
+    const setTags = (tags) => {
+      hBox.innerHTML = '';
+      tags.forEach((t, i) => {
+        const tag = document.createElement('span');
+        tag.className = 'result-tag' + (i === 0 ? ' primary' : '');
+        tag.textContent = t;
+        hBox.appendChild(tag);
+      });
+    };
     const setFrom = (row) => {
       const src = row.dataset.img; if (!src) return;
       pImg.src = src;
       const cap = row.dataset.cap || '';
       pCap.textContent = cap;
       if (pLab) pLab.textContent = 'FIG 07.1 — ' + cap;
+      const desc = row.dataset.desc || '';
+      setTags(desc.split(' · ').filter(Boolean));
     };
     const setDefault = () => {
       pImg.src = DEFAULT_IMG;
       pCap.textContent = DEFAULT_CAP;
       if (pLab) pLab.textContent = 'FIG 07.1 — ' + DEFAULT_CAP;
+      setTags(DEFAULT_TAGS);
     };
     rowsEls.forEach(row => {
       row.addEventListener('mouseenter', () => setFrom(row));
