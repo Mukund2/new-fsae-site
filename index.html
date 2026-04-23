@@ -1433,8 +1433,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       pageEl.appendChild(div);
     }
 
-    function initFlipbook(){
+    // Wait for all images then init flipbook
+    var checkReady = setInterval(function(){
+      var allDone = true;
+      for (var j = 0; j < imgs.length; j++){
+        if (!imgs[j].complete){ allDone = false; break; }
+      }
+      if (!allDone) return;
+      clearInterval(checkReady);
       loading.style.display = 'none';
+
       var availW = pageHost.clientWidth - 110;
       var pageRatio = 8.5 / 11;
       var pageW = Math.min(Math.round(availW / 2), 320);
@@ -1452,18 +1460,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
       flipBook.on('flip', function(){ playFlip(); updateButtons(); });
       updateButtons();
-    }
-    function onImgReady(){
-      loaded++;
-      loading.querySelector('span').textContent = 'PAGE ' + loaded + ' / ' + count;
-      if (loaded < count) return;
-      // All images loaded — wait a frame for browser to paint, then init
-      requestAnimationFrame(function(){ requestAnimationFrame(initFlipbook); });
-    }
-    imgs.forEach(function(im){
-      if (im.complete && im.naturalWidth > 0) onImgReady();
-      else { im.onload = onImgReady; im.onerror = onImgReady; }
-    });
+    }, 50);
   }
 
   prevBtn.addEventListener('click', function(){ if(flipBook) flipBook.flipPrev(); });
