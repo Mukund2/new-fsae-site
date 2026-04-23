@@ -396,6 +396,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* Prevent cover/spread layout jump — keep wrapper at full spread width always */
 .lt-page .stf__parent,.lt-page .stf__wrapper{transition:none !important}
 .lt-page .page-wrapper{background:#fff}
+.lt-page .page-wrapper.page-blank{background:transparent;box-shadow:none;border:none}
 .lt-page .page-wrapper img{width:100%;height:100%;object-fit:contain;display:block}
 .lt-loading{color:var(--ink-3);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
@@ -1430,10 +1431,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       return;
     }
 
-    // Add blank page at start (inside front cover — cover shows on right of first spread)
+    // Add invisible blank page at start (cover shows on right of first spread)
     var blankFront = document.createElement('div');
-    blankFront.className = 'page-wrapper';
-    blankFront.style.background = '#fff';
+    blankFront.className = 'page-wrapper page-blank';
     pageEl.appendChild(blankFront);
 
     // Build page elements and wait for ALL images to load before init
@@ -1451,11 +1451,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       pageEl.appendChild(div);
     }
 
-    // Add blank page at end if odd count (prevents single-page glitch on last page)
-    if (count % 2 !== 0){
+    // Add blank page at end so total (1 + count + pad) is even
+    var totalWithFront = 1 + count;
+    if (totalWithFront % 2 !== 0){
       var blank = document.createElement('div');
-      blank.className = 'page-wrapper';
-      blank.style.background = '#fff';
+      blank.className = 'page-wrapper page-blank';
       pageEl.appendChild(blank);
     }
 
