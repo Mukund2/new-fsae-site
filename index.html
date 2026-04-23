@@ -7,6 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<!-- Preload critical images -->
+<link rel="preload" as="image" href="assets/cars/sr16-side-clean.png">
+<link rel="preload" as="image" href="assets/cars/sr16-front-clean.png">
+<link rel="preload" as="image" href="assets/events/default-results.jpg">
 <style>
 :root{
   /* Cool, fresh off-white — paper-like but bluish. Less sepia, more SF tech. */
@@ -84,7 +88,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .sheet-header .live::before{
   content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
-  background:var(--red);margin-right:7px;vertical-align:middle;
+  background:var(--gold);margin-right:7px;vertical-align:middle;
   animation:pulse 1.4s ease-in-out infinite;
 }
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.75)}}
@@ -174,7 +178,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 /* animated underline that sweeps under the title */
 .cover-title::after{
-  content:"";position:absolute;left:0;bottom:-10px;height:2px;background:var(--red);
+  content:"";position:absolute;left:0;bottom:-10px;height:2px;background:var(--gold);
   width:0;animation:swipe 1.4s .5s cubic-bezier(.2,.7,.2,1) forwards;
 }
 @keyframes swipe{to{width:72%}}
@@ -182,7 +186,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cover-desc{font-size:11px;line-height:1.85;color:var(--ink-2);max-width:52ch;margin-top:32px;letter-spacing:.02em}
 .cover-desc b{color:var(--ink)}
 .stamp{
-  align-self:flex-end;border:2px solid var(--red);color:var(--red);
+  align-self:flex-end;border:2px solid var(--gold);color:var(--gold);
   padding:10px 16px;transform:rotate(-5deg);font-size:10px;letter-spacing:.14em;font-weight:600;
   animation:stampIn 1.2s 1.4s cubic-bezier(.2,1.5,.4,1) both;
   opacity:0;
@@ -219,7 +223,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .dim-line .bar.grow{transform:scaleX(1)}
 .dim-line .val{background:var(--paper);padding:0 6px;font-weight:500;color:var(--ink);position:relative;z-index:1}
 @keyframes dim-pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.dim-line .val.pulse{animation:dim-pulse 2.5s ease-in-out infinite}
+.dim-line .val.pulse{animation:dim-pulse 1.2s ease-in-out infinite}
 .dim-line .tick{width:1px;height:10px;background:var(--ink-2);opacity:0;transition:opacity .2s ease-out}
 .dim-line .tick.show{opacity:1}
 .dim-line .arr{opacity:0;transition:opacity .3s 1.6s}
@@ -237,7 +241,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   font-family:var(--sans);font-weight:200;font-size:clamp(28px,3.4vw,46px);
   line-height:1.08;letter-spacing:-.02em;color:var(--ink);
 }
-.cover-note .note-body em{font-style:italic;color:var(--red);font-weight:300}
+.cover-note .note-body em{font-style:italic;color:var(--gold);font-weight:300}
 
 /* ============ MARQUEE TICKER ============ */
 .ticker{
@@ -247,7 +251,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .ticker-track{display:flex;gap:48px;padding:10px 0;animation:marq 75s linear infinite;white-space:nowrap;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
 .ticker-track span{display:inline-flex;align-items:center;gap:12px}
 .ticker-track span:first-child,
-.ticker-track span:nth-child(29){color:var(--red);font-weight:600}
+.ticker-track span:nth-child(29){color:var(--gold);font-weight:600}
 .ticker-track .sep{width:6px;height:6px;background:var(--gold);display:inline-block}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
@@ -262,61 +266,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cross::before{left:50%;top:0;bottom:0;width:1px;transform:translateX(-.5px)}
 .cross::after{left:0;right:0;top:50%;height:1px;transform:translateY(-.5px)}
 
-/* ============ SHEET 02 — SPEC SHEET ============ */
-.spec{border:1px solid var(--ink);border-top:0}
-.spec-row{display:grid;grid-template-columns:60px 220px 1fr 140px;font-size:12px;border-bottom:1px solid var(--hair);
-  opacity:0;transform:translateY(6px);transition:opacity .5s, transform .5s}
-.spec-row:last-child{border-bottom:0}
-.spec-row.in{opacity:1;transform:none}
-.spec-row > div{padding:12px 14px}
-.spec-row .k{color:var(--ink-3);border-right:1px solid var(--hair);font-size:10px;letter-spacing:.08em}
-.spec-row .label{color:var(--ink-2);border-right:1px solid var(--hair);letter-spacing:.06em;text-transform:uppercase;font-size:11px}
-.spec-row .v{color:var(--ink);font-weight:500;border-right:1px solid var(--hair);font-variant-numeric:tabular-nums;letter-spacing:.01em}
-.spec-row .v .sans{font-family:var(--sans);font-size:16px;letter-spacing:-.01em;font-weight:500}
-.spec-row .v.typing::after{content:"▍";color:var(--red);animation:caret 1s steps(2) infinite;margin-left:2px}
-@keyframes caret{50%{opacity:0}}
-.spec-row .tol{color:var(--ink-3);font-size:11px}
-.spec-row.hi .v{color:var(--red)}
 
-.spec-footer{display:flex;justify-content:space-between;padding:14px 0;font-size:10px;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase;border-top:1px solid var(--ink);margin-top:-1px}
-
-/* ============ SHEET 03 — STATS ODOMETER ============ */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);border-top:0}
-.stat-cell{padding:48px 32px;border-right:1px solid var(--ink);position:relative;min-height:220px}
-.stat-cell:last-child{border-right:0}
-.stat-cell .n{font-size:10px;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
-.stat-cell .big{
-  font-family:var(--sans);font-weight:300;font-size:clamp(56px,7vw,96px);line-height:1;
-  letter-spacing:-.04em;color:var(--ink);font-variant-numeric:tabular-nums;
-  display:flex;align-items:baseline;gap:8px;
-}
-.stat-cell .big .unit{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.1em;font-weight:500;transform:translateY(-6px)}
-.stat-cell .cap{font-size:11px;color:var(--ink-2);margin-top:22px;line-height:1.6;letter-spacing:.02em}
-
-/* ============ SHEET 04 — EXPLODED ============ */
-.exploded-body{display:grid;grid-template-columns:2fr 1fr;border:1px solid var(--ink);border-top:0}
-.exploded-stage{padding:40px;border-right:1px solid var(--ink);position:relative;min-height:560}
-.exploded-scene{position:relative;aspect-ratio:16/9;border:1px dashed var(--hair);overflow:hidden}
-.ex-part{position:absolute;border:1px solid var(--ink);background:var(--paper);
-  display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ink-2);letter-spacing:.08em;
-  transition:transform 1.4s cubic-bezier(.2,.7,.2,1);
-}
-.ex-part svg{width:70%;height:70%;stroke:var(--ink);stroke-width:1;fill:none}
-
-.bom{padding:18px 0}
-.bom h5{padding:0 18px 14px;margin:0;font-size:10px;color:var(--ink-2);letter-spacing:.12em;border-bottom:1px solid var(--ink);font-weight:500;text-transform:uppercase}
-.bom-row{display:grid;grid-template-columns:36px 1fr 36px 100px;padding:9px 18px;font-size:11px;border-bottom:1px solid var(--hair);
-  opacity:0;transform:translateX(-6px);transition:opacity .4s, transform .4s}
-.bom-row.in{opacity:1;transform:none}
-.bom-row .idx{color:var(--ink-3)}
-.bom-row .pn{color:var(--ink);font-weight:500;letter-spacing:.04em}
-.bom-row .q{color:var(--ink-3)}
-.bom-row .mat{color:var(--ink-2);text-align:right;letter-spacing:.04em}
-
-.exploded-controls{position:absolute;top:60px;right:60px;display:flex;gap:10px;z-index:3}
-.exploded-controls button{border:1px solid var(--ink);padding:6px 12px;font-size:10px;letter-spacing:.12em;background:var(--paper);transition:all .18s}
-.exploded-controls button:hover{background:var(--ink);color:var(--paper)}
-.exploded-controls button.on{background:var(--ink);color:var(--paper)}
 
 /* ============ SHEET 05 — LINEAGE ============ */
 .rev-table{border:1px solid var(--ink);border-top:0}
@@ -332,11 +282,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .rev-row > div{padding:14px;border-right:1px solid var(--hair)}
 .rev-row > div:last-child{border-right:0}
 .rev-row .rev{color:var(--ink-2);font-weight:500}
-.rev-row.current .rev{color:var(--red);font-weight:600}
 .rev-row .car{color:var(--ink);font-weight:500;letter-spacing:.04em}
 .rev-row .sum{color:var(--ink-2);letter-spacing:.02em}
 .rev-row:hover{background:var(--paper-2)}
-.rev-row:hover .car{color:var(--red)}
+.rev-row:hover .car{color:var(--gold)}
 
 /* ============ SHEET 06 — TEAM ORG ============ */
 .org{padding:48px;border:1px solid var(--ink);border-top:0}
@@ -365,7 +314,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .track-svg svg{width:100%;height:100%}
 .track-svg .track-line{stroke:var(--ink);stroke-width:2;fill:none;stroke-dasharray:1600;stroke-dashoffset:1600;transition:stroke-dashoffset 2.4s ease-out}
 .track-svg.in .track-line{stroke-dashoffset:0}
-.track-svg .dot{fill:var(--red);opacity:0;transition:opacity .3s 2.2s}
+.track-svg .dot{fill:var(--gold);opacity:0;transition:opacity .3s 2.2s}
 .track-svg.in .dot{opacity:1}
 
 .results{padding:24px 0}
@@ -374,7 +323,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .result-row.in{opacity:1;transform:none}
 .result-row .place{font-family:var(--sans);font-size:26px;font-weight:400;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
 .result-row .place sup{font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-left:2px}
-.result-row.hi .place{color:var(--red)}
 .result-row .year{color:var(--ink-2)}
 .result-row .event{color:var(--ink);font-weight:500}
 .result-row .event em{font-style:normal;color:var(--ink-3);font-size:10px;display:block;margin-top:2px}
@@ -390,7 +338,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .partner-tier .name{padding:0 16px;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
 .partner-tier .logos{padding:0 16px;display:flex;flex-wrap:wrap;gap:18px 36px;font-size:11px;color:var(--ink-2);letter-spacing:.04em}
 .partner-tier .logos span{transition:color .2s, transform .2s;cursor:pointer}
-.partner-tier .logos span:hover{color:var(--red);transform:translateY(-1px)}
+.partner-tier .logos span:hover{color:var(--gold);transform:translateY(-1px)}
 
 /* ============ SHEET 09 — LIGHT TABLE NEWSLETTER ============ */
 .lt-body{display:grid;grid-template-columns:1fr 220px;border:1px solid var(--ink);border-top:0}
@@ -417,7 +365,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   opacity:0;transition:opacity .25s;pointer-events:none}
 .lt-page:hover::after{opacity:1}
 .lt-loading{color:var(--ink-3);font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px}
-.lt-loading .lt-spin{width:20px;height:20px;border:1.5px solid var(--hair);border-top-color:var(--red);border-radius:50%;animation:ltspin .7s linear infinite}
+.lt-loading .lt-spin{width:20px;height:20px;border:1.5px solid var(--hair);border-top-color:var(--gold);border-radius:50%;animation:ltspin .7s linear infinite}
 @keyframes ltspin{to{transform:rotate(360deg)}}
 .lt-page-nav{display:flex;justify-content:center;align-items:center;gap:14px;padding-top:10px;position:relative;z-index:1;
   font-size:10px;letter-spacing:.1em;color:var(--ink-2)}
@@ -435,13 +383,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   transition:background .16s,border-color .16s,padding .2s;border-left:3px solid transparent;
   display:grid;grid-template-columns:24px 1fr;gap:6px;align-items:start}
 .lt-entry:hover{background:var(--paper-2);padding-left:18px}
-.lt-entry.active{border-left-color:var(--red);background:var(--paper-2)}
+.lt-entry.active{border-left-color:var(--gold);background:var(--paper-2)}
 .lt-entry .lt-e-n{font-size:9px;color:var(--ink-3);letter-spacing:.1em;font-variant-numeric:tabular-nums}
-.lt-entry.active .lt-e-n{color:var(--red)}
+.lt-entry.active .lt-e-n{color:var(--gold)}
 .lt-entry .lt-e-date{font-size:8px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase}
 .lt-entry .lt-e-title{font-size:11px;font-weight:500;color:var(--ink);margin-top:1px;line-height:1.25}
-.lt-entry:hover .lt-e-title{color:var(--red)}
-.lt-entry.active .lt-e-date{color:var(--red)}
+.lt-entry:hover .lt-e-title{color:var(--gold)}
+.lt-entry.active .lt-e-date{color:var(--gold)}
 
 /* ============ SHEET 10 — JOIN / CTA ============ */
 .join-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0}
@@ -449,10 +397,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .join-left h3{
   font-family:var(--sans);font-weight:200;font-size:clamp(40px,5vw,72px);letter-spacing:-.03em;line-height:1;margin:0;color:var(--ink)
 }
-.join-left h3 em{font-style:italic;color:var(--red);font-weight:300}
+.join-left h3 em{font-style:italic;color:var(--gold);font-weight:300}
 .join-left p{font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:28px;max-width:46ch;letter-spacing:.02em}
 .join-btn{display:inline-flex;align-items:center;gap:14px;margin-top:36px;padding:16px 22px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.14em;text-transform:uppercase;transition:background .25s}
-.join-btn:hover{background:var(--red)}
+.join-btn:hover{background:var(--gold)}
 .join-btn .arr{transition:transform .3s}
 .join-btn:hover .arr{transform:translateX(6px)}
 
@@ -501,7 +449,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .foot-sign .big{
   font-family:var(--mono);font-size:clamp(72px,11vw,160px);font-weight:500;letter-spacing:-.03em;line-height:.9;
 }
-.foot-sign .big .red{color:var(--red)}
+.foot-sign .big .gold{color:var(--gold)}
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
 .foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
 
@@ -522,14 +470,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #tweaks .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
 @media (max-width:900px){
-  .cover-body,.triptych,.exploded-body,.track-body,.join-body{grid-template-columns:1fr}
-  .cover-left,.cover-right,.triptych .view,.exploded-stage,.track-left,.join-left{border-right:0;border-bottom:1px solid var(--ink)}
-  .stats-grid{grid-template-columns:1fr 1fr}
+  .cover-body,.triptych,.track-body,.join-body{grid-template-columns:1fr}
+  .cover-left,.cover-right,.triptych .view,.track-left,.join-left{border-right:0;border-bottom:1px solid var(--ink)}
   .nav-index{grid-template-columns:repeat(4,1fr)}
   .nav-index a:nth-child(4n){border-right:0}
   .donate-inner{grid-template-columns:1fr;gap:40px}
-  .spec-row{grid-template-columns:40px 1fr 1fr}
-  .spec-row .tol{display:none}
   .rev-head,.rev-row{grid-template-columns:60px 70px 130px 1fr}
   .rev-head > div:nth-child(5),.rev-row > div:nth-child(5){display:none}
   .org-bottom{grid-template-columns:repeat(3,1fr)}
@@ -574,7 +519,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============ SHEET 06 — LEADERSHIP CARDS ============ */
 .leadership{padding:40px 40px 44px;border:1px solid var(--ink);border-top:0}
 .lead-group-label{display:grid;grid-template-columns:64px auto 1fr;gap:14px;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-2);text-transform:uppercase;margin:8px 0 18px}
-.lead-group-n{color:var(--red);font-weight:500}
+.lead-group-n{color:var(--gold);font-weight:500}
 .lead-group-rule{height:1px;background:var(--hair)}
 .lead-grid{display:grid;gap:14px}
 .lead-grid--exec{grid-template-columns:repeat(5,1fr)}
@@ -596,7 +541,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lead-desc{position:absolute;inset:0;background:rgba(10,11,13,.94);color:var(--paper);opacity:0;pointer-events:none;transition:opacity .22s ease;display:flex;align-items:flex-end;padding:16px;backdrop-filter:saturate(1.1)}
 .lead-card:hover .lead-desc{opacity:1}
 .lead-desc-inner{max-height:100%;overflow:auto}
-.lead-desc-head{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--red);text-transform:uppercase;border-left:2px solid var(--red);padding-left:8px;margin-bottom:10px}
+.lead-desc-head{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;padding-left:0;margin-bottom:10px}
+.lead-desc-head::before{content:"[ "; color:var(--gold)}
+.lead-desc-head::after{content:" ]"; color:var(--gold)}
 .lead-desc p{font-family:var(--sans);font-size:12px;line-height:1.55;color:rgba(255,255,255,.85);margin:0}
 .lead-desc::-webkit-scrollbar,.lead-desc-inner::-webkit-scrollbar{width:4px}
 .lead-desc-inner::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25)}
@@ -637,8 +584,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* Stronger row-hover affordance */
 .result-row{ transition: background .16s, border-color .16s; border-left: 2px solid transparent; }
-.result-row:hover{ background: var(--paper-2); border-left-color: var(--red); cursor: default; }
-.result-row:hover .place{ color: var(--red); }
+.result-row:hover{ background: var(--paper-2); border-left-color: var(--gold); cursor: default; }
+.result-row:hover .place{ color: var(--gold); }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
@@ -669,7 +616,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 00 — COVER ============ -->
 <section id="s00" class="sheet" data-screen-label="00 Cover">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">00 / 10</div></div>
+    <div><div class="k">Sheet</div><div class="v">00 / 08</div></div>
     <div><div class="k">Title</div><div class="v">COVER — SR-17 PROGRAMME</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -680,7 +627,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="cover-left">
       <div>
         <div class="cover-eyebrow">Programme title · Season 2025–26</div>
-        <h1 class="cover-title">SR-17<span class="sub">Successor to Flourish.</span></h1>
+        <h1 class="cover-title">SR-17</h1>
         <p class="cover-desc">
           Formula SAE electric vehicle · Emrax 228 motor · 408&nbsp;V accumulator.<br/>
           Designed, machined and composited in <b>San José, California</b> by Spartan Racing across eight subteams: Aero, Powertrain, Chassis, Suspension, Electronics, Software, Business, R&amp;D.<br/><br/>
@@ -693,9 +640,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="cover-right" style="padding:0;position:relative;overflow:hidden;min-height:560px;background:linear-gradient(135deg, #eceef2 0%, #dde1e8 100%)">
       <div class="fig-label" style="position:absolute;top:14px;left:16px;right:16px;z-index:3;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:var(--ink-2);text-transform:uppercase">
         <span>FIG 00.1 — SR-17 · CLASSIFIED UNTIL REVEAL</span>
-        <span id="revealCountdown" style="display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--paper);padding:6px 10px;font-family:var(--mono);font-size:10px;letter-spacing:.14em"><span class="live" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1.4s ease-in-out infinite"></span><span id="cdLabel">REVEAL IN</span><span id="cdValue" style="color:var(--paper);font-variant-numeric:tabular-nums">—</span></span>
+        <span id="revealCountdown" style="display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--paper);padding:6px 10px;font-family:var(--mono);font-size:10px;letter-spacing:.14em"><span class="live" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 1.4s ease-in-out infinite"></span><span id="cdLabel">REVEAL IN</span><span id="cdValue" style="color:var(--paper);font-variant-numeric:tabular-nums">—</span></span>
       </div>
-      <div id="car3d" style="position:absolute;inset:0;cursor:grab;filter:blur(5px) contrast(1.06) saturate(.9)"></div>
+      <div id="car3d" style="position:absolute;inset:0;cursor:grab;filter:blur(12px) contrast(1.06) saturate(.9)"></div>
       <div style="position:absolute;bottom:14px;left:16px;right:16px;z-index:3;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;pointer-events:none">
         <span>SR-17 · REDACTED SILHOUETTE</span>
         <span>GLB · 734 KB</span>
@@ -706,8 +653,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <!-- big typographic note -->
   <div class="cover-note reveal">
     <div class="note-n">NOTE A</div>
-    <div class="note-body">Since 1989. Twenty-three cars. Every one drawn by hand, by a student, <em>on a sheet like this one.</em></div>
-    <div class="note-n" style="text-align:right">SEE SHT 02</div>
+    <div class="note-body">Since 1989. Twenty-three cars. Built because students learn more <em>building the machine than reading about one.</em></div>
+    <div class="note-n" style="text-align:right">SEE SHT 02 · LINEAGE</div>
   </div>
 </section>
 
@@ -777,7 +724,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 01 — ORTHOGRAPHIC TRIPTYCH ============ -->
 <section id="s01" class="sheet" data-screen-label="01 Vehicle">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">01 / 10</div></div>
+    <div><div class="k">Sheet</div><div class="v">01 / 08</div></div>
     <div><div class="k">Title</div><div class="v">VEHICLE — ORTHOGRAPHIC PROJECTION</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 20</div></div>
@@ -809,43 +756,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 </section>
 
-<!-- ============ SHEET 02 — STATS ============ -->
-<section id="s03" class="sheet" data-screen-label="02 Stats">
-  <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">02 / 10</div></div>
-    <div><div class="k">Title</div><div class="v">PROGRAMME SUMMARY — FIGURES OF MERIT</div></div>
-    <div><div class="k">Rev</div><div class="v">C</div></div>
-    <div><div class="k">Scale</div><div class="v">—</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
-  </div>
-  <div class="stats-grid">
-    <div class="stat-cell reveal">
-      <div class="n">[ M-01 ] Years running</div>
-      <div class="big"><span class="count" data-to="37">00</span><span class="unit">YRS</span></div>
-      <div class="cap">From SR-0 in 1989 through a pause, reborn with SR-1 in 2008, and annually since.</div>
-    </div>
-    <div class="stat-cell reveal">
-      <div class="n">[ M-02 ] Dry mass · SR-16</div>
-      <div class="big"><span class="count" data-to="427">000</span><span class="unit">LBS</span></div>
-      <div class="cap">193.7 kg without driver. 4130 chromoly spaceframe, Emrax 228, 7 kWh accumulator.</div>
-    </div>
-    <div class="stat-cell reveal">
-      <div class="n">[ M-03 ] Peak torque</div>
-      <div class="big"><span class="count" data-to="162">000</span><span class="unit">FT·LB</span></div>
-      <div class="cap">Emrax 228MV PMSM. 408 V nominal bus. CM200DZ motor controller.</div>
-    </div>
-    <div class="stat-cell reveal">
-      <div class="n">[ M-04 ] 0–60 mph · SR-16</div>
-      <div class="big"><span class="count" data-to="3.4" data-decimal>0.0</span><span class="unit">SEC</span></div>
-      <div class="cap">Clocked at FSAE Michigan 2025 — 1st Endurance, 2nd Overall.</div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ SHEET 03 — LINEAGE ============ -->
 <section id="s05" class="sheet" data-screen-label="03 Lineage">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">03 / 10</div></div>
+    <div><div class="k">Sheet</div><div class="v">02 / 08</div></div>
     <div><div class="k">Title</div><div class="v">LINEAGE — REVISION HISTORY · 37 YRS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -863,7 +778,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 06 — TEAM ============ -->
 <section id="s06" class="sheet" data-screen-label="06 Team">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">04 / 10</div></div>
+    <div><div class="k">Sheet</div><div class="v">03 / 08</div></div>
     <div><div class="k">Title</div><div class="v">TEAM — LEADERSHIP, SEASON 2025–26</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 1</div></div>
@@ -1024,7 +939,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 07 — RESULTS ============ -->
 <section id="s07" class="sheet" data-screen-label="07 Results">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">05 / 10</div></div>
+    <div><div class="k">Sheet</div><div class="v">04 / 08</div></div>
     <div><div class="k">Title</div><div class="v">RESULTS — FIVE-SEASON DYNAMIC EVENTS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1033,13 +948,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
   <div class="track-body">
     <div class="track-left">
-      <div class="fig-label"><span id="figLabel">FIG 07.1 — FSAE MICHIGAN · SR-16 · JUN 2025</span><span>BEST SHOT</span></div>
+      <div class="fig-label"><span id="figLabel">FIG 07.1 — SPARTAN RACING · FIVE-SEASON HIGHLIGHTS</span><span>BEST SHOT</span></div>
       <div class="track-svg reveal" style="position:relative;min-height:300px;aspect-ratio:4/2.5;background:var(--ink)">
         <div id="resultPreview" class="result-preview show" aria-hidden="false">
-          <img id="resultPreviewImg" src="assets/events/fsae-michigan-2025.png" alt=""/>
+          <img id="resultPreviewImg" src="assets/events/default-results.jpg" alt=""/>
           <div class="result-preview-cnr tl"></div><div class="result-preview-cnr tr"></div>
           <div class="result-preview-cnr bl"></div><div class="result-preview-cnr br"></div>
-          <div class="result-preview-meta"><span>FIG 07.1</span><span id="resultPreviewCap">FSAE MICHIGAN · SR-16 · JUN 2025</span></div>
+          <div class="result-preview-meta"><span>FIG 07.1</span><span id="resultPreviewCap">SPARTAN RACING · FIVE-SEASON HIGHLIGHTS</span></div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;font-size:11px">
@@ -1056,7 +971,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 08 — PARTNERS ============ -->
 <section id="s08" class="sheet" data-screen-label="08 Partners">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">06 / 10</div></div>
+    <div><div class="k">Sheet</div><div class="v">05 / 08</div></div>
     <div><div class="k">Title</div><div class="v">PARTNERS — CERTIFIED CONTRIBUTORS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1100,7 +1015,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 09 — NEWSLETTER MICROFICHE ============ -->
 <section id="s09" class="sheet" data-screen-label="09 Newsletter">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">07 / 10</div></div>
+    <div><div class="k">Sheet</div><div class="v">06 / 08</div></div>
     <div><div class="k">Title</div><div class="v">NEWSLETTER — MICROFICHE ARCHIVE</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 1</div></div>
@@ -1131,7 +1046,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 10 — JOIN ============ -->
 <section id="s10" class="sheet" data-screen-label="10 Join">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">08 / 10</div></div>
+    <div><div class="k">Sheet</div><div class="v">07 / 08</div></div>
     <div><div class="k">Title</div><div class="v">RECRUITING — OPEN ROLES SEASON 27</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1168,7 +1083,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 12 — CONTACT / SIGN-OFF ============ -->
 <section id="s12" class="footer-sheet" data-screen-label="12 Contact">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">10 / 10</div></div>
+    <div><div class="k">Sheet</div><div class="v">08 / 08</div></div>
     <div><div class="k">Title</div><div class="v">CONTACT · APPROVAL STAMP</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1200,14 +1115,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
   <div class="foot-sign reveal">
     <div class="k">END OF SHEET SET · APPROVED FOR COMPETITION</div>
-    <div class="big">SR-<span class="red">17</span></div>
+    <div class="big">SR-<span class="gold">17</span></div>
     <div class="approval">Signed · WILL KITTINGER, President · HIREN PATEL, Chief Engineer · 21 APR 2026</div>
   </div>
 
   <div class="foot-colophon">
     <span>© 1986–2026 Spartan Racing · SJSU FSAE</span>
     <span>Drawn by student team · do not redistribute without credit</span>
-    <span>Sheet 10 / 10</span>
+    <span>Sheet 08 / 08</span>
   </div>
 </section>
 
@@ -1308,27 +1223,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   document.querySelectorAll('.reveal, .draw, .dim-line, .track-svg').forEach(el => io.observe(el));
 })();
 
-/* ============ STAT COUNTERS ============ */
-(function(){
-  const ease = t => 1 - Math.pow(1-t,3);
-  const anim = el => {
-    const to = parseFloat(el.dataset.to);
-    const dec = el.hasAttribute('data-decimal');
-    const start = performance.now();
-    const dur = 1800;
-    const pad = dec ? 3 : String(Math.floor(to)).length;
-    const frame = now => {
-      const t = Math.min(1,(now-start)/dur);
-      const v = to * ease(t);
-      el.textContent = dec ? v.toFixed(1) : String(Math.round(v)).padStart(pad,'0');
-      if (t<1) requestAnimationFrame(frame);
-      else el.textContent = dec ? to.toFixed(1) : String(Math.round(to));
-    };
-    requestAnimationFrame(frame);
-  };
-  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ anim(e.target); io.unobserve(e.target);} }), {threshold:.5});
-  document.querySelectorAll('.count').forEach(el => io.observe(el));
-})();
 
 /* ============ LINEAGE REVISION TABLE ============ */
 (function(){
@@ -1363,7 +1257,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 (function(){
   const rows = [
     {p:'1',s:'st',y:'2025',e:'NorCal Shootout · SR-16',loc:'Thunderhill, CA',d:'Fastest lap prize · 4.55 s',img:'assets/events/norcal-2025.jpg',cap:'NORCAL SHOOTOUT · THUNDERHILL · OCT 2025'},
-    {p:'2',s:'nd',y:'2025',e:'FSAE Michigan · SR-16',loc:'Brooklyn, MI',d:'2nd Overall · 1st EV · Fastest SAE EV',hi:true,img:'assets/events/fsae-michigan-2025.png',cap:'FSAE MICHIGAN · SR-16 · JUN 2025'},
+    {p:'2',s:'nd',y:'2025',e:'FSAE Michigan · SR-16',loc:'Brooklyn, MI',d:'2nd Overall · 1st EV · Fastest SAE EV',img:'assets/events/fsae-michigan-2025.png',cap:'FSAE MICHIGAN · SR-16 · JUN 2025'},
     {p:'1',s:'st',y:'2024',e:'SoCal Shootout · SR-15',loc:'Willow Springs, CA',d:'1st EV · Beall 60 entry',img:'assets/events/socal-shootout.jpg',cap:'SOCAL SHOOTOUT · WILLOW SPRINGS · 2024'},
     {p:'5',s:'th',y:'2024',e:'FSAE Michigan · SR-15',loc:'Brooklyn, MI',d:'1st Cummins Innovation · 2nd Cost · 3rd Endurance · Design Finalist',img:'assets/events/fsae-michigan-2024.png',cap:'FSAE MICHIGAN · SR-15 · JUN 2024'},
     {p:'2',s:'nd',y:'2021',e:'FSAE Michigan · SRE-5',loc:'Brooklyn, MI',d:'1st Endurance · First running SRE ever',img:'assets/events/fsae-michigan-2021.png',cap:'FSAE MICHIGAN · SRE-5 · 2021'},
@@ -1372,7 +1266,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   const body = document.getElementById('resultsList');
   rows.forEach(r => {
     const el = document.createElement('div');
-    el.className = 'result-row' + (r.hi?' hi':'');
+    el.className = 'result-row';
     el.dataset.img = r.img || '';
     el.dataset.cap = r.cap || '';
     el.innerHTML = `<div class="place">${r.p}<sup>${r.s}</sup></div><div class="year">${r.y}</div><div class="event">${r.e}<em>${r.loc}</em></div><div class="div">${r.d}</div>`;
@@ -1381,14 +1275,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*70); io.unobserve(e.target);} }), {threshold:.3});
   [...body.children].forEach(el => io.observe(el));
 
-  // Hover preview — swap event photo in FIG 07.1; revert to highlighted row when idle
+  // Hover preview — swap event photo in FIG 07.1; revert to default when idle
   const panel = document.getElementById('resultPreview');
   const pImg  = document.getElementById('resultPreviewImg');
   const pCap  = document.getElementById('resultPreviewCap');
   const pLab  = document.getElementById('figLabel');
   if (panel && pImg){
+    const DEFAULT_IMG = 'assets/events/default-results.jpg';
+    const DEFAULT_CAP = 'SPARTAN RACING · FIVE-SEASON HIGHLIGHTS';
     const rowsEls = body.querySelectorAll('.result-row');
-    const defaultRow = body.querySelector('.result-row.hi') || rowsEls[0];
     const setFrom = (row) => {
       const src = row.dataset.img; if (!src) return;
       pImg.src = src;
@@ -1396,10 +1291,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       pCap.textContent = cap;
       if (pLab) pLab.textContent = 'FIG 07.1 — ' + cap;
     };
+    const setDefault = () => {
+      pImg.src = DEFAULT_IMG;
+      pCap.textContent = DEFAULT_CAP;
+      if (pLab) pLab.textContent = 'FIG 07.1 — ' + DEFAULT_CAP;
+    };
     rowsEls.forEach(row => {
       row.addEventListener('mouseenter', () => setFrom(row));
-      row.addEventListener('mouseleave', () => { if (defaultRow) setFrom(defaultRow); });
+      row.addEventListener('mouseleave', () => setDefault());
     });
+    setDefault();
   }
 })();
 
@@ -1507,7 +1408,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         showPage(0);
       });
     }).catch(function(){
-      loading.innerHTML = '<span style="color:var(--red)">FAILED TO LOAD</span>';
+      loading.innerHTML = '<span style="color:var(--gold)">FAILED TO LOAD</span>';
     });
   }
 
@@ -1941,5 +1842,25 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 })();
 </script>
 
+<script>
+/* ============ IMAGE PRELOADER ============ */
+(function(){
+  var imgs = document.querySelectorAll('img[loading="lazy"], img[src*="assets/"]');
+  imgs.forEach(function(img){
+    if (img.src) { var p = new Image(); p.src = img.src; }
+  });
+  // Also preload event photos and car photos used in hover previews
+  var preloadSrcs = [
+    'assets/events/default-results.jpg',
+    'assets/events/norcal-2025.jpg','assets/events/fsae-michigan-2025.png',
+    'assets/events/socal-shootout.jpg','assets/events/fsae-michigan-2024.png',
+    'assets/events/fsae-michigan-2021.png','assets/events/fsae-michigan-2015.png',
+    'assets/cars/sr16.jpg','assets/cars/sr15.jpg','assets/cars/sr14.png',
+    'assets/cars/sr13.jpg','assets/cars/sre6.jpg','assets/cars/sre5.jpg',
+    'assets/cars/sr11.png','assets/cars/sr7.jpg','assets/cars/sr1.jpg','assets/cars/sr0.jpg'
+  ];
+  preloadSrcs.forEach(function(s){ var p = new Image(); p.src = s; });
+})();
+</script>
 </body>
 </html>
