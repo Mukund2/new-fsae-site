@@ -239,10 +239,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .cover-note .note-n{font-size:10px;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase}
 .cover-note .note-body{
-  font-family:"Caveat",cursive;font-weight:500;font-size:clamp(28px,3.4vw,46px);
-  line-height:1.15;letter-spacing:-.01em;color:var(--ink);
+  font-family:"Inter Tight",var(--sans);font-weight:200;font-size:clamp(28px,3.4vw,46px);
+  line-height:1.08;letter-spacing:-.02em;color:var(--ink);
 }
-.cover-note .note-body em{font-style:italic;color:var(--gold);font-weight:300}
+.cover-note .note-body em{font-style:italic;color:var(--gold);font-weight:200}
 
 /* ============ MARQUEE TICKER ============ */
 .ticker{
@@ -361,8 +361,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .partner-tier .t{padding:0 16px;font-size:10px;color:var(--ink-3);letter-spacing:.12em}
 .partner-tier .name{padding:0 16px;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
 .partner-tier .logos{padding:0 16px;display:flex;flex-wrap:wrap;gap:18px 36px;font-size:11px;color:var(--ink-2);letter-spacing:.04em}
-.partner-tier .logos span{transition:color .2s, transform .2s;cursor:pointer}
-.partner-tier .logos span:hover{color:var(--gold);transform:translateY(-1px)}
+.partner-tier .logos span,.partner-tier .logos a{transition:color .2s, transform .2s;cursor:pointer}
+.partner-tier .logos span:hover,.partner-tier .logos a:hover{color:var(--gold);transform:translateY(-1px)}
 
 /* ============ SHEET 09 — LIGHT TABLE NEWSLETTER ============ */
 .lt-body{display:grid;grid-template-columns:1fr 220px;border:1px solid var(--ink);border-top:0;max-height:600px;overflow:hidden}
@@ -845,7 +845,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">HIREN PATEL</div>
           <div class="lead-role">Chief Engineer · <span class="lead-yr">ME MS · YR 1</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HIREN PATEL — Chief Engineer</div><p>Joined during SR-13 as an intern. Chassis designer and harness manufacturer on SR-15; Systems Integration on SR-16, stepping up as Project Manager through technicals and dynamics. Now Chief Engineer for SR-17 — striving for a podium finish.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HIREN PATEL — Chief Engineer</div><p>Hiren Patel is a first-year Mechanical Engineering Masters student who joined the team during SR-13 as an intern. He completed his undergraduate Mechanical Engineering program here at SJSU. During SR-15 he was a chassis designer and helped manufacture the wiring harness. During SR-16 he worked as a Systems Integration member ensuring all aspects of the vehicle worked together. Due to his knowledge and skill level, Hiren was asked to step up during completion as a Project Manager ensuring the team made it through all technical inspections and dynamic events. After serving in multiple design roles, Hiren is this year's Chief Engineer and looks forward to striving for a podium finish at this year's competition.</p></div></div>
       </div>
       <div class="lead-card lead-card--exec" data-slug="will-kittinger">
         <div class="lead-photo"><img src="assets/leads/will-kittinger.jpg" alt="WILL KITTINGER" loading="lazy"/></div>
@@ -854,7 +854,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">WILL KITTINGER</div>
           <div class="lead-role">President · <span class="lead-yr">MIS · YR 5</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">WILL KITTINGER — President</div><p>Began as Business intern during SR-15. Expanded into Suspension and Final Drive on SR-16 while building the foundation of the Cost Report and leading sponsor outreach. Now President and Business Lead for SR-17. Goal: first place next June.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">WILL KITTINGER — President</div><p>Will Kittinger is a fifth year Management Information Systems major who began with Spartan Racing as a Business Team intern during SR-15. He quickly expanded his role, contributing to both business operations and mechanical subteams such as Suspension and Final Drive during SR-16. He developed the foundation of the Cost Report while leading sponsor outreach efforts. Will now serves as President and Business Lead for SR-17, where he is focused on guiding the team forward. His goal is to bring home a first place finish at competition next June.</p></div></div>
       </div>
       <div class="lead-card lead-card--exec" data-slug="ally-almiranez">
         <div class="lead-photo"><img src="assets/leads/ally-almiranez.jpg" alt="ALLY ALMIRANEZ" loading="lazy"/></div>
@@ -863,7 +863,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">ALLY ALMIRANEZ</div>
           <div class="lead-role">Treasurer · <span class="lead-yr">MKTG · YR 2</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">ALLY ALMIRANEZ — Treasurer</div><p>Joined during SR-16. Supports the team by sending gifts to top-tier sponsors, managing the website, and handling logistics for the team\'s largest annual competition.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">ALLY ALMIRANEZ — Treasurer</div><p>Ally Almiranez is a second-year Marketing major who joined the team during SR-16. Since then, she has supported the team by sending gifts to top-tier sponsors, managing the club's website, and assisting with logistics for the team's largest annual competition. This year, she's excited to be our Treasurer and looks forward to what the year will bring!</p></div></div>
       </div>
       <div class="lead-card lead-card--exec" data-slug="angel-lopez">
         <div class="lead-photo"><img src="assets/leads/angel-lopez.jpg" alt="ANGEL LOPEZ" loading="lazy"/></div>
@@ -872,7 +872,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">ANGEL LOPEZ</div>
           <div class="lead-role">Project Manager · <span class="lead-yr">ME · YR 3</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">ANGEL LOPEZ — Project Manager</div><p>Joined during SR-15 as an Aerodynamic and Final Drive intern. Aerodynamics Designer and Differential Carrier Designer on SR-16. Now Project Manager for SR-17 — guiding the team through new challenges.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">ANGEL LOPEZ — Project Manager</div><p>Angel Lopez is a third-year Mechanical Engineering student who joined the team during SR-15 as an Aerodynamic and Final Drive intern. During SR-16, he served as both an Aerodynamics Designer and a Differential Carrier Designer. This year Angel has taken role as Project Manager for SR-17 and looks forward in guiding the team through new challenges and achievements.</p></div></div>
       </div>
       <div class="lead-card lead-card--exec" data-slug="aidan-garcia">
         <div class="lead-photo"><img src="assets/leads/aidan-garcia.jpg" alt="AIDAN GARCIA" loading="lazy"/></div>
@@ -881,7 +881,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">AIDAN GARCIA</div>
           <div class="lead-role">Safety Officer · <span class="lead-yr">IE · YR 5</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">AIDAN GARCIA — Safety Officer</div><p>Joined Spartan Racing during SR-15 as a powertrain intern. Named one of SR-16\'s battery pack designers; finished manufacturing the first accumulator 2 weeks ahead of schedule, enabling the testing that contributed to the 1st-place Endurance result.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">AIDAN GARCIA — Safety Officer</div><p>Aidan Garcia is an Interdisciplinary Engineering student in his 5th year who joined Spartan Racing during SR-15 as an intern for the powertrain team. After a few short months, he was named as one of SR-16's battery pack designers. After an intense design season, Aidan was able to finish manufacturing the first of 2 accumulators 2 weeks ahead of schedule. This allowed for more testing and validation than initially anticipated which contributed to its reliability that was a key part in the team placing 1st in endurance.</p></div></div>
       </div>
     </div>
 
@@ -902,7 +902,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">DAMON HABERMAN</div>
           <div class="lead-role">Aerodynamics Lead · <span class="lead-yr">AE · YR 4</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">DAMON HABERMAN — Aerodynamics Lead</div><p>Joined during SR-13 / SRE-6. Three years of iterative aero on front wing and undertray (+20% downforce), then redesigned the whole package front-to-back (+25%). Now Aero Lead for SR-17 — refining the package into a reliable, durable system.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">DAMON HABERMAN — Aerodynamics Lead</div><p>Damon Haberman is a fourth-year Aerospace Engineering student who joined Spartan Racing during SR-13 and SRE-6 as a member of the aerodynamics team. Over his first three years, he focused on iterative aero design of the front wing and undertray, contributing to a 20% increase in downforce. Building on that experience, Damon redesigned the entire package from front to back in his fourth year, achieving a further 25% improvement in vehicle downforce. Now serving as Aerodynamics Lead for SR-17, he aims to refine the package into a reliable and durable system while expanding the team's understanding of its performance on track.</p></div></div>
       </div>
       <div class="lead-card" data-slug="hayat-dlala">
         <div class="lead-photo"><img src="assets/leads/hayat-dlala.jpg" alt="HAYAT DLALA" loading="lazy"/></div>
@@ -911,7 +911,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">HAYAT DLALA</div>
           <div class="lead-role">Business Lead · <span class="lead-yr">FIN · YR 2</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HAYAT DLALA — Business Lead</div><p>Joined as intern during SR-17. Contributed across logistics, media, newsletters, and graphic design before moving into project management and business ops. Now Business Lead — building a sustainable year-round business team competing for 1st.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HAYAT DLALA — Business Lead</div><p>Hayat is a 2nd-year Finance major who joined Spartan Racing as an intern during the SR-17 season. She contributed across logistics, media, newsletters, and graphic design, before taking on responsibilities in project management and business operations. She currently serves as Business Lead, focused on building a sustainable and efficient business team capable of operating year-round and competing for 1st place.</p></div></div>
       </div>
       <div class="lead-card" data-slug="emmett-miura">
         <div class="lead-photo"><img src="assets/leads/emmett-miura.jpg" alt="EMMETT MIURA" loading="lazy"/></div>
@@ -920,7 +920,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">EMMETT MIURA</div>
           <div class="lead-role">Chassis Lead · <span class="lead-yr">ME · YR 3</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">EMMETT MIURA — Chassis Lead</div><p>Joined during SR-15 as an intern — steering wheel, jigs, and suspension tasks. Designed the SR-16 steering system. Now SR-17 Chassis Lead and kinematics designer.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">EMMETT MIURA — Chassis Lead</div><p>Emmett Miura is a third-year Mechanical Engineering student who joined Spartan Racing during SR-15 as an intern. In his first season, he worked on the steering wheel, designed and machined jigs, and contributed to various suspension tasks. The following year, he designed the SR-16 steering system, and he now serves as SR-17's Chassis Lead and kinematics designer.</p></div></div>
       </div>
       <div class="lead-card" data-slug="william-la-poll">
         <div class="lead-photo"><img src="assets/leads/william-la-poll.jpg" alt="WILLIAM LA POLL" loading="lazy"/></div>
@@ -929,7 +929,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">WILLIAM LA POLL</div>
           <div class="lead-role">Electronics Lead · <span class="lead-yr">EE · YR 3</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">WILLIAM LA POLL — Electronics Lead</div><p>Joined during SR-15 as a wire harness intern. Wire harness designer and motherboard co-designer on SR-16. Now Electronics Lead — building a reliable, fast race car.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">WILLIAM LA POLL — Electronics Lead</div><p>William La Poll is a third-year Electrical Engineering student who joined Spartan Racing during SR-15 as an intern supporting the wire harness. In SR-16 he contributed as a wire harness designer and co-designed the motherboard. This year he serves as Electronics Lead, focused on building a reliable and fast race car.</p></div></div>
       </div>
       <div class="lead-card" data-slug="harleen-sandhu">
         <div class="lead-photo"><img src="assets/leads/harleen-sandhu.jpg" alt="HARLEEN SANDHU" loading="lazy"/></div>
@@ -938,7 +938,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">HARLEEN SANDHU</div>
           <div class="lead-role">Software Lead · <span class="lead-yr">CS · YR 4</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HARLEEN SANDHU — Software Lead</div><p>Started in R&D on Torque Vectoring. Joined the competition team on SR-16 as a Controls designer, authoring a Power Limiting algorithm. Now Software Lead after ~1.5 years on software — expanding control systems this year.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">HARLEEN SANDHU — Software Lead</div><p>Harleen Sandhu is a fourth-year Computer Science student who initially joined the team doing Torque Vectoring for the R&D team. The following year she joined the competition team during SR-16 as a designer for Controls designing a Power Limiting algorithm. After being on software for about a year and a half she is this year's software lead, looking forward to expanding on control systems this year.</p></div></div>
       </div>
       <div class="lead-card" data-slug="nicholas-ng">
         <div class="lead-photo"><img src="assets/leads/nicholas-ng.jpg" alt="NICHOLAS NG" loading="lazy"/></div>
@@ -947,7 +947,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">NICHOLAS NG</div>
           <div class="lead-role">Suspension Lead · <span class="lead-yr">ISE</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">NICHOLAS NG — Suspension Lead</div><p>Joined during SR-14 as a suspension intern. Dampers + inboard suspension on SR-15; kinematics and inboard suspension on SR-16. Now Suspension Lead — guiding the next generation and building on SR-16.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">NICHOLAS NG — Suspension Lead</div><p>Nicholas Ng is an Industrial &amp; Systems Engineering student who joined Spartan Racing during SR-14 as a suspension intern. The following year, he designed the dampers and inboard suspension for SR-15. Last year he designed the kinematics and inboard suspension for SR-16. This year, as suspension lead, Nicholas wants to guide the next generation of Spartan Racing's suspension designers to master the basics of suspension design and vehicle tuning. He looks forward to creating an iconic car that builds on the success of SR-16.</p></div></div>
       </div>
       <div class="lead-card" data-slug="aidan-garcia">
         <div class="lead-photo"><img src="assets/leads/aidan-garcia.jpg" alt="AIDAN GARCIA" loading="lazy"/></div>
@@ -956,7 +956,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">AIDAN GARCIA</div>
           <div class="lead-role">Powertrain Co-Lead · <span class="lead-yr">IE · YR 5</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">AIDAN GARCIA — Powertrain Co-Lead</div><p>Powertrain intern on SR-15; battery pack designer on SR-16 — finished first accumulator 2 weeks early. Now Powertrain Co-Lead: more reliable, while still letting designers innovate and learn.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">AIDAN GARCIA — Powertrain Co-Lead</div><p>Aidan Garcia is an Interdisciplinary Engineering student in his 5th year who joined Spartan Racing during SR-15 as an intern for the powertrain team. After a few short months, he was named as one of SR-16's battery pack designers. After an intense design season, Aidan was able to finish manufacturing the first of 2 accumulators 2 weeks ahead of schedule. Now, as Powertrain Co-Lead, Aidan hopes to make the powertrain even more reliable while still enabling his designers to innovate and learn.</p></div></div>
       </div>
       <div class="lead-card" data-slug="kevin-hong">
         <div class="lead-photo"><img src="assets/leads/kevin-hong.jpg" alt="KEVIN HONG" loading="lazy"/></div>
@@ -965,7 +965,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">KEVIN HONG</div>
           <div class="lead-role">Powertrain Co-Lead · <span class="lead-yr">ME · YR 3</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">KEVIN HONG — Powertrain Co-Lead</div><p>A materials & fatigue specialist with a passion for bicycles and automobiles. Designed drivetrain components for both SR-15 and SR-16. Now Powertrain Co-Lead — leading innovative, sound engineering practice for the Powertrain subsystem.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">KEVIN HONG — Powertrain Co-Lead</div><p>Kevin Hong is a third-year Mechanical Engineering student with a deep passion for bicycles and automobiles. Since the beginning of his college journey, Kevin has been a dedicated member of Spartan Racing, carving out a niche in materials &amp; fatigue analysis. He played a key role in designing drivetrain components for both SR-15 &amp; SR-16. With SR-17, Kevin embarks on a new chapter, leading the charge on innovative and sound engineering practices for the Powertrain subsystem.</p></div></div>
       </div>
       <div class="lead-card" data-slug="shaun-gilmore">
         <div class="lead-photo"><img src="assets/leads/shaun-gilmore.jpg" alt="SHAUN GILMORE" loading="lazy"/></div>
@@ -974,7 +974,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <div class="lead-name">SHAUN GILMORE</div>
           <div class="lead-role">R&D Lead · <span class="lead-yr">MATH · YR 4</span></div>
         </div>
-        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">SHAUN GILMORE — R&D Lead</div><p>Joined during SR-14 / SRE-7 as an R&D sensors designer. Controls designer on SR-15 — power limiting and launch control. Now R&D Lead: in-hubs and torque vectoring development, targeting a running 4WD in-hubs car.</p></div></div>
+        <div class="lead-desc"><div class="lead-desc-inner"><div class="lead-desc-head">SHAUN GILMORE — R&D Lead</div><p>Shaun Gilmore is a fourth-year student pursuing an Applied Math degree who joined the team during SR-14 and SRE-7 as an R&amp;D sensors designer. During SR-15, he assumed the role of controls designer for software, working on power limiting and launch control projects. After multiple design roles, Shaun is this year's R&amp;D Lead, and believes the team will be taking a huge step forward in its in-hubs and torque vectoring development, with the mission of finally delivering a running 4WD in-hubs car.</p></div></div>
       </div>
     </div>
 
@@ -1028,32 +1028,32 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="partner-tier reveal">
       <div class="t">T-I</div>
       <div class="name">Title</div>
-      <div class="logos"><span>Cadence</span><span>Altium</span><span>Siemens</span><span>Ansys</span><span>Toray</span><span>Roku</span><span>Phoenix Contact</span><span>Military Fasteners</span><span>Bergman</span><span>Don Beal</span></div>
+      <div class="logos"><a href="https://www.cadence.com" target="_blank" rel="noopener">Cadence</a><a href="https://www.altium.com" target="_blank" rel="noopener">Altium</a><a href="https://www.siemens.com" target="_blank" rel="noopener">Siemens</a><a href="https://www.ansys.com" target="_blank" rel="noopener">Ansys</a><a href="https://www.toray.com" target="_blank" rel="noopener">Toray</a><a href="https://www.roku.com" target="_blank" rel="noopener">Roku</a><a href="https://www.phoenixcontact.com" target="_blank" rel="noopener">Phoenix Contact</a><a href="https://www.militaryfasteners.com" target="_blank" rel="noopener">Military Fasteners</a><span>Bergman</span><span>Don Beal</span></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-II</div>
       <div class="name">Platinum</div>
-      <div class="logos"><span>Motec USA</span><span>Levy</span><span>BayView Plastics</span></div>
+      <div class="logos"><a href="https://www.motec.com.au" target="_blank" rel="noopener">Motec USA</a><span>Levy</span><span>BayView Plastics</span></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-III</div>
       <div class="name">Gold</div>
-      <div class="logos"><span>Vi-grade</span><span>Cisco</span><span>Rapid Harness</span><span>SFR SCCA</span><span>Lucid Motors</span><span>Candy Store Fdn</span><span>Marin Design Works</span><span>Valence Precision</span></div>
+      <div class="logos"><a href="https://www.vi-grade.com" target="_blank" rel="noopener">Vi-grade</a><a href="https://www.cisco.com" target="_blank" rel="noopener">Cisco</a><a href="https://www.rapidharness.com" target="_blank" rel="noopener">Rapid Harness</a><span>SFR SCCA</span><a href="https://www.lucidmotors.com" target="_blank" rel="noopener">Lucid Motors</a><span>Candy Store Fdn</span><span>Marin Design Works</span><span>Valence Precision</span></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-IV</div>
       <div class="name">Silver</div>
-      <div class="logos"><span>Mountz Torque</span><span>Evonik</span><span>Futek</span><span>About Energy</span><span>Rivian · VW Group</span><span>TE Connectivity</span></div>
+      <div class="logos"><a href="https://www.mountztorque.com" target="_blank" rel="noopener">Mountz Torque</a><a href="https://www.evonik.com" target="_blank" rel="noopener">Evonik</a><a href="https://www.futek.com" target="_blank" rel="noopener">Futek</a><span>About Energy</span><a href="https://www.rivian.com" target="_blank" rel="noopener">Rivian · VW Group</a><a href="https://www.te.com" target="_blank" rel="noopener">TE Connectivity</a></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-V</div>
       <div class="name">Bronze</div>
-      <div class="logos"><span>Star One CU</span><span>Airtech</span><span>Sabalcore</span><span>LCL Machining</span><span>KLA</span><span>Amex</span></div>
+      <div class="logos"><span>Star One CU</span><a href="https://www.airtech.lu" target="_blank" rel="noopener">Airtech</a><span>Sabalcore</span><span>LCL Machining</span><a href="https://www.kla.com" target="_blank" rel="noopener">KLA</a><span>Amex</span></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-VI</div>
       <div class="name">Partner</div>
-      <div class="logos"><span>Rexco</span><span>Chemtrend</span><span>SMC</span><span>Dremel</span><span>FibreGlast</span><span>XRP</span><span>MatterHackers</span><span>Bender</span><span>VectorNav</span><span>Bojo Tools</span><span>Shining 3D</span><span>Prismatic Powders</span><span>ThinBIT</span></div>
+      <div class="logos"><span>Rexco</span><a href="https://www.chemtrend.com" target="_blank" rel="noopener">Chemtrend</a><a href="https://www.smcusa.com" target="_blank" rel="noopener">SMC</a><a href="https://www.dremel.com" target="_blank" rel="noopener">Dremel</a><a href="https://www.fibreglast.com" target="_blank" rel="noopener">FibreGlast</a><span>XRP</span><a href="https://www.matterhackers.com" target="_blank" rel="noopener">MatterHackers</a><a href="https://www.bender.de" target="_blank" rel="noopener">Bender</a><a href="https://www.vectornav.com" target="_blank" rel="noopener">VectorNav</a><span>Bojo Tools</span><a href="https://www.shining3d.com" target="_blank" rel="noopener">Shining 3D</a><span>Prismatic Powders</span><span>ThinBIT</span></div>
     </div>
   </div>
 </section>
