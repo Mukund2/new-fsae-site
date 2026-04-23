@@ -248,10 +248,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   overflow:hidden;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
   background:var(--paper);color:var(--ink-2);
 }
-.ticker-track{display:flex;gap:48px;padding:10px 0;animation:marq 75s linear infinite;white-space:nowrap;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
-.ticker-track span{display:inline-flex;align-items:center;gap:12px}
-.ticker-track span:first-child{color:var(--gold);font-weight:600}
-.ticker-track .sep{width:6px;height:6px;background:var(--gold);display:inline-block}
+.ticker-track{display:flex;gap:0;padding:0;animation:marq 75s linear infinite;white-space:nowrap;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.ticker-track span{display:inline-flex;align-items:center;padding:10px 20px;border-right:1px solid var(--hair)}
+.ticker-track span:nth-child(odd){background:rgba(229,168,35,.08);color:var(--gold)}
+.ticker-track span:nth-child(even){background:var(--paper);color:var(--ink-2)}
+.ticker-track .sep{display:none}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ============ SHEET 01 — SLIDE-IN VIEWS ============ */
