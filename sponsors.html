@@ -156,6 +156,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .contact-row .cv a{border-bottom:1px dashed var(--hair);transition:color .2s, border-color .2s}
 .contact-row .cv a:hover{color:var(--gold);border-color:var(--gold)}
 
+/* ============ SPONSOR PACKET FLIPBOOK ============ */
+.sp-arrow{
+  width:36px;height:36px;display:grid;place-items:center;flex-shrink:0;
+  border:1px solid var(--gold);color:var(--gold);background:var(--paper);
+  cursor:pointer;transition:all .18s;z-index:3;margin:0 12px;
+}
+.sp-arrow:hover{background:var(--gold);color:var(--paper)}
+.sp-arrow:disabled{opacity:.2;cursor:default;background:var(--paper);color:var(--gold)}
+#spFlip .page-wrapper{background:#fff}
+#spFlip .page-wrapper img{width:100%;height:100%;object-fit:contain;display:block}
+
 /* ============ BACK LINK ============ */
 .back-link{
   display:inline-flex;align-items:center;gap:10px;
@@ -216,7 +227,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 00 — HERO ============ -->
 <section class="sheet">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">00 / 04</div></div>
+    <div><div class="k">Sheet</div><div class="v">00 / 05</div></div>
     <div><div class="k">Title</div><div class="v">PARTNERSHIP OVERVIEW</div></div>
     <div><div class="k">Rev</div><div class="v">A</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -253,7 +264,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 01 — SPONSORSHIP TIERS ============ -->
 <section class="sheet">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">01 / 04</div></div>
+    <div><div class="k">Sheet</div><div class="v">01 / 05</div></div>
     <div><div class="k">Title</div><div class="v">SPONSORSHIP TIERS</div></div>
     <div><div class="k">Rev</div><div class="v">A</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -320,7 +331,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 02 — WHAT SPONSORS GET ============ -->
 <section class="sheet">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">02 / 04</div></div>
+    <div><div class="k">Sheet</div><div class="v">02 / 05</div></div>
     <div><div class="k">Title</div><div class="v">SPONSOR BENEFITS</div></div>
     <div><div class="k">Rev</div><div class="v">A</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -366,7 +377,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 03 — CONTACT / HOW TO SPONSOR ============ -->
 <section class="sheet">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">03 / 04</div></div>
+    <div><div class="k">Sheet</div><div class="v">03 / 05</div></div>
     <div><div class="k">Title</div><div class="v">HOW TO SPONSOR</div></div>
     <div><div class="k">Rev</div><div class="v">A</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -414,10 +425,34 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </a>
 </section>
 
+<!-- ============ SPONSOR PACKET FLIPBOOK ============ -->
+<section class="sheet">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">04 / 05</div></div>
+    <div><div class="k">Title</div><div class="v">SPONSOR PACKET — FLIP THROUGH</div></div>
+    <div><div class="k">Rev</div><div class="v">A</div></div>
+    <div><div class="k">Pages</div><div class="v">12</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div style="border:1px solid var(--ink);border-top:0;padding:24px 0;background:linear-gradient(145deg,#e8e4da 0%,#f2efe6 30%,#eae6dc 100%)">
+    <div style="display:flex;align-items:center;justify-content:center;gap:0;min-height:400px;position:relative" id="spWrap">
+      <button class="sp-arrow sp-arrow-l" id="spPrev" disabled aria-label="Previous page">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M12 15L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div id="spFlip" style="flex:1;position:relative;min-height:380px"></div>
+      <button class="sp-arrow sp-arrow-r" id="spNext" disabled aria-label="Next page">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M8 5L13 10L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div style="text-align:center;padding-top:10px;font-size:10px;letter-spacing:.1em;color:var(--ink-2)"><span id="spPageNum">1 / 12</span></div>
+  </div>
+</section>
+
 <!-- ============ FOOTER ============ -->
 <section class="footer-sheet">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">04 / 04</div></div>
+    <div><div class="k">Sheet</div><div class="v">05 / 05</div></div>
     <div><div class="k">Title</div><div class="v">APPROVAL · END OF DOCUMENT</div></div>
     <div><div class="k">Rev</div><div class="v">A</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -433,7 +468,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="foot-colophon">
     <span>&copy; 1986–2026 Spartan Racing · SJSU FSAE</span>
     <span>Partnership programme · do not redistribute without credit</span>
-    <span>Sheet 04 / 04</span>
+    <span>Sheet 05 / 05</span>
   </div>
 </section>
 
@@ -484,6 +519,61 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     body.style.setProperty('--spot', '1');
     idleT = setTimeout(() => body.style.setProperty('--spot', '.35'), 2200);
   }, {passive:true});
+})();
+</script>
+
+<!-- page-flip for sponsor packet -->
+<script src="https://unpkg.com/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<script>
+(function(){
+  var el = document.getElementById('spFlip');
+  var prevBtn = document.getElementById('spPrev');
+  var nextBtn = document.getElementById('spNext');
+  var pageNum = document.getElementById('spPageNum');
+  var flipSound = new Audio('assets/page-flip.wav');
+  flipSound.volume = 0.3;
+  function playFlip(){ flipSound.currentTime = 0; flipSound.play().catch(function(){}); }
+
+  var TOTAL = 12;
+  for (var i = 1; i <= TOTAL; i++){
+    var div = document.createElement('div');
+    div.className = 'page-wrapper';
+    var img = document.createElement('img');
+    img.src = 'assets/sponsor-packet/page-' + String(i).padStart(2,'0') + '.jpg';
+    img.alt = 'Page ' + i;
+    img.draggable = false;
+    div.appendChild(img);
+    el.appendChild(div);
+  }
+
+  var wrap = document.getElementById('spWrap');
+  var availW = wrap.clientWidth - 110;
+  var pageRatio = 8.5 / 11;
+  var pageW = Math.min(Math.round(availW / 2), 320);
+  var pageH = Math.round(pageW / pageRatio);
+
+  var fb = new St.PageFlip(el, {
+    width: pageW, height: pageH, size: 'fixed',
+    showCover: true, maxShadowOpacity: 0.4,
+    mobileScrollSupport: true, useMouseEvents: true,
+    swipeDistance: 30, flippingTime: 600,
+    drawShadow: true, showPageCorners: true,
+    disableFlipByClick: false
+  });
+  fb.loadFromHTML(el.querySelectorAll('.page-wrapper'));
+
+  function upd(){
+    var c = fb.getCurrentPageIndex();
+    var t = fb.getPageCount();
+    prevBtn.disabled = c <= 0;
+    nextBtn.disabled = c >= t - 1;
+    pageNum.textContent = (c+1) + ' / ' + t;
+  }
+  fb.on('flip', function(){ playFlip(); upd(); });
+  upd();
+
+  prevBtn.addEventListener('click', function(){ fb.flipPrev(); });
+  nextBtn.addEventListener('click', function(){ fb.flipNext(); });
 })();
 </script>
 </body>

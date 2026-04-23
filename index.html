@@ -1131,13 +1131,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </label>
 </div>
 
-<!-- pdf.js for newsletter cover rendering -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<!-- page-flip for book animation -->
+<!-- page-flip for book animation (no PDF.js needed — all pages pre-rendered to images) -->
 <script src="https://unpkg.com/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
-<script>
-  if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-</script>
 
 <script>
 /* ============ CLOCK ============ */
@@ -1301,24 +1296,29 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   [...body.children].forEach(el => io.observe(el));
 })();
 
-/* ============ LIGHT TABLE NEWSLETTER VIEWER (page-flip) ============ */
+/* ============ LIGHT TABLE NEWSLETTER VIEWER (pre-rendered images + page-flip) ============ */
 (function(){
   var issues = [
-    {date:'March 2026',        title:'Into the Electric',     pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_234414049a954679966f200b229aee64.pdf'},
-    {date:'February 2026',     title:'Design to Reality',     pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_96fb6ce5ecbf4feab0491278f70f07e0.pdf'},
-    {date:'New Year 2026',     title:'2026 Team Resolutions', pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_23a0bf9e19ea4f34abb5746375101d73.pdf'},
-    {date:'Fall 2025',         title:'November Update',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_22de078a7a1c4559bbc9a270aafac172.pdf'},
-    {date:'Summer 2025',       title:'Competition Recap',     pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_60b226acddbe413ea91fa95a9902aaf8.pdf'},
-    {date:'Spring 2025',       title:'March Update',          pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_989138bdf1b340248759424b3ba49d62.pdf'},
-    {date:'Winter 2025',       title:'February Update',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_d3576df32e2b430bb50838aa571d41c7.pdf'},
-    {date:'Winter 2024',       title:'December Update',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_814e7aff58694194af605109541a320c.pdf'},
-    {date:'Fall 2024',         title:'November Update',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_eef97411dfc64ad0be10f122537649a6.pdf'},
-    {date:'March 2024',        title:'Spring Update',         pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_dfb20c3c8d334851a785a4e3841833dc.pdf'},
-    {date:'Mar-Jun 2023',      title:'Season Recap',          pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_b8f2c6d86e4942cf9f8f46eac23f80c0.pdf'},
-    {date:'February 2023',     title:'Winter Update',         pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_b484c3b3d7e34c8cacc1061a74791660.pdf'},
-    {date:'Nov 2021-Feb 2022', title:'Winter Recap',          pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_a76ccd1b40ae48a9a4ed5d29d73b1267.pdf'},
-    {date:'October 2021',      title:'Inaugural Issue',       pdf:'https://www.sjsuformulasae.com/_files/ugd/dfb2a6_be2da463627d4fdf9d63a8fcf717baaa.pdf'},
+    {date:'March 2026',        title:'Into the Electric',     slug:'into-the-electric',     pages:0},
+    {date:'February 2026',     title:'Design to Reality',     slug:'design-to-reality',     pages:0},
+    {date:'New Year 2026',     title:'2026 Team Resolutions', slug:'2026-team-resolutions', pages:0},
+    {date:'Fall 2025',         title:'November Update',       slug:'november-2025',         pages:0},
+    {date:'Summer 2025',       title:'Competition Recap',     slug:'competition-recap',     pages:0},
+    {date:'Spring 2025',       title:'March Update',          slug:'march-2025',            pages:0},
+    {date:'Winter 2025',       title:'February Update',       slug:'february-2025',         pages:0},
+    {date:'Winter 2024',       title:'December Update',       slug:'december-2024',         pages:0},
+    {date:'Fall 2024',         title:'November Update',       slug:'november-2024',         pages:0},
+    {date:'March 2024',        title:'Spring Update',         slug:'spring-2024',           pages:0},
+    {date:'Mar-Jun 2023',      title:'Season Recap',          slug:'season-recap-2023',     pages:0},
+    {date:'February 2023',     title:'Winter Update',         slug:'winter-2023',           pages:0},
+    {date:'Nov 2021-Feb 2022', title:'Winter Recap',          slug:'winter-recap-2022',     pages:0},
+    {date:'October 2021',      title:'Inaugural Issue',       slug:'inaugural-2021',        pages:0},
   ];
+
+  // Page-flip sound
+  var flipSound = new Audio('assets/page-flip.wav');
+  flipSound.volume = 0.3;
+  function playFlip(){ flipSound.currentTime = 0; flipSound.play().catch(function(){}); }
 
   var list     = document.getElementById('ltList');
   var pageEl   = document.getElementById('ltPage');
@@ -1329,7 +1329,19 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var prevBtn  = document.getElementById('ltPrev');
   var nextBtn  = document.getElementById('ltNext');
   var flipBook = null;
-  var loadCancelled = false;  // cancel flag for in-progress PDF loads
+
+  // Auto-detect page count by probing images
+  function detectPages(slug, cb){
+    var count = 0;
+    function probe(n){
+      var img = new Image();
+      var pad = String(n).padStart(2,'0');
+      img.onload = function(){ count = n; probe(n+1); };
+      img.onerror = function(){ cb(count); };
+      img.src = 'assets/newsletters/' + slug + '/page-' + pad + '.jpg';
+    }
+    probe(1);
+  }
 
   // Build index
   issues.forEach(function(issue, i){
@@ -1355,106 +1367,67 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     var total = flipBook.getPageCount();
     prevBtn.disabled = current <= 0;
     nextBtn.disabled = current >= total - 1;
-    // page-flip uses spread indexing; show human-readable
     pageNum.textContent = (current + 1) + ' / ' + total;
     scaleEl.textContent = 'PAGE ' + (current + 1);
   }
 
   function loadIssue(idx){
-    // Cancel any in-progress load
-    loadCancelled = true;
-    // Destroy previous flipbook
     if (flipBook){ flipBook.destroy(); flipBook = null; }
     pageEl.innerHTML = '';
     loading.style.display = 'flex';
-    loading.innerHTML = '<div class="lt-spin"></div><span>RENDERING</span>';
+    loading.innerHTML = '<div class="lt-spin"></div><span>LOADING</span>';
     pageEl.appendChild(loading);
     pageNum.textContent = '— / —';
     prevBtn.disabled = true;
     nextBtn.disabled = true;
     scaleEl.textContent = 'LOADING';
 
-    // Start new load with fresh cancel token
-    var myLoad = {};
-    loadCancelled = false;
-    var cancelRef = myLoad;
-
-    pdfjsLib.getDocument(issues[idx].pdf).promise.then(function(pdf){
-      if (loadCancelled) return;
-      var total = pdf.numPages;
-      var rendered = [];
-      var chain = Promise.resolve();
-      for (var p = 1; p <= total; p++){
-        (function(pageNo){
-          chain = chain.then(function(){
-            if (loadCancelled) return;
-            return pdf.getPage(pageNo).then(function(page){
-              if (loadCancelled) return;
-              // Use scale 1 for speed — pages are displayed small anyway
-              var vp = page.getViewport({scale:1.2});
-              var c = document.createElement('canvas');
-              c.width = vp.width; c.height = vp.height;
-              return page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise.then(function(){
-                if (loadCancelled) return;
-                rendered[pageNo-1] = c.toDataURL('image/jpeg',0.78);
-                // Update loading progress
-                loading.querySelector('span').textContent = 'PAGE ' + pageNo + ' / ' + total;
-              });
-            });
-          });
-        })(p);
+    var issue = issues[idx];
+    detectPages(issue.slug, function(count){
+      if (count === 0){
+        loading.innerHTML = '<span style="color:var(--gold)">NO PAGES FOUND</span>';
+        return;
       }
-      return chain.then(function(){
-        if (loadCancelled) return;
-        loading.style.display = 'none';
-        // Build page elements
-        pageEl.innerHTML = '';
-        rendered.forEach(function(src, i){
-          var div = document.createElement('div');
-          div.className = 'page-wrapper';
-          var img = document.createElement('img');
-          img.src = src;
-          img.alt = 'Page ' + (i+1);
-          img.draggable = false;
-          div.appendChild(img);
-          pageEl.appendChild(div);
-        });
-        // Compute dimensions to fit container
-        var wrap = pageEl.parentElement;
-        var availW = wrap.clientWidth - 110; // subtract arrow space
-        var pageRatio = 8.5 / 11;
-        var pageW = Math.min(Math.round(availW / 2), 320);
-        var pageH = Math.round(pageW / pageRatio);
-        // Init page-flip
-        flipBook = new St.PageFlip(pageEl, {
-          width: pageW,
-          height: pageH,
-          size: 'fixed',
-          showCover: true,
-          maxShadowOpacity: 0.4,
-          mobileScrollSupport: true,
-          useMouseEvents: true,
-          swipeDistance: 30,
-          flippingTime: 600,
-          drawShadow: true,
-          showPageCorners: true,
-          disableFlipByClick: false
-        });
-        console.log('Initializing PageFlip with ' + rendered.length + ' pages, ' + pageW + 'x' + pageH);
-        flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
-        flipBook.on('flip', function(){ updateButtons(); });
-        updateButtons();
-        console.log('PageFlip initialized successfully');
+      issue.pages = count;
+      loading.style.display = 'none';
+      pageEl.innerHTML = '';
+
+      // Build page elements from pre-rendered images
+      for (var i = 1; i <= count; i++){
+        var div = document.createElement('div');
+        div.className = 'page-wrapper';
+        var img = document.createElement('img');
+        img.src = 'assets/newsletters/' + issue.slug + '/page-' + String(i).padStart(2,'0') + '.jpg';
+        img.alt = 'Page ' + i;
+        img.draggable = false;
+        div.appendChild(img);
+        pageEl.appendChild(div);
+      }
+
+      // Compute dimensions
+      var wrap = pageEl.parentElement;
+      var availW = wrap.clientWidth - 110;
+      var pageRatio = 8.5 / 11;
+      var pageW = Math.min(Math.round(availW / 2), 320);
+      var pageH = Math.round(pageW / pageRatio);
+
+      flipBook = new St.PageFlip(pageEl, {
+        width: pageW, height: pageH, size: 'fixed',
+        showCover: true, maxShadowOpacity: 0.4,
+        mobileScrollSupport: true, useMouseEvents: true,
+        swipeDistance: 30, flippingTime: 600,
+        drawShadow: true, showPageCorners: true,
+        disableFlipByClick: false
       });
-    }).catch(function(){
-      loading.innerHTML = '<span style="color:var(--gold)">FAILED TO LOAD</span>';
+      flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
+      flipBook.on('flip', function(){ playFlip(); updateButtons(); });
+      updateButtons();
     });
   }
 
   prevBtn.addEventListener('click', function(){ if(flipBook) flipBook.flipPrev(); });
   nextBtn.addEventListener('click', function(){ if(flipBook) flipBook.flipNext(); });
 
-  // Keyboard nav
   document.addEventListener('keydown', function(e){
     var r = pageEl.getBoundingClientRect();
     if (r.top > window.innerHeight || r.bottom < 0) return;
@@ -1462,7 +1435,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     if (e.key === 'ArrowRight'){ e.preventDefault(); if(flipBook) flipBook.flipNext(); }
   });
 
-  // Lazy load on scroll
+  // Load first issue when section scrolls into view
   var section = document.getElementById('s09');
   var started = false;
   var sio = new IntersectionObserver(function(es){ es.forEach(function(e){
