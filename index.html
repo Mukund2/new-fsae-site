@@ -446,11 +446,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* Role detail card — text left, image right */
 .role-detail{border:1px solid var(--ink);border-top:0;overflow:hidden;min-height:220px}
 .role-detail-inner{display:grid;grid-template-columns:1fr 1fr;min-height:220px}
-.role-detail-text{padding:32px 36px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--ink)}
+.role-detail-text{padding:32px 36px;display:flex;flex-direction:column;justify-content:center}
 .role-detail-label{font-size:10px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:14px}
 .role-detail-desc{font-size:12px;color:var(--ink-2);line-height:1.75;letter-spacing:.02em;margin:0}
 .role-detail-n{font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin-top:18px}
-.role-detail-img{position:relative;overflow:hidden;background:var(--ink)}
+.role-detail-img{position:relative;overflow:hidden;background:var(--ink);border-right:1px solid var(--ink)}
 .role-detail-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.04);transition:opacity .3s}
 .role-detail-img .fig-tag{position:absolute;bottom:10px;left:10px;font-size:8px;letter-spacing:.12em;color:var(--paper);text-transform:uppercase;
   background:rgba(10,11,13,.65);padding:4px 8px;backdrop-filter:blur(4px)}
@@ -481,11 +481,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .foot-sign{text-align:center;padding:80px 0;border:1px solid var(--ink);position:relative}
 .foot-sign .k{font-size:10px;color:var(--ink-2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
 .foot-sign .big{
-  font-family:"Oswald",sans-serif;font-size:clamp(72px,11vw,160px);font-weight:700;letter-spacing:-.02em;line-height:.9;text-transform:uppercase;
-  background:linear-gradient(135deg, var(--ink) 40%, var(--gold) 100%);
+  font-family:"Oswald",sans-serif;font-size:clamp(90px,14vw,200px);font-weight:700;letter-spacing:-.03em;line-height:.85;text-transform:uppercase;
+  background:linear-gradient(135deg, var(--ink) 30%, var(--gold) 60%, var(--ink) 90%);
+  background-size:200% 200%;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
-  filter:drop-shadow(0 2px 12px rgba(229,168,35,.15));
+  filter:drop-shadow(0 4px 20px rgba(229,168,35,.25));
+  animation:signGlow 4s ease-in-out infinite;
+}
+@keyframes signGlow{
+  0%,100%{background-position:0% 50%;filter:drop-shadow(0 4px 20px rgba(229,168,35,.2))}
+  50%{background-position:100% 50%;filter:drop-shadow(0 4px 30px rgba(229,168,35,.4))}
 }
 .foot-sign .big .gold{-webkit-text-fill-color:var(--gold)}
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
@@ -1033,27 +1039,27 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="partner-tier reveal">
       <div class="t">T-II</div>
       <div class="name">Platinum</div>
-      <div class="logos"><a href="https://www.motec.com.au" target="_blank" rel="noopener">Motec USA</a><span>Levy</span><span>BayView Plastics</span></div>
+      <div class="logos"><a href="https://www.motec.com.au" target="_blank" rel="noopener">Motec USA</a><a href="https://www.levyrestaurants.com" target="_blank" rel="noopener">Levy</a><span>BayView Plastics</span></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-III</div>
       <div class="name">Gold</div>
-      <div class="logos"><a href="https://www.vi-grade.com" target="_blank" rel="noopener">Vi-grade</a><a href="https://www.cisco.com" target="_blank" rel="noopener">Cisco</a><a href="https://www.rapidharness.com" target="_blank" rel="noopener">Rapid Harness</a><span>SFR SCCA</span><a href="https://www.lucidmotors.com" target="_blank" rel="noopener">Lucid Motors</a><span>Candy Store Fdn</span><span>Marin Design Works</span><span>Valence Precision</span></div>
+      <div class="logos"><a href="https://www.vi-grade.com" target="_blank" rel="noopener">Vi-grade</a><a href="https://www.cisco.com" target="_blank" rel="noopener">Cisco</a><a href="https://www.rapidharness.com" target="_blank" rel="noopener">Rapid Harness</a><a href="https://www.sfrscca.org" target="_blank" rel="noopener">SFR SCCA</a><a href="https://www.lucidmotors.com" target="_blank" rel="noopener">Lucid Motors</a><span>Candy Store Fdn</span><a href="https://marindesignworks.com" target="_blank" rel="noopener">Marin Design Works</a><a href="https://www.valenceprecision.com" target="_blank" rel="noopener">Valence Precision</a></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-IV</div>
       <div class="name">Silver</div>
-      <div class="logos"><a href="https://www.mountztorque.com" target="_blank" rel="noopener">Mountz Torque</a><a href="https://www.evonik.com" target="_blank" rel="noopener">Evonik</a><a href="https://www.futek.com" target="_blank" rel="noopener">Futek</a><span>About Energy</span><a href="https://www.rivian.com" target="_blank" rel="noopener">Rivian · VW Group</a><a href="https://www.te.com" target="_blank" rel="noopener">TE Connectivity</a></div>
+      <div class="logos"><a href="https://www.mountztorque.com" target="_blank" rel="noopener">Mountz Torque</a><a href="https://www.evonik.com" target="_blank" rel="noopener">Evonik</a><a href="https://www.futek.com" target="_blank" rel="noopener">Futek</a><a href="https://www.aboutenergy.io" target="_blank" rel="noopener">About Energy</a><a href="https://www.rivian.com" target="_blank" rel="noopener">Rivian · VW Group</a><a href="https://www.te.com" target="_blank" rel="noopener">TE Connectivity</a></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-V</div>
       <div class="name">Bronze</div>
-      <div class="logos"><span>Star One CU</span><a href="https://www.airtech.lu" target="_blank" rel="noopener">Airtech</a><span>Sabalcore</span><span>LCL Machining</span><a href="https://www.kla.com" target="_blank" rel="noopener">KLA</a><span>Amex</span></div>
+      <div class="logos"><a href="https://www.starone.org" target="_blank" rel="noopener">Star One CU</a><a href="https://www.airtech.lu" target="_blank" rel="noopener">Airtech</a><a href="https://www.sabalcore.com" target="_blank" rel="noopener">Sabalcore</a><span>LCL Machining</span><a href="https://www.kla.com" target="_blank" rel="noopener">KLA</a><a href="https://www.americanexpress.com" target="_blank" rel="noopener">Amex</a></div>
     </div>
     <div class="partner-tier reveal">
       <div class="t">T-VI</div>
       <div class="name">Partner</div>
-      <div class="logos"><span>Rexco</span><a href="https://www.chemtrend.com" target="_blank" rel="noopener">Chemtrend</a><a href="https://www.smcusa.com" target="_blank" rel="noopener">SMC</a><a href="https://www.dremel.com" target="_blank" rel="noopener">Dremel</a><a href="https://www.fibreglast.com" target="_blank" rel="noopener">FibreGlast</a><span>XRP</span><a href="https://www.matterhackers.com" target="_blank" rel="noopener">MatterHackers</a><a href="https://www.bender.de" target="_blank" rel="noopener">Bender</a><a href="https://www.vectornav.com" target="_blank" rel="noopener">VectorNav</a><span>Bojo Tools</span><a href="https://www.shining3d.com" target="_blank" rel="noopener">Shining 3D</a><span>Prismatic Powders</span><span>ThinBIT</span></div>
+      <div class="logos"><a href="https://www.rfrproducts.com" target="_blank" rel="noopener">Rexco</a><a href="https://www.chemtrend.com" target="_blank" rel="noopener">Chemtrend</a><a href="https://www.smcusa.com" target="_blank" rel="noopener">SMC</a><a href="https://www.dremel.com" target="_blank" rel="noopener">Dremel</a><a href="https://www.fibreglast.com" target="_blank" rel="noopener">FibreGlast</a><a href="https://www.xrp.com" target="_blank" rel="noopener">XRP</a><a href="https://www.matterhackers.com" target="_blank" rel="noopener">MatterHackers</a><a href="https://www.bender.de" target="_blank" rel="noopener">Bender</a><a href="https://www.vectornav.com" target="_blank" rel="noopener">VectorNav</a><a href="https://www.bojotools.com" target="_blank" rel="noopener">Bojo Tools</a><a href="https://www.shining3d.com" target="_blank" rel="noopener">Shining 3D</a><a href="https://www.prismaticpowders.com" target="_blank" rel="noopener">Prismatic Powders</a><a href="https://www.thinbit.com" target="_blank" rel="noopener">ThinBIT</a></div>
     </div>
   </div>
 </section>
@@ -1111,14 +1117,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
   <div class="role-detail" id="roleDetail">
     <div class="role-detail-inner" id="roleDetailInner">
+      <div class="role-detail-img" id="roleDetailImgWrap">
+        <img id="roleDetailImg" src="" alt=""/>
+        <div class="fig-tag" id="roleDetailFig">FIG 08.1</div>
+      </div>
       <div class="role-detail-text">
         <div class="role-detail-label" id="roleDetailLabel">AERODYNAMICS</div>
         <p class="role-detail-desc" id="roleDetailDesc">Hover a subteam to see what they do.</p>
         <div class="role-detail-n" id="roleDetailN">01</div>
-      </div>
-      <div class="role-detail-img" id="roleDetailImgWrap">
-        <img id="roleDetailImg" src="" alt=""/>
-        <div class="fig-tag" id="roleDetailFig">FIG 08.1</div>
       </div>
     </div>
   </div>
@@ -1413,7 +1419,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   }
   function setDefault(){
     detailLabel.textContent = 'SPARTAN RACING';
-    detailDesc.textContent = 'Hover a subteam to learn what they do. No experience required — just show up.';
+    detailDesc.textContent = 'Hover over a subteam to learn what they do. No experience required — just show up.';
     detailImg.src = 'assets/subteams/default.avif';
     detailN.textContent = '8 SUBTEAMS · 80+ MEMBERS';
     detailFig.textContent = 'FIG 08.0';
@@ -1498,23 +1504,19 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   }
 
   function loadIssue(idx){
-    // Destroy old flipbook — nuke everything in host except loading overlay
-    if (flipBook){ try{ flipBook.destroy(); }catch(e){} flipBook = null; }
-    // Remove all children except loading
-    Array.from(pageHost.children).forEach(function(ch){
-      if (ch !== loading) pageHost.removeChild(ch);
-    });
-    // Create fresh container
+    // Keep old flipbook visible — build new one alongside, then swap
+    var oldPageEl = pageEl;
+    var oldFlipBook = flipBook;
+    flipBook = null;
+
+    // Create fresh container (hidden initially)
     pageEl = document.createElement('div');
     pageEl.className = 'lt-page';
+    pageEl.style.display = 'none';
     pageHost.appendChild(pageEl);
 
-    loading.style.display = 'flex';
-    loading.querySelector('span').textContent = 'LOADING';
-    pageNum.textContent = '— / —';
     prevBtn.disabled = true;
     nextBtn.disabled = true;
-    scaleEl.textContent = 'LOADING';
 
     var issue = issues[idx];
     var count = issue.pages;
@@ -1577,6 +1579,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       });
       flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
       flipBook.on('flip', function(){ playFlip(); updateButtons(); });
+      // Swap: show new, destroy old
+      pageEl.style.display = '';
+      loading.style.display = 'none';
+      if (oldFlipBook){ try{ oldFlipBook.destroy(); }catch(e){} }
+      if (oldPageEl && oldPageEl.parentNode) oldPageEl.parentNode.removeChild(oldPageEl);
       updateButtons();
     }, 50);
   }
