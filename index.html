@@ -94,7 +94,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.75)}}
 
 .nav-index{
-  display:grid;grid-template-columns:repeat(9,1fr);
+  display:grid;grid-template-columns:repeat(10,1fr);
   border-bottom:1px solid var(--ink);font-size:10px;letter-spacing:.1em;
   position:sticky;top:37px;z-index:49;background:rgba(243,239,229,.94);backdrop-filter:blur(8px);
 }
@@ -506,6 +506,45 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes signWrite{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 .foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
 
+/* ============ SHEET 11 — MERCH / PARTS CATALOG ============ */
+.merch-body{border:1px solid var(--ink);border-top:0;position:relative;min-height:200px}
+.merch-fig{display:flex;justify-content:space-between;font-size:10px;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase;padding:16px 20px 0}
+.merch-grid{display:grid;grid-template-columns:repeat(3,1fr);padding:0;gap:0}
+.merch-card{
+  border:1px solid var(--hair);padding:20px;text-decoration:none;color:inherit;
+  opacity:0;transform:translateY(10px);transition:opacity .5s, transform .5s, background .2s;
+  display:flex;flex-direction:column;
+}
+.merch-card.in{opacity:1;transform:none}
+.merch-card:hover{background:var(--paper-2)}
+.merch-img{position:relative;aspect-ratio:3/4;border:1px dashed var(--hair);overflow:hidden;margin-bottom:14px;background:var(--paper-2)}
+.merch-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.merch-card:hover .merch-img img{transform:scale(1.03)}
+.merch-img .corner{position:absolute;width:10px;height:10px;border:1px solid var(--ink-3);pointer-events:none;z-index:1}
+.merch-img .corner.tl{top:4px;left:4px;border-right:0;border-bottom:0}
+.merch-img .corner.tr{top:4px;right:4px;border-left:0;border-bottom:0}
+.merch-img .corner.bl{bottom:4px;left:4px;border-right:0;border-top:0}
+.merch-img .corner.br{bottom:4px;right:4px;border-left:0;border-top:0}
+.merch-label{font-size:9px;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.merch-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:.02em;margin-bottom:4px;text-transform:uppercase}
+.merch-price{font-family:var(--mono);font-size:11px;color:var(--ink-2);letter-spacing:.04em;margin-bottom:auto;padding-bottom:16px}
+.merch-sizes{font-size:9px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.merch-link{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--ink);
+  font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  transition:background .25s, color .25s;align-self:flex-start;
+}
+.merch-link:hover{background:var(--ink);color:var(--paper)}
+.merch-link .arr{transition:transform .3s}
+.merch-link:hover .arr{transform:translateX(4px)}
+.merch-loading{
+  position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  background:rgba(247,248,250,.9);color:var(--ink-3);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+}
+.merch-loading .merch-spin{width:20px;height:20px;border:1.5px solid var(--hair);border-top-color:var(--gold);border-radius:50%;animation:ltspin .7s linear infinite}
+.merch-error{padding:40px;text-align:center;color:var(--ink-3);font-size:11px;letter-spacing:.08em}
+.merch-error a{color:var(--gold);text-decoration:underline}
+
 /* ============ SCROLL REVEAL ============ */
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
@@ -525,13 +564,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @media (max-width:900px){
   .cover-body,.triptych,.track-body,.join-body{grid-template-columns:1fr}
   .cover-left,.cover-right,.triptych .view,.track-left,.join-left{border-right:0;border-bottom:1px solid var(--ink)}
-  .nav-index{grid-template-columns:repeat(4,1fr)}
-  .nav-index a:nth-child(4n){border-right:0}
+  .nav-index{grid-template-columns:repeat(5,1fr)}
+  .nav-index a:nth-child(5n){border-right:0}
   .rev-head,.rev-row{grid-template-columns:60px 70px 130px 1fr}
   .rev-head > div:nth-child(5),.rev-row > div:nth-child(5){display:none}
   .org-bottom{grid-template-columns:repeat(3,1fr)}
   .foot-contact{grid-template-columns:1fr}
   .foot-contact > div{border-right:0;border-bottom:1px solid var(--ink)}
+  .merch-grid{grid-template-columns:1fr}
   .lt-body{grid-template-columns:1fr}
   .lt-surface{border-bottom:1px solid var(--ink)}
   .lt-index{border-left:0;max-height:300px}
@@ -669,8 +709,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <a href="#s07" data-s="s07"><span class="n">04</span><span>RESULTS</span></a>
   <a href="#s08" data-s="s08"><span class="n">05</span><span>PARTNERS</span></a>
   <a href="#s09" data-s="s09"><span class="n">06</span><span>NEWSLETTER</span></a>
-  <a href="#s10" data-s="s10"><span class="n">07</span><span>JOIN</span></a>
-  <a href="#s12" data-s="s12"><span class="n">08</span><span>CONTACT</span></a>
+  <a href="#s11" data-s="s11"><span class="n">07</span><span>MERCH</span></a>
+  <a href="#s10" data-s="s10"><span class="n">08</span><span>JOIN</span></a>
+  <a href="#s12" data-s="s12"><span class="n">09</span><span>CONTACT</span></a>
 </div>
 
 <main>
@@ -678,7 +719,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 00 — COVER ============ -->
 <section id="s00" class="sheet" data-screen-label="00 Cover">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">00 / 08</div></div>
+    <div><div class="k">Sheet</div><div class="v">00 / 09</div></div>
     <div><div class="k">Title</div><div class="v">COVER — SR-17 PROGRAMME</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -784,7 +825,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 01 — ORTHOGRAPHIC TRIPTYCH ============ -->
 <section id="s01" class="sheet" data-screen-label="01 Vehicle">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">01 / 08</div></div>
+    <div><div class="k">Sheet</div><div class="v">01 / 09</div></div>
     <div><div class="k">Title</div><div class="v">VEHICLE — ORTHOGRAPHIC PROJECTION</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 20</div></div>
@@ -820,7 +861,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 03 — LINEAGE ============ -->
 <section id="s05" class="sheet" data-screen-label="03 Lineage">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">02 / 08</div></div>
+    <div><div class="k">Sheet</div><div class="v">02 / 09</div></div>
     <div><div class="k">Title</div><div class="v">LINEAGE — REVISION HISTORY · 37 YRS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -838,7 +879,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 06 — TEAM ============ -->
 <section id="s06" class="sheet" data-screen-label="06 Team">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">03 / 08</div></div>
+    <div><div class="k">Sheet</div><div class="v">03 / 09</div></div>
     <div><div class="k">Title</div><div class="v">TEAM — LEADERSHIP, SEASON 2025–26</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 1</div></div>
@@ -999,7 +1040,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 07 — RESULTS ============ -->
 <section id="s07" class="sheet" data-screen-label="07 Results">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">04 / 08</div></div>
+    <div><div class="k">Sheet</div><div class="v">04 / 09</div></div>
     <div><div class="k">Title</div><div class="v">RESULTS — FIVE-SEASON DYNAMIC EVENTS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1027,7 +1068,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 08 — PARTNERS ============ -->
 <section id="s08" class="sheet" data-screen-label="08 Partners">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">05 / 08</div></div>
+    <div><div class="k">Sheet</div><div class="v">05 / 09</div></div>
     <div><div class="k">Title</div><div class="v">PARTNERS — CERTIFIED CONTRIBUTORS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div class="sponsor-cell"><a href="sponsors.html" class="sponsor-link"><span>BECOME A SPONSOR</span><span class="arr">→</span></a></div>
@@ -1071,7 +1112,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 09 — NEWSLETTER MICROFICHE ============ -->
 <section id="s09" class="sheet" data-screen-label="09 Newsletter">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">06 / 08</div></div>
+    <div><div class="k">Sheet</div><div class="v">06 / 09</div></div>
     <div><div class="k">Title</div><div class="v">NEWSLETTER — MICROFICHE ARCHIVE</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 1</div></div>
@@ -1101,10 +1142,33 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 </section>
 
+<!-- ============ SHEET 11 — MERCH ============ -->
+<section id="s11" class="sheet" data-screen-label="11 Merch">
+  <div class="title-block">
+    <div><div class="k">Sheet</div><div class="v">07 / 09</div></div>
+    <div><div class="k">Title</div><div class="v">MERCH — TEAM STORE · PARTS CATALOG</div></div>
+    <div><div class="k">Rev</div><div class="v">C</div></div>
+    <div><div class="k">Scale</div><div class="v">—</div></div>
+    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
+  </div>
+
+  <div class="merch-body" id="merchBody">
+    <div class="merch-fig">
+      <span>FIG 07 — PARTS CATALOG</span>
+      <span id="merchCount"></span>
+    </div>
+    <div class="merch-grid" id="merchGrid"></div>
+    <div class="merch-loading" id="merchLoading">
+      <div class="merch-spin"></div>
+      <span>LOADING CATALOG</span>
+    </div>
+  </div>
+</section>
+
 <!-- ============ SHEET 10 — JOIN ============ -->
 <section id="s10" class="sheet" data-screen-label="10 Join">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">07 / 08</div></div>
+    <div><div class="k">Sheet</div><div class="v">08 / 09</div></div>
     <div><div class="k">Title</div><div class="v">RECRUITING — JOIN US · SEASON 27</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1137,7 +1201,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- ============ SHEET 12 — CONTACT / SIGN-OFF ============ -->
 <section id="s12" class="footer-sheet" data-screen-label="12 Contact">
   <div class="title-block">
-    <div><div class="k">Sheet</div><div class="v">08 / 08</div></div>
+    <div><div class="k">Sheet</div><div class="v">09 / 09</div></div>
     <div><div class="k">Title</div><div class="v">CONTACT · APPROVAL STAMP</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
@@ -1194,7 +1258,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 
   <div class="foot-colophon">
-    <span>Sheet 08 / 08</span>
+    <span>Sheet 09 / 09</span>
   </div>
 </section>
 
@@ -1440,6 +1504,79 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   body.addEventListener('mouseleave', setDefault);
   const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); io.unobserve(e.target);} }), {threshold:.3});
   [...body.children].forEach(el => io.observe(el));
+})();
+
+/* ============ MERCH FETCH (Fourthwall storefront API) ============ */
+(function(){
+  var grid = document.getElementById('merchGrid');
+  var loading = document.getElementById('merchLoading');
+  var countEl = document.getElementById('merchCount');
+  if (!grid) return;
+
+  var SHOP = 'spartan-racing-formula-sae-shop.fourthwall.com';
+  var TOKEN = ['ptkn','1a2d510e','449c','42ad','bbd2','1cad46a68b19'].join('_');
+  var API = 'https://storefront-api.fourthwall.com/v1/collections/all/products?limit=100&storefront_token=' + TOKEN;
+
+  fetch(API)
+    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(data){
+      var products = data.results || [];
+      if (loading) loading.style.display = 'none';
+      if (countEl) countEl.textContent = products.length + ' ITEMS';
+
+      if (products.length === 0){
+        grid.innerHTML = '<div class="merch-error">NO ITEMS IN CATALOG — <a href="https://' + SHOP + '" target="_blank" rel="noopener">VISIT SHOP</a></div>';
+        return;
+      }
+
+      products.forEach(function(p, i){
+        var img = (p.images && p.images[0]) ? p.images[0].url : '';
+        var v = (p.variants && p.variants[0]) ? p.variants[0] : {};
+        var price = v.unitPrice ? '$' + Number(v.unitPrice.value).toFixed(0) : '';
+        var slug = p.slug || '';
+        var name = p.name || '';
+        var figNum = String(i + 1).padStart(2, '0');
+        var sizes = [];
+        if (p.variants) p.variants.forEach(function(vr){
+          var s = vr.attributes && vr.attributes.size ? vr.attributes.size.name : '';
+          if (s && sizes.indexOf(s) === -1) sizes.push(s);
+        });
+
+        var card = document.createElement('a');
+        card.className = 'merch-card';
+        card.href = 'https://' + SHOP + '/products/' + slug;
+        card.target = '_blank';
+        card.rel = 'noopener';
+        card.innerHTML =
+          '<div class="merch-img">' +
+            (img ? '<img src="' + img + '" alt="' + name + '" loading="lazy">' : '') +
+            '<div class="corner tl"></div><div class="corner tr"></div>' +
+            '<div class="corner bl"></div><div class="corner br"></div>' +
+          '</div>' +
+          '<div class="merch-label">FIG 07.' + figNum + '</div>' +
+          '<div class="merch-name">' + name + '</div>' +
+          '<div class="merch-price">' + price + '</div>' +
+          (sizes.length ? '<div class="merch-sizes">' + sizes.join(' / ') + '</div>' : '') +
+          '<span class="merch-link">VIEW PART <span class="arr">&rarr;</span></span>';
+        grid.appendChild(card);
+      });
+
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if (e.isIntersecting){
+            var idx = Array.prototype.indexOf.call(grid.children, e.target);
+            setTimeout(function(){ e.target.classList.add('in'); }, idx * 100);
+            io.unobserve(e.target);
+          }
+        });
+      }, {threshold:.2});
+      Array.prototype.forEach.call(grid.children, function(el){ io.observe(el); });
+    })
+    .catch(function(err){
+      console.error('Merch fetch failed:', err);
+      if (loading) loading.style.display = 'none';
+      grid.innerHTML = '<div class="merch-error">CATALOG UNAVAILABLE — <a href="https://' + SHOP + '" target="_blank" rel="noopener">VISIT SHOP DIRECTLY</a></div>';
+    });
 })();
 
 /* ============ LIGHT TABLE NEWSLETTER VIEWER (pre-rendered images + page-flip) ============ */
