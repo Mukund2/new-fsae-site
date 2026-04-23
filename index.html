@@ -1941,17 +1941,21 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 (function(){
   var sig1 = document.getElementById('sig1');
   var sig2 = document.getElementById('sig2');
-  if (!sig1 || !sig2) return;
+  var footSign = sig1 ? sig1.closest('.foot-sign') : null;
+  if (!sig1 || !sig2 || !footSign) return;
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if (e.isIntersecting){
-        sig1.classList.add('writing');
-        sig2.classList.add('writing-delay');
+        // Delay signatures until after the parent reveal animation (.9s)
+        setTimeout(function(){
+          sig1.classList.add('writing');
+          sig2.classList.add('writing-delay');
+        }, 1000);
         io.disconnect();
       }
     });
-  }, {threshold: 0.5});
-  io.observe(sig1);
+  }, {threshold: 0.3});
+  io.observe(footSign);
 })();
 
 /* ============ IMAGE PRELOADER ============ */
