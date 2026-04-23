@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Dancing+Script:wght@400;500;600&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@200;300;400;500;600&family=Instrument+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter+Tight:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Dancing+Script:wght@400;500;600&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@200;300;400;500;600&family=Instrument+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter+Tight:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Racing+Sans+One&display=swap" rel="stylesheet">
 <style>
 :root{
   /* Cool, fresh off-white — paper-like but bluish. Less sepia, more SF tech. */
@@ -168,8 +168,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cover-left{padding:48px;border-right:1px solid var(--ink);position:relative;display:flex;flex-direction:column;justify-content:space-between}
 .cover-eyebrow{font-size:10px;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase}
 .cover-title{
-  font-family:var(--mono);font-weight:500;font-size:clamp(64px,7.5vw,112px);
-  line-height:.92;letter-spacing:-.025em;margin:24px 0 0;color:var(--ink);
+  font-family:'Racing Sans One',var(--mono);font-weight:400;font-size:clamp(64px,7.5vw,112px);
+  font-style:italic;line-height:.92;letter-spacing:-.025em;margin:24px 0 0;color:var(--ink);
   position:relative;
 }
 .cover-title .sub{
@@ -366,7 +366,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============ SHEET 09 — LIGHT TABLE NEWSLETTER ============ */
 .lt-body{display:grid;grid-template-columns:1fr 220px;border:1px solid var(--ink);border-top:0;max-height:600px;overflow:hidden}
 .lt-surface{position:relative;padding:12px 18px 14px;display:flex;flex-direction:column;max-height:600px;overflow:hidden;
-  background:var(--paper-2);
+  background:var(--paper);
   box-shadow:none;overflow:hidden}
 .lt-surface::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:none;z-index:0}
@@ -530,15 +530,31 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .merch-img .corner.bl{bottom:4px;left:4px;border-right:0;border-top:0}
 .merch-img .corner.br{bottom:4px;right:4px;border-left:0;border-top:0}
 @keyframes merchGlitch{
-  0%{clip-path:inset(0);transform:none;filter:none}
-  5%{clip-path:inset(40% 0 20% 0);transform:translateX(4px);filter:hue-rotate(90deg) saturate(2)}
-  10%{clip-path:inset(10% 0 60% 0);transform:translateX(-3px);filter:none}
-  15%{clip-path:inset(70% 0 5% 0);transform:translateX(2px) skewX(2deg);filter:hue-rotate(-60deg)}
-  20%{clip-path:inset(30% 0 40% 0);transform:translateX(-4px);filter:saturate(3) brightness(1.1)}
-  25%{clip-path:inset(0);transform:none;filter:none}
-  100%{clip-path:inset(0);transform:none;filter:none}
+  0%{clip-path:inset(0);transform:none;filter:none;opacity:1}
+  6%{clip-path:inset(40% 0 20% 0);transform:translateX(8px) skewX(4deg);filter:hue-rotate(90deg) saturate(4) brightness(1.6);opacity:1}
+  10%{clip-path:inset(0);transform:none;filter:brightness(1.8);opacity:.7}
+  15%{clip-path:inset(8% 0 65% 0);transform:translateX(-6px);filter:hue-rotate(180deg) saturate(5) brightness(1.4);opacity:1}
+  20%{clip-path:inset(0);transform:none;filter:none;opacity:1}
+  26%{clip-path:inset(55% 0 10% 0);transform:translateX(5px) skewX(-3deg);filter:hue-rotate(-90deg) saturate(4) brightness(1.5);opacity:1}
+  30%{clip-path:inset(0);transform:translateX(-3px);filter:saturate(6) brightness(1.3) contrast(1.5);opacity:.85}
+  34%{clip-path:inset(0);transform:none;filter:none;opacity:1}
+  40%{clip-path:inset(25% 0 35% 0);transform:translateX(-8px) skewX(5deg);filter:hue-rotate(270deg) saturate(5) brightness(1.7);opacity:1}
+  44%{clip-path:inset(0);transform:none;filter:invert(1) hue-rotate(180deg);opacity:.9}
+  47%{clip-path:inset(0);transform:none;filter:none;opacity:1}
+  52%{clip-path:inset(70% 0 5% 0);transform:translateX(6px);filter:hue-rotate(120deg) saturate(4) brightness(1.5);opacity:1}
+  56%{clip-path:inset(0);transform:scale(1.02);filter:brightness(1.4) saturate(3);opacity:.8}
+  60%{clip-path:inset(0);transform:none;filter:none;opacity:1}
+  100%{clip-path:inset(0);transform:none;filter:none;opacity:1}
 }
-.merch-img.glitch img{animation:merchGlitch .4s steps(1) forwards}
+@keyframes merchGlitchBg{
+  0%,20%,34%,47%,60%,100%{background:var(--paper-2)}
+  10%{background:#0ff}
+  30%{background:#f0f}
+  44%{background:#0f0}
+  56%{background:#ff0}
+}
+.merch-img.glitch img{animation:merchGlitch .9s steps(1) forwards}
+.merch-img.glitch{animation:merchGlitchBg .9s steps(1) forwards}
 .merch-label{font-size:9px;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
 .merch-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:.02em;margin-bottom:4px;text-transform:uppercase}
 .merch-price{font-family:var(--mono);font-size:11px;color:var(--ink-2);letter-spacing:.04em;margin-bottom:auto;padding-bottom:16px}
@@ -1808,14 +1824,27 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       grid.innerHTML = '<div class="merch-error">CATALOG UNAVAILABLE — <a href="https://' + SHOP + '" target="_blank" rel="noopener">VISIT SHOP DIRECTLY</a></div>';
     });
 
-  // Random glitch on a merch card every 15s
-  setInterval(function(){
+  // Random glitch on a merch card every 5s
+  function triggerGlitch(){
     var imgs = grid.querySelectorAll('.merch-img');
     if (!imgs.length) return;
     var pick = imgs[Math.floor(Math.random() * imgs.length)];
     pick.classList.add('glitch');
-    setTimeout(function(){ pick.classList.remove('glitch'); }, 500);
-  }, 15000);
+    setTimeout(function(){ pick.classList.remove('glitch'); }, 1000);
+  }
+  setInterval(triggerGlitch, 6000);
+
+  // Glitch immediately when section scrolls into view
+  var merchSection = document.getElementById('s11');
+  if (merchSection && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting) {
+        triggerGlitch();
+        obs.disconnect();
+      }
+    }, {threshold: 0.15});
+    obs.observe(merchSection);
+  }
 })();
 
 /* ============ LIGHT TABLE NEWSLETTER VIEWER (pre-rendered images + page-flip) ============ */
