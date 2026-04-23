@@ -443,6 +443,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .role-row .n{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
 .role-row .name{font-size:15px;color:var(--ink);letter-spacing:.01em;font-weight:500}
 .role-row .cap{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
+.role-detail{border:1px solid var(--ink);border-top:0;padding:24px 28px;display:flex;gap:24px;align-items:baseline;transition:background .2s}
+.role-detail-label{font-size:10px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;font-weight:600;white-space:nowrap;min-width:120px}
+.role-detail-desc{font-size:12px;color:var(--ink-2);line-height:1.7;letter-spacing:.02em}
 
 
 /* ============ CONTACT FIGURE PHOTOS ============ */
@@ -1097,6 +1100,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     </div>
     <div class="roles" id="rolesList"></div>
   </div>
+  <div class="role-detail" id="roleDetail">
+    <div class="role-detail-label" id="roleDetailLabel">HOVER A SUBTEAM</div>
+    <div class="role-detail-desc" id="roleDetailDesc">Select a subteam above to learn what they do.</div>
+  </div>
 </section>
 
 <!-- ============ SHEET 12 — CONTACT / SIGN-OFF ============ -->
@@ -1358,20 +1365,32 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============ ROLES LIST ============ */
 (function(){
   const roles = [
-    {n:'R-01', name:'Aerodynamics',                  cap:'ROLLING'},
-    {n:'R-02', name:'Chassis',                       cap:'ROLLING'},
-    {n:'R-03', name:'Suspension',                    cap:'ROLLING'},
-    {n:'R-04', name:'Powertrain',                    cap:'ROLLING'},
-    {n:'R-05', name:'Electronics',                   cap:'ROLLING'},
-    {n:'R-06', name:'Software',                      cap:'ROLLING'},
-    {n:'R-07', name:'Business',                      cap:'ROLLING'},
-    {n:'R-08', name:'R&D',                           cap:'ROLLING'},
+    {n:'R-01', name:'Aerodynamics',                  cap:'ROLLING', desc:'We design parts on the car that create downforce and reduce drag, such as the front and rear wings, canards, and side pods.'},
+    {n:'R-02', name:'Chassis',                       cap:'ROLLING', desc:'We design and create a rigid skeleton for the car so that the other subteams can mount parts onto it and so that the car can handle well.'},
+    {n:'R-03', name:'Suspension',                    cap:'ROLLING', desc:'We design everything that controls the kinematics of the vehicle, such as the brakes, steering, and suspension.'},
+    {n:'R-04', name:'Powertrain',                    cap:'ROLLING', desc:'We design the systems that make the car move, such as the electric motor, accumulator (battery), and final drive.'},
+    {n:'R-05', name:'Electronics',                   cap:'ROLLING', desc:'We are responsible for designing and installing all of the analog and digital circuits in the car so that the necessary electronics can work and output data properly.'},
+    {n:'R-06', name:'Software',                      cap:'ROLLING', desc:'We program the electronic components so that they behave properly when the car is in different states. We are also responsible for data collection and logging.'},
+    {n:'R-07', name:'Business',                      cap:'ROLLING', desc:'We handle the data analytics, marketing, public relations, finances, and logistics for the team.'},
+    {n:'R-08', name:'R&D',                           cap:'ROLLING', desc:'With a focus on multi-year projects and manufacturing an experimental in-hubs powertrain, R&D is focused on developing and optimizing the future of Spartan Racing.'},
   ];
   const body = document.getElementById('rolesList');
+  const detailLabel = document.getElementById('roleDetailLabel');
+  const detailDesc = document.getElementById('roleDetailDesc');
+  const DEFAULT_LABEL = 'HOVER A SUBTEAM';
+  const DEFAULT_DESC = 'Select a subteam above to learn what they do.';
   roles.forEach(r => {
     const el = document.createElement('div');
     el.className = 'role-row';
     el.innerHTML = `<div class="n">${r.n}</div><div class="name">${r.name}</div><div class="cap">${r.cap}</div>`;
+    el.addEventListener('mouseenter', () => {
+      detailLabel.textContent = r.name.toUpperCase();
+      detailDesc.textContent = r.desc;
+    });
+    el.addEventListener('mouseleave', () => {
+      detailLabel.textContent = DEFAULT_LABEL;
+      detailDesc.textContent = DEFAULT_DESC;
+    });
     body.appendChild(el);
   });
   const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); io.unobserve(e.target);} }), {threshold:.3});
