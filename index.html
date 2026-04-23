@@ -218,6 +218,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .dim-line .bar:nth-child(4){transform-origin:left}
 .dim-line .bar.grow{transform:scaleX(1)}
 .dim-line .val{background:var(--paper);padding:0 6px;font-weight:500;color:var(--ink);position:relative;z-index:1}
+@keyframes dim-pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.dim-line .val.pulse{animation:dim-pulse 2.5s ease-in-out infinite}
 .dim-line .tick{width:1px;height:10px;background:var(--ink-2);opacity:0;transition:opacity .2s ease-out}
 .dim-line .tick.show{opacity:1}
 .dim-line .arr{opacity:0;transition:opacity .3s 1.6s}
@@ -1352,7 +1354,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
               if (i < text.length) {
                 setTimeout(tick, step);
               } else if (dimLine) {
-                /* Text done → grow bars outward */
+                /* Text done → start pulse + grow bars outward */
+                el.closest('.val').classList.add('pulse');
                 dimLine.querySelectorAll('.bar').forEach(function(b){ b.classList.add('grow'); });
                 /* After bars finish (1s) → show ticks */
                 setTimeout(function(){
