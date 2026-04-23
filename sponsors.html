@@ -136,6 +136,36 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tier-benefits{color:var(--ink-2);letter-spacing:.02em;line-height:1.7}
 .tier-slots{color:var(--ink-3);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
 
+/* ============ COMPARISON TABLE ============ */
+.comp-wrap{border:1px solid var(--ink);border-top:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.comp-table{width:100%;border-collapse:collapse;min-width:760px}
+.comp-table th,.comp-table td{
+  padding:13px 12px;text-align:center;font-size:11px;letter-spacing:.03em;
+  border-bottom:1px solid var(--hair);vertical-align:middle;
+}
+.comp-table th{font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding-bottom:8px;font-size:12px}
+.comp-table th .tier-price{display:block;font-weight:400;font-size:9px;letter-spacing:.06em;color:var(--ink-3);margin-top:3px;text-transform:none}
+.comp-table th:first-child{text-align:left;font-weight:600;font-size:10px;letter-spacing:.1em;color:var(--ink-2)}
+.comp-table td:first-child{text-align:left;font-weight:500;font-size:11px;letter-spacing:.03em;color:var(--ink)}
+.comp-table thead th{border-bottom:2px solid var(--ink);padding-top:18px;padding-bottom:14px}
+.comp-table tbody tr:last-child td{border-bottom:0}
+.comp-table tbody tr{
+  opacity:0;transform:translateY(8px);transition:opacity .5s, transform .5s;
+}
+.comp-table tbody tr.in{opacity:1;transform:none}
+.comp-th-partner{color:var(--ink)}
+.comp-th-bronze{color:#a0724e}
+.comp-th-silver{color:#6b7280}
+.comp-th-gold{color:var(--gold)}
+.comp-th-platinum{color:var(--blue)}
+.comp-th-title{color:#d97706}
+.comp-check{color:var(--gold);font-size:15px;font-weight:600}
+.comp-dash{color:var(--ink-3);font-size:14px}
+.comp-text{font-size:10px;color:var(--ink-2);line-height:1.4;letter-spacing:.02em}
+@media (max-width:900px){
+  .comp-wrap{margin-left:-28px;margin-right:-28px;border-left:0;border-right:0}
+}
+
 /* ============ BENEFITS TABLE ============ */
 .benefits-body{border:1px solid var(--ink);border-top:0}
 .benefits-grid{display:grid;grid-template-columns:repeat(3,1fr)}
@@ -324,7 +354,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 </section>
 
-<!-- ============ SHEET 01 — SPONSORSHIP TIERS ============ -->
+<!-- ============ SHEET 01 — SPONSORSHIP TIERS (COMPARISON TABLE) ============ -->
 <section class="sheet">
   <div class="title-block">
     <div><div class="k">Sheet</div><div class="v">01 / 05</div></div>
@@ -334,55 +364,121 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
-  <div class="tiers-grid">
-    <div class="tier-head">
-      <div>TIER</div>
-      <div>INVESTMENT</div>
-      <div>KEY BENEFITS</div>
-      <div>AVAILABILITY</div>
-    </div>
-
-    <div class="tier-row reveal">
-      <div><span class="tier-name title-tier">Title</span></div>
-      <div class="tier-amt">$30,000+</div>
-      <div class="tier-benefits">Honored at unveiling · Logo on car (X-Large, most prominent) · Logo on team apparel (X-Large) · Featured on social media · Access to Design Review presentations · Spartan Racing Gift Basket · Access to team resumes · Vehicle display at sponsor location · Profile on website · Personal Sponsor Driver Day</div>
-      <div class="tier-slots">LIMITED</div>
-    </div>
-
-    <div class="tier-row reveal">
-      <div><span class="tier-name plat-tier">Platinum</span></div>
-      <div class="tier-amt">$20,000+</div>
-      <div class="tier-benefits">Honored at unveiling · Logo on car (Large, prominent) · Logo on team apparel (Large) · Featured on social media · Access to Design Review presentations · Spartan Racing Gift Basket · Access to team resumes · Profile on website</div>
-      <div class="tier-slots">LIMITED</div>
-    </div>
-
-    <div class="tier-row reveal">
-      <div><span class="tier-name gold-tier">Gold</span></div>
-      <div class="tier-amt">$10,000+</div>
-      <div class="tier-benefits">Logo on car (Medium, more prominent) · Logo on team apparel (Large) · Featured on social media · Access to Design Review presentations · Spartan Racing Gift Basket · Access to team resumes · Profile on website</div>
-      <div class="tier-slots">OPEN</div>
-    </div>
-
-    <div class="tier-row reveal">
-      <div><span class="tier-name silver-tier">Silver</span></div>
-      <div class="tier-amt">$5,000+</div>
-      <div class="tier-benefits">Logo on car (Medium) · Logo on team apparel (Medium) · Featured on social media · Access to team resumes · Profile on website</div>
-      <div class="tier-slots">OPEN</div>
-    </div>
-
-    <div class="tier-row reveal">
-      <div><span class="tier-name bronze-tier">Bronze</span></div>
-      <div class="tier-amt">$2,500+</div>
-      <div class="tier-benefits">Logo on car (Small) · Logo on team apparel (Small) · Featured on social media · Profile on website</div>
-      <div class="tier-slots">OPEN</div>
-    </div>
-
-    <div class="tier-row reveal">
-      <div><span class="tier-name partner-tier">Partner</span></div>
-      <div class="tier-amt">In-Kind</div>
-      <div class="tier-benefits">In-kind contributions of materials, software, or services · Honored on our website · Featured on social media</div>
-      <div class="tier-slots">OPEN</div>
-    </div>
+  <div class="comp-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>BENEFIT</th>
+          <th class="comp-th-partner">PARTNER<span class="tier-price">Under $2,500</span></th>
+          <th class="comp-th-bronze">BRONZE<span class="tier-price">$2,500+</span></th>
+          <th class="comp-th-silver">SILVER<span class="tier-price">$5,000+</span></th>
+          <th class="comp-th-gold">GOLD<span class="tier-price">$10,000+</span></th>
+          <th class="comp-th-platinum">PLATINUM<span class="tier-price">$20,000+</span></th>
+          <th class="comp-th-title">TITLE<span class="tier-price">$30,000+</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="reveal">
+          <td>Invitation to unveiling</td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Honored on website</td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Logo on car</td>
+          <td><span class="comp-text">X-Small</span></td>
+          <td><span class="comp-text">Small</span></td>
+          <td><span class="comp-text">Medium</span></td>
+          <td><span class="comp-text">Medium +<br/>prominent</span></td>
+          <td><span class="comp-text">Large +<br/>prominent</span></td>
+          <td><span class="comp-text">X-Large +<br/>most prominent</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Logo on team gear</td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-text">Small</span></td>
+          <td><span class="comp-text">Medium</span></td>
+          <td><span class="comp-text">Medium</span></td>
+          <td><span class="comp-text">Large +<br/>X-Large</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Feature on social media</td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Access to Design Review Presentations</td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Spartan Racing Gift Basket</td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Access to team resumes</td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Vehicle display at sponsor location</td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Profile on website</td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+        </tr>
+        <tr class="reveal">
+          <td>Personal Sponsor Driver Day</td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-dash">&mdash;</span></td>
+          <td><span class="comp-check">&check;</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div style="margin-top:14px;font-size:10px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between">
@@ -453,7 +549,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <p>
         Reach out to our business team and we'll put together a custom sponsorship package that meets your goals — whether that's brand visibility, recruitment access, or supporting STEM education at SJSU. We're flexible and eager to build lasting partnerships.
       </p>
-      <a href="mailto:sponsorship@sjsuformulasae.com" class="cta-btn">
+      <a href="mailto:contact@sjsuformulasae.com" class="cta-btn">
         <span>EMAIL OUR TEAM</span>
         <span class="arr">&rarr;</span>
       </a>
@@ -461,7 +557,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="cta-right">
       <div class="contact-row reveal">
         <div class="ck">EMAIL</div>
-        <div class="cv"><a href="mailto:sponsorship@sjsuformulasae.com">sponsorship@sjsuformulasae.com</a></div>
+        <div class="cv"><a href="mailto:contact@sjsuformulasae.com">contact@sjsuformulasae.com</a></div>
       </div>
       <div class="contact-row reveal">
         <div class="ck">WEBSITE</div>
@@ -469,15 +565,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       </div>
       <div class="contact-row reveal">
         <div class="ck">LOCATION</div>
-        <div class="cv">Engineering Building, Room 344<br/>San Jos&eacute; State University<br/>San Jos&eacute;, CA 95192</div>
+        <div class="cv">Engineering Building, Room 344 — club room<br/>Rooms 123 &amp; 130 — build shops<br/>San Jos&eacute; State University<br/>One Washington Square<br/>San Jos&eacute;, CA 95192</div>
       </div>
       <div class="contact-row reveal">
         <div class="ck">SOCIAL</div>
-        <div class="cv"><a href="#">Instagram</a> · <a href="#">YouTube</a> · <a href="#">LinkedIn</a></div>
-      </div>
-      <div class="contact-row reveal">
-        <div class="ck">PROCESS</div>
-        <div class="cv">1. Reach out via email<br/>2. We'll schedule a call or shop visit<br/>3. Agree on tier &amp; custom terms<br/>4. Invoice / donation receipt issued</div>
+        <div class="cv"><a href="https://www.instagram.com/sjsuformulasae/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.linkedin.com/school/sjsufsae/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.facebook.com/SpartanRacingSJSU/" target="_blank" rel="noopener">Facebook</a></div>
       </div>
     </div>
   </div>
@@ -628,6 +720,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   flipSound.volume = 0.3;
   function playFlip(){ flipSound.currentTime = 0; flipSound.play().catch(function(){}); }
 
+  // Add invisible blank page at start so cover shows solo on right
+  var blankFront = document.createElement('div');
+  blankFront.className = 'page-wrapper page-blank';
+  el.appendChild(blankFront);
+
   var TOTAL = 12;
   for (var i = 1; i <= TOTAL; i++){
     var div = document.createElement('div');
@@ -641,6 +738,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     img.draggable = false;
     div.appendChild(img);
     el.appendChild(div);
+  }
+
+  // Add blank page at end if total is odd (PageFlip requires even count)
+  var totalWithFront = 1 + TOTAL;
+  if (totalWithFront % 2 !== 0){
+    var blankEnd = document.createElement('div');
+    blankEnd.className = 'page-wrapper page-blank';
+    el.appendChild(blankEnd);
   }
 
   var wrap = document.getElementById('spWrap');
