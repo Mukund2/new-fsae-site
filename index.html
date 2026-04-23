@@ -212,11 +212,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .in .callout:nth-child(3){transition-delay:1.7s}
 .in .callout:nth-child(4){transition-delay:1.85s}
 
-.dim-line{margin-top:14px;position:relative;height:18px;font-size:10px;color:var(--ink-2);display:flex;align-items:center;gap:6px}
-.dim-line .bar{flex:1;height:1px;background:var(--ink-2);transform:scaleX(0);transform-origin:left;transition:transform 1s .6s ease-out}
+.dim-line{margin-top:14px;position:relative;height:18px;font-size:10px;color:var(--ink-2);display:flex;align-items:center;gap:0}
+.dim-line .bar{flex:1;height:1px;background:var(--ink-2);transform:scaleX(0);transition:transform 1s .6s ease-out}
+.dim-line .bar:first-of-type{transform-origin:right}
+.dim-line .bar:last-of-type{transform-origin:left}
 .dim-line.in .bar{transform:scaleX(1)}
-.dim-line .val{background:var(--paper);padding:0 6px;font-weight:500;color:var(--ink)}
-.dim-line .tick{width:1px;height:10px;background:var(--ink-2)}
+.dim-line .val{background:var(--paper);padding:0 6px;font-weight:500;color:var(--ink);position:relative;z-index:1}
+.dim-line .tick{width:1px;height:10px;background:var(--ink-2);opacity:0;transition:opacity .2s 1.6s ease-out}
+.dim-line.in .tick{opacity:1}
 .dim-line .arr{opacity:0;transition:opacity .3s 1.6s}
 .dim-line.in .arr{opacity:1}
 
@@ -786,9 +789,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="view" style="background:#fff;position:relative">
       <div class="fig-label"><span>FIG 01.1</span><span>VIEW — SIDE</span></div>
       <div class="ortho-box reveal" id="sideView" style="display:block;padding:8px;background:#fff;border:none;position:relative">
-        <img src="assets/cars/sr16-side-clean.png" alt="SR-16 side view" style="width:90%;height:auto;display:block;margin:0 auto;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
+        <img src="assets/cars/sr16-side-clean.png" alt="SR-16 side view" style="width:85%;height:auto;display:block;margin:0 auto;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
       </div>
-      <div class="dim-line reveal" style="width:84.5%;margin:0 auto">
+      <div class="dim-line reveal" style="width:80%;margin:0 auto">
         <span class="tick"></span><span class="bar"></span><span class="val"><span class="dim-text" data-text="113.20" data-delay="800"></span></span><span class="bar"></span><span class="tick"></span>
       </div>
     </div>
