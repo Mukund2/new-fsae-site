@@ -1333,20 +1333,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============ LIGHT TABLE NEWSLETTER VIEWER (pre-rendered images + page-flip) ============ */
 (function(){
   var issues = [
-    {date:'March 2026',        title:'Into the Electric',     slug:'into-the-electric',     pages:0},
-    {date:'February 2026',     title:'Design to Reality',     slug:'design-to-reality',     pages:0},
-    {date:'New Year 2026',     title:'2026 Team Resolutions', slug:'2026-team-resolutions', pages:0},
-    {date:'Fall 2025',         title:'November Update',       slug:'november-2025',         pages:0},
-    {date:'Summer 2025',       title:'Competition Recap',     slug:'competition-recap',     pages:0},
-    {date:'Spring 2025',       title:'March Update',          slug:'march-2025',            pages:0},
-    {date:'Winter 2025',       title:'February Update',       slug:'february-2025',         pages:0},
-    {date:'Winter 2024',       title:'December Update',       slug:'december-2024',         pages:0},
-    {date:'Fall 2024',         title:'November Update',       slug:'november-2024',         pages:0},
-    {date:'March 2024',        title:'Spring Update',         slug:'spring-2024',           pages:0},
-    {date:'Mar-Jun 2023',      title:'Season Recap',          slug:'season-recap-2023',     pages:0},
-    {date:'February 2023',     title:'Winter Update',         slug:'winter-2023',           pages:0},
-    {date:'Nov 2021-Feb 2022', title:'Winter Recap',          slug:'winter-recap-2022',     pages:0},
-    {date:'October 2021',      title:'Inaugural Issue',       slug:'inaugural-2021',        pages:0},
+    {date:'March 2026',        title:'Into the Electric',     slug:'into-the-electric',     pages:9},
+    {date:'February 2026',     title:'Design to Reality',     slug:'design-to-reality',     pages:11},
+    {date:'New Year 2026',     title:'2026 Team Resolutions', slug:'2026-team-resolutions', pages:8},
+    {date:'Fall 2025',         title:'November Update',       slug:'november-2025',         pages:10},
+    {date:'Summer 2025',       title:'Competition Recap',     slug:'competition-recap',     pages:8},
+    {date:'Spring 2025',       title:'March Update',          slug:'march-2025',            pages:11},
+    {date:'Winter 2025',       title:'February Update',       slug:'february-2025',         pages:13},
+    {date:'Winter 2024',       title:'December Update',       slug:'december-2024',         pages:8},
+    {date:'Fall 2024',         title:'November Update',       slug:'november-2024',         pages:17},
+    {date:'March 2024',        title:'Spring Update',         slug:'spring-2024',           pages:22},
+    {date:'Mar-Jun 2023',      title:'Season Recap',          slug:'season-recap-2023',     pages:7},
+    {date:'February 2023',     title:'Winter Update',         slug:'winter-2023',           pages:12},
+    {date:'Nov 2021-Feb 2022', title:'Winter Recap',          slug:'winter-recap-2022',     pages:5},
+    {date:'October 2021',      title:'Inaugural Issue',       slug:'inaugural-2021',        pages:7},
   ];
 
   // Page-flip sound
@@ -1363,19 +1363,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var prevBtn  = document.getElementById('ltPrev');
   var nextBtn  = document.getElementById('ltNext');
   var flipBook = null;
-
-  // Auto-detect page count by probing images
-  function detectPages(slug, cb){
-    var count = 0;
-    function probe(n){
-      var img = new Image();
-      var pad = String(n).padStart(2,'0');
-      img.onload = function(){ count = n; probe(n+1); };
-      img.onerror = function(){ cb(count); };
-      img.src = 'assets/newsletters/' + slug + '/page-' + pad + '.jpg';
-    }
-    probe(1);
-  }
 
   // Build index
   issues.forEach(function(issue, i){
@@ -1416,15 +1403,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     scaleEl.textContent = 'LOADING';
 
     var issue = issues[idx];
-    detectPages(issue.slug, function(count){
-      if (count === 0){
-        loading.querySelector('span').textContent = 'NO PAGES FOUND';
-        return;
-      }
-      issue.pages = count;
-      loading.style.display = 'none';
+    var count = issue.pages;
+    if (count === 0){
+      loading.querySelector('span').textContent = 'NO PAGES FOUND';
+      return;
+    }
+    loading.style.display = 'none';
 
-      // Build page elements from pre-rendered images
+    // Build page elements from pre-rendered images
+    {
       for (var i = 1; i <= count; i++){
         var div = document.createElement('div');
         div.className = 'page-wrapper';
@@ -1455,7 +1442,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
       flipBook.on('flip', function(){ playFlip(); updateButtons(); });
       updateButtons();
-    });
+    }
   }
 
   prevBtn.addEventListener('click', function(){ if(flipBook) flipBook.flipPrev(); });
