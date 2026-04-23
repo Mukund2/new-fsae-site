@@ -214,8 +214,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 .dim-line{margin-top:14px;position:relative;height:18px;font-size:10px;color:var(--ink-2);display:flex;align-items:center;gap:0}
 .dim-line .bar{flex:1;height:1px;background:var(--ink-2);transform:scaleX(0);transition:transform 1s ease-out}
-.dim-line .bar:first-of-type{transform-origin:right}
-.dim-line .bar:last-of-type{transform-origin:left}
+.dim-line .bar:nth-child(2){transform-origin:right}
+.dim-line .bar:nth-child(4){transform-origin:left}
 .dim-line .bar.grow{transform:scaleX(1)}
 .dim-line .val{background:var(--paper);padding:0 6px;font-weight:500;color:var(--ink);position:relative;z-index:1}
 .dim-line .tick{width:1px;height:10px;background:var(--ink-2);opacity:0;transition:opacity .2s ease-out}
