@@ -308,16 +308,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .roster-strip{padding:26px 0 0;display:flex;justify-content:space-between;border-top:1px dashed var(--hair);margin-top:44px;font-size:10px;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase}
 
 /* Sponsor link in title-block */
+.title-block .sponsor-cell{padding:0;border-right:1px solid var(--ink)}
 .sponsor-link{
-  display:flex !important;align-items:center;justify-content:center;gap:8px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  height:100%;padding:8px 12px;
   background:linear-gradient(135deg,rgba(229,168,35,.12),rgba(229,168,35,.22));
-  color:var(--gold) !important;font-weight:600;text-decoration:none;
-  transition:background .25s, transform .15s;
-  margin:-8px -12px;padding:8px 12px;
+  color:var(--gold);font-weight:600;text-decoration:none;font-size:10px;letter-spacing:.08em;
+  transition:background .25s;
 }
 .sponsor-link:hover{
   background:linear-gradient(135deg,rgba(229,168,35,.25),rgba(229,168,35,.38));
-  transform:scale(1.02);
 }
 .sponsor-link .arr{display:inline-block;transition:transform .3s}
 .sponsor-link:hover .arr{transform:translateX(4px)}
@@ -970,7 +970,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Sheet</div><div class="v">05 / 08</div></div>
     <div><div class="k">Title</div><div class="v">PARTNERS — CERTIFIED CONTRIBUTORS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
-    <div style="padding:0"><a href="sponsors.html" class="sponsor-link"><span>BECOME A SPONSOR</span><span class="arr">→</span></a></div>
+    <div class="sponsor-cell"><a href="sponsors.html" class="sponsor-link"><span>BECOME A SPONSOR</span><span class="arr">→</span></a></div>
     <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
