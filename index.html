@@ -1415,9 +1415,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       loading.querySelector('span').textContent = 'NO PAGES FOUND';
       return;
     }
-    loading.style.display = 'none';
 
-    // Build page elements from pre-rendered images
+    // Build page elements and wait for ALL images to load before init
+    var loaded = 0;
+    var imgs = [];
     for (var i = 1; i <= count; i++){
       var div = document.createElement('div');
       div.className = 'page-wrapper';
@@ -1425,29 +1426,40 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       img.src = 'assets/newsletters/' + issue.slug + '/page-' + String(i).padStart(2,'0') + '.jpg';
       img.alt = 'Page ' + i;
       img.draggable = false;
+      imgs.push(img);
       div.appendChild(img);
       pageEl.appendChild(div);
     }
 
-    // Compute dimensions
-    var wrap = pageEl.parentElement;
-    var availW = wrap.clientWidth - 110;
-    var pageRatio = 8.5 / 11;
-    var pageW = Math.min(Math.round(availW / 2), 320);
-    var pageH = Math.round(pageW / pageRatio);
+    function onImgReady(){
+      loaded++;
+      loading.querySelector('span').textContent = 'PAGE ' + loaded + ' / ' + count;
+      if (loaded < count) return;
+      // All images loaded — init flipbook
+      loading.style.display = 'none';
+      var wrap = pageEl.parentElement;
+      var availW = wrap.clientWidth - 110;
+      var pageRatio = 8.5 / 11;
+      var pageW = Math.min(Math.round(availW / 2), 320);
+      var pageH = Math.round(pageW / pageRatio);
 
-    flipBook = new St.PageFlip(pageEl, {
-      width: pageW, height: pageH, size: 'fixed',
-      showCover: false, maxShadowOpacity: 0.5,
-      mobileScrollSupport: true, useMouseEvents: true,
-      swipeDistance: 30, flippingTime: 600,
-      drawShadow: true, showPageCorners: true,
-      disableFlipByClick: false, startPage: 0,
-      startZIndex: 0, autoSize: false
+      flipBook = new St.PageFlip(pageEl, {
+        width: pageW, height: pageH, size: 'fixed',
+        showCover: false, maxShadowOpacity: 0.5,
+        mobileScrollSupport: true, useMouseEvents: true,
+        swipeDistance: 30, flippingTime: 600,
+        drawShadow: true, showPageCorners: true,
+        disableFlipByClick: false, startPage: 0,
+        startZIndex: 0, autoSize: false
+      });
+      flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
+      flipBook.on('flip', function(){ playFlip(); updateButtons(); });
+      updateButtons();
+    }
+    imgs.forEach(function(im){
+      if (im.complete) onImgReady();
+      else { im.onload = onImgReady; im.onerror = onImgReady; }
     });
-    flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
-    flipBook.on('flip', function(){ playFlip(); updateButtons(); });
-    updateButtons();
   }
 
   prevBtn.addEventListener('click', function(){ if(flipBook) flipBook.flipPrev(); });
