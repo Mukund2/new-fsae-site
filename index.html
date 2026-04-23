@@ -6,7 +6,7 @@
 <title>SJSU Formula SAE — SR-17</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&family=Dancing+Script:wght@400;500;600&family=Caveat:wght@400;500;600&family=Oswald:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Preload critical images -->
 <link rel="preload" as="image" href="assets/cars/sr16-side-clean.png">
 <link rel="preload" as="image" href="assets/cars/sr16-front-clean.png">
@@ -239,8 +239,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .cover-note .note-n{font-size:10px;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase}
 .cover-note .note-body{
-  font-family:var(--sans);font-weight:200;font-size:clamp(28px,3.4vw,46px);
-  line-height:1.08;letter-spacing:-.02em;color:var(--ink);
+  font-family:"Caveat",cursive;font-weight:500;font-size:clamp(28px,3.4vw,46px);
+  line-height:1.15;letter-spacing:-.01em;color:var(--ink);
 }
 .cover-note .note-body em{font-style:italic;color:var(--gold);font-weight:300}
 
@@ -424,9 +424,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ============ SHEET 10 — JOIN / CTA ============ */
 .join-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0}
-.join-left{padding:56px;border-right:1px solid var(--ink)}
+.join-left{padding:32px 40px;border-right:1px solid var(--ink)}
 .join-left h3{
-  font-family:var(--sans);font-weight:200;font-size:clamp(40px,5vw,72px);letter-spacing:-.03em;line-height:1;margin:0;color:var(--ink)
+  font-family:"Orbitron",sans-serif;font-weight:500;font-size:clamp(28px,3.5vw,48px);letter-spacing:-.01em;line-height:1.1;margin:0;color:var(--ink)
 }
 .join-left h3 em{font-style:italic;color:var(--gold);font-weight:300}
 .join-left p{font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:28px;max-width:46ch;letter-spacing:.02em}
@@ -443,19 +443,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .role-row .n{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
 .role-row .name{font-size:15px;color:var(--ink);letter-spacing:.01em;font-weight:500}
 .role-row .cap{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
-/* Role detail card — alternates image left/right */
-.role-detail{border:1px solid var(--ink);border-top:0;overflow:hidden;min-height:200px;position:relative}
-.role-detail-inner{display:grid;grid-template-columns:1fr 1fr;min-height:200px;transition:opacity .25s}
-.role-detail.alt .role-detail-inner{direction:rtl}
-.role-detail.alt .role-detail-inner > *{direction:ltr}
-.role-detail-img{position:relative;overflow:hidden;background:var(--paper-2);min-height:200px}
-.role-detail-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.03)}
-.role-detail-img .fig-tag{position:absolute;bottom:10px;left:10px;font-size:8px;letter-spacing:.12em;color:var(--paper);text-transform:uppercase;
-  background:rgba(10,11,13,.7);padding:4px 8px;backdrop-filter:blur(4px)}
-.role-detail-text{padding:28px 32px;display:flex;flex-direction:column;justify-content:center;background:var(--paper-2)}
-.role-detail-label{font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:12px}
+/* Role detail card — text left, image right */
+.role-detail{border:1px solid var(--ink);border-top:0;overflow:hidden;min-height:220px}
+.role-detail-inner{display:grid;grid-template-columns:1fr 1fr;min-height:220px}
+.role-detail-text{padding:32px 36px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--ink)}
+.role-detail-label{font-size:10px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:14px}
 .role-detail-desc{font-size:12px;color:var(--ink-2);line-height:1.75;letter-spacing:.02em;margin:0}
-.role-detail-n{font-family:var(--sans);font-size:clamp(32px,4vw,48px);font-weight:200;color:var(--ink);letter-spacing:-.03em;margin-top:16px;opacity:.15}
+.role-detail-n{font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin-top:18px}
+.role-detail-img{position:relative;overflow:hidden;background:var(--ink)}
+.role-detail-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.04);transition:opacity .3s}
+.role-detail-img .fig-tag{position:absolute;bottom:10px;left:10px;font-size:8px;letter-spacing:.12em;color:var(--paper);text-transform:uppercase;
+  background:rgba(10,11,13,.65);padding:4px 8px;backdrop-filter:blur(4px)}
 @media(max-width:900px){.role-detail-inner{grid-template-columns:1fr}}
 
 
@@ -483,7 +481,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .foot-sign{text-align:center;padding:80px 0;border:1px solid var(--ink);position:relative}
 .foot-sign .k{font-size:10px;color:var(--ink-2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
 .foot-sign .big{
-  font-family:var(--mono);font-size:clamp(72px,11vw,160px);font-weight:700;letter-spacing:-.04em;line-height:.9;
+  font-family:"Oswald",sans-serif;font-size:clamp(72px,11vw,160px);font-weight:700;letter-spacing:-.02em;line-height:.9;text-transform:uppercase;
   background:linear-gradient(135deg, var(--ink) 40%, var(--gold) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
@@ -1170,7 +1168,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <a href="https://sjsuformulasae.com">sjsuformulasae.com</a><br/>
         <a href="mailto:contact@sjsuformulasae.com">contact@sjsuformulasae.com</a><br/>
         <a href="mailto:sponsorship@sjsuformulasae.com">sponsorship@sjsuformulasae.com</a><br/><br/>
-        <a href="https://www.instagram.com/sjsuformulasae/" target="_blank" rel="noopener">/instagram</a> · <a href="https://www.linkedin.com/school/sjsufsae/" target="_blank" rel="noopener">/linkedin</a> · <a href="https://www.facebook.com/SpartanRacingSJSU/" target="_blank" rel="noopener">/facebook</a>
+        <a href="https://www.instagram.com/sjsuformulasae/" target="_blank" rel="noopener">/instagram</a> · <a href="https://www.linkedin.com/school/sjsufsae/" target="_blank" rel="noopener">/linkedin</a> · <a href="https://www.facebook.com/SpartanRacingSJSU/" target="_blank" rel="noopener">/facebook</a> · <a href="https://www.givecampus.com/campaigns/67453/donations/new?designation=spartanracingformulasae" target="_blank" rel="noopener" style="color:var(--gold)">/donate</a>
       </div>
     </div>
   </div>
@@ -1385,14 +1383,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============ ROLES LIST ============ */
 (function(){
   const roles = [
-    {n:'R-01', name:'Aerodynamics',  cap:'ROLLING', img:'assets/subteams/aero.jpg',        desc:'We design parts on the car that create downforce and reduce drag, such as the front and rear wings, canards, and side pods.'},
-    {n:'R-02', name:'Chassis',       cap:'ROLLING', img:'assets/subteams/chassis.jpg',     desc:'We design and create a rigid skeleton for the car so that the other subteams can mount parts onto it and so that the car can handle well.'},
-    {n:'R-03', name:'Suspension',    cap:'ROLLING', img:'assets/subteams/suspension.jpg',  desc:'We design everything that controls the kinematics of the vehicle, such as the brakes, steering, and suspension.'},
-    {n:'R-04', name:'Powertrain',    cap:'ROLLING', img:'assets/subteams/powertrain.jpg',  desc:'We design the systems that make the car move, such as the electric motor, accumulator (battery), and final drive.'},
-    {n:'R-05', name:'Electronics',   cap:'ROLLING', img:'assets/subteams/electronics.jpg', desc:'We are responsible for designing and installing all of the analog and digital circuits in the car so that the necessary electronics can work and output data properly.'},
-    {n:'R-06', name:'Software',      cap:'ROLLING', img:'assets/subteams/software.jpg',    desc:'We program the electronic components so that they behave properly when the car is in different states. We are also responsible for data collection and logging.'},
-    {n:'R-07', name:'Business',      cap:'ROLLING', img:'assets/subteams/business.jpg',    desc:'We handle the data analytics, marketing, public relations, finances, and logistics for the team.'},
-    {n:'R-08', name:'R&D',           cap:'ROLLING', img:'assets/subteams/rnd.jpg',         desc:'With a focus on multi-year projects and manufacturing an experimental in-hubs powertrain, R&D is focused on developing and optimizing the future of Spartan Racing.'},
+    {n:'R-01', name:'Aerodynamics',  cap:'ROLLING', img:'assets/subteams/aero.jpg',        desc:'Designing parts that create downforce and reduce drag — front and rear wings, canards, and side pods. CFD in the sim, carbon on the car.'},
+    {n:'R-02', name:'Chassis',       cap:'ROLLING', img:'assets/subteams/chassis.jpg',     desc:'The rigid skeleton everything bolts to. Designing and welding the steel tube frame that balances torsional stiffness with minimum weight.'},
+    {n:'R-03', name:'Suspension',    cap:'ROLLING', img:'assets/subteams/suspension.jpg',  desc:'Everything that controls the kinematics of the vehicle — brakes, steering, dampers, and suspension geometry. Every tenth on track starts here.'},
+    {n:'R-04', name:'Powertrain',    cap:'ROLLING', img:'assets/subteams/powertrain.jpg',  desc:'The systems that make the car move — electric motor, accumulator (battery), and final drive. From cell selection to torque delivery.'},
+    {n:'R-05', name:'Electronics',   cap:'ROLLING', img:'assets/subteams/electronics.jpg', desc:'All analog and digital circuits in the car — designing and installing the hardware so that every sensor, controller, and actuator works and outputs data properly.'},
+    {n:'R-06', name:'Software',      cap:'ROLLING', img:'assets/subteams/software.jpg',    desc:'Programming the electronic components to behave properly in different states. Also responsible for data collection, logging, and controls algorithms.'},
+    {n:'R-07', name:'Business',      cap:'ROLLING', img:'assets/subteams/business.jpg',    desc:'Data analytics, marketing, public relations, finances, and logistics. The operational backbone that keeps 80+ engineers funded, organized, and competing.'},
+    {n:'R-08', name:'R&D',           cap:'ROLLING', img:'assets/subteams/rnd.jpg',         desc:'Multi-year projects and an experimental in-hubs powertrain. Focused on developing and optimizing the future of Spartan Racing beyond the current season.'},
   ];
   const body = document.getElementById('rolesList');
   const detail = document.getElementById('roleDetail');
@@ -1408,18 +1406,27 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     detailImg.src = r.img || '';
     detailImg.alt = r.name;
     detailFig.textContent = 'FIG 08.' + String(idx+1);
-    detailN.textContent = String(idx+1).padStart(2,'0');
-    // Alternate image left/right
-    detail.classList.toggle('alt', idx % 2 === 1);
+    detailN.textContent = r.n + ' · ' + r.name.toUpperCase();
   }
-  // Show first role by default
-  setRole(roles[0], 0);
+  // Default state — show team image
+  detailLabel.textContent = 'SPARTAN RACING';
+  detailDesc.textContent = 'Hover a subteam to learn what they do. Applications are rolling — no experience required.';
+  detailImg.src = 'assets/subteams/default.avif';
+  detailN.textContent = '8 SUBTEAMS · 80+ MEMBERS';
+  detailFig.textContent = 'FIG 08.0';
 
   roles.forEach((r, idx) => {
     const el = document.createElement('div');
     el.className = 'role-row';
     el.innerHTML = `<div class="n">${r.n}</div><div class="name">${r.name}</div><div class="cap">${r.cap}</div>`;
     el.addEventListener('mouseenter', () => setRole(r, idx));
+    el.addEventListener('mouseleave', () => {
+      detailLabel.textContent = 'SPARTAN RACING';
+      detailDesc.textContent = 'Hover a subteam to learn what they do. Applications are rolling — no experience required.';
+      detailImg.src = 'assets/subteams/default.avif';
+      detailN.textContent = '8 SUBTEAMS · 80+ MEMBERS';
+      detailFig.textContent = 'FIG 08.0';
+    });
     body.appendChild(el);
   });
   const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); io.unobserve(e.target);} }), {threshold:.3});
