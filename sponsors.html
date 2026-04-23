@@ -153,9 +153,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cta-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0}
 .cta-left{padding:32px 40px;border-right:1px solid var(--ink);display:flex;flex-direction:column;justify-content:center}
 .cta-left h3{
-  font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(32px,4vw,56px);letter-spacing:-.02em;line-height:1.05;margin:0;color:var(--ink)
+  font-family:var(--sans);font-weight:200;font-size:clamp(32px,4vw,56px);letter-spacing:-.025em;line-height:1.05;margin:0;color:var(--ink)
 }
-.cta-left h3 em{font-family:"Playfair Display",serif;font-style:italic;color:var(--gold);font-weight:500}
+.cta-left h3 em{font-style:italic;color:var(--gold);font-weight:300}
 .cta-left p{font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:28px;max-width:46ch;letter-spacing:.02em}
 .cta-btn{display:inline-flex;align-items:center;gap:14px;margin-top:36px;padding:16px 22px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.14em;text-transform:uppercase;transition:background .25s}
 .cta-btn:hover{background:var(--gold)}
@@ -236,8 +236,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   from{background-position:0% 0}
   to{background-position:100% 0}
 }
-.foot-sign .big .gold{-webkit-text-fill-color:transparent;transition:-webkit-text-fill-color .5s ease .9s}
-.foot-sign .big.swept .gold{-webkit-text-fill-color:var(--gold)}
+.foot-sign .big .gold{-webkit-text-fill-color:transparent}
+.foot-sign .big .gold.show{-webkit-text-fill-color:var(--gold);transition:-webkit-text-fill-color .5s ease}
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
 .foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
 
@@ -562,7 +562,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     es.forEach(function(e){
       if (e.isIntersecting){
         var bigEl = footSign.querySelector('.big');
-        if (bigEl) setTimeout(function(){ bigEl.classList.add('swept'); }, 400);
+        if (bigEl) {
+          setTimeout(function(){ bigEl.classList.add('swept'); }, 400);
+          // Show gold "17" only after wink animation fully completes
+          var goldEl = bigEl.querySelector('.gold');
+          if (goldEl) setTimeout(function(){ goldEl.classList.add('show'); }, 1400);
+        }
         setTimeout(function(){
           sig1.classList.add('writing');
           sig2.classList.add('writing-delay');
