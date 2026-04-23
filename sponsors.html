@@ -6,8 +6,7 @@
 <title>Sponsor Spartan Racing — SJSU Formula SAE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&family=Dancing+Script:wght@400;500;600&family=Caveat:wght@400;500;600&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Dancing+Script:wght@400;500;600&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper: #f7f8fa;
@@ -223,21 +222,27 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .foot-sign .big{
   font-family:"Oswald",sans-serif;font-size:clamp(90px,14vw,200px);font-weight:700;letter-spacing:-.03em;line-height:1;text-transform:uppercase;
   padding-bottom:8px;
-  background:linear-gradient(120deg, var(--ink) 0%, var(--ink) 38%, var(--gold) 46%, #fff 50%, var(--gold) 54%, var(--ink) 62%, var(--ink) 100%);
-  background-size:400% 100%;
+  color:var(--ink);
+}
+.foot-sign .big .gold{
+  position:relative;display:inline-block;color:var(--ink);
+  background:linear-gradient(120deg, var(--ink) 0%, var(--ink) 30%, var(--gold) 42%, #fff 50%, var(--gold) 58%, var(--ink) 70%, var(--ink) 100%);
+  background-size:300% 100%;
   background-position:0% 0;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
 }
-.foot-sign .big.swept{
-  animation:signWink .9s cubic-bezier(.4,.0,.2,1) forwards;
+.foot-sign .big .gold.swept{
+  animation:goldGleam .8s cubic-bezier(.4,.0,.2,1) forwards;
 }
-@keyframes signWink{
-  from{background-position:0% 0}
-  to{background-position:100% 0}
+.foot-sign .big .gold.show{
+  background:none;-webkit-text-fill-color:var(--gold);color:var(--gold);
+  transition:-webkit-text-fill-color .5s ease, color .5s ease;
 }
-.foot-sign .big .gold{-webkit-text-fill-color:var(--ink)}
-.foot-sign .big .gold.show{-webkit-text-fill-color:var(--gold);transition:-webkit-text-fill-color .5s ease}
+@keyframes goldGleam{
+  from{background-position:100% 0}
+  to{background-position:-50% 0}
+}
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
 .foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
 
@@ -275,7 +280,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 <!-- SHEET HEADER -->
 <div class="sheet-header">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none"><img src="assets/spartan-racing-logo.png" alt="Spartan Racing" style="height:22px;width:auto;vertical-align:middle"><b style="font-weight:600">SPARTAN RACING</b></a> · PARTNERSHIP PROGRAMME
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none"><picture><source srcset="assets/spartan-racing-logo.webp" type="image/webp"><img src="assets/spartan-racing-logo.png" alt="Spartan Racing" width="22" height="22" loading="lazy" style="height:22px;width:auto;vertical-align:middle"></picture><b style="font-weight:600">SPARTAN RACING</b></a> · PARTNERSHIP PROGRAMME
   <span class="live">ACCEPTING SPONSORS · <span id="clock">—</span></span>
   <span>DOC SR-17-SPO-001</span>
   <span>REV A · 23 APR 2026</span>
@@ -561,12 +566,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if (e.isIntersecting){
-        var bigEl = footSign.querySelector('.big');
-        if (bigEl) {
-          setTimeout(function(){ bigEl.classList.add('swept'); }, 400);
-          // Show gold "17" only after wink animation fully completes
-          var goldEl = bigEl.querySelector('.gold');
-          if (goldEl) setTimeout(function(){ goldEl.classList.add('show'); }, 1400);
+        // Trigger gold gleam on "17" only
+        var goldEl = footSign.querySelector('.big .gold');
+        if (goldEl) {
+          setTimeout(function(){ goldEl.classList.add('swept'); }, 400);
+          // Show gold "17" after gleam animation completes
+          setTimeout(function(){ goldEl.classList.add('show'); }, 1300);
         }
         setTimeout(function(){
           sig1.classList.add('writing');
@@ -630,8 +635,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     var div = document.createElement('div');
     div.className = 'page-wrapper';
     var img = document.createElement('img');
-    img.src = 'assets/sponsor-packet/page-' + String(i).padStart(2,'0') + '.jpg';
+    img.src = 'assets/sponsor-packet/page-' + String(i).padStart(2,'0') + '.webp';
     img.alt = 'Page ' + i;
+    img.loading = 'lazy';
+    img.width = 640;
+    img.height = 829;
     img.draggable = false;
     div.appendChild(img);
     el.appendChild(div);
