@@ -393,8 +393,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* Flipbook container from page-flip library */
 .lt-page .stf__parent{margin:0 auto}
 .lt-page .stf__wrapper{box-shadow:0 6px 30px -10px rgba(0,0,0,.25)}
-.lt-page .stf__parent{transition:none !important}
-.lt-page .stf__wrapper{transition:none !important}
+/* Prevent cover/spread layout jump — keep wrapper at full spread width always */
+.lt-page .stf__parent,.lt-page .stf__wrapper{transition:none !important}
 .lt-page .page-wrapper{background:#fff}
 .lt-page .page-wrapper img{width:100%;height:100%;object-fit:contain;display:block}
 .lt-loading{color:var(--ink-3);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
@@ -1470,7 +1470,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
       flipBook = new St.PageFlip(pageEl, {
         width: pageW, height: pageH, size: 'fixed',
-        showCover: false, maxShadowOpacity: 0.5,
+        showCover: true, maxShadowOpacity: 0.5,
         mobileScrollSupport: true, useMouseEvents: true,
         swipeDistance: 30, flippingTime: 600,
         drawShadow: true, showPageCorners: true,
