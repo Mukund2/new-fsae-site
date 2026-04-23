@@ -245,15 +245,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ============ MARQUEE TICKER ============ */
 .ticker{
-  overflow:hidden;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
-  background:var(--ink);color:var(--paper);
+  overflow:hidden;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  background:var(--paper);color:var(--ink-2);
 }
 .ticker-track{display:flex;gap:48px;padding:10px 0;animation:marq 75s linear infinite;white-space:nowrap;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
 .ticker-track span{display:inline-flex;align-items:center;gap:12px}
-.ticker-track span:first-child,
-.ticker-track span:nth-child(29){color:var(--gold);font-weight:600}
+.ticker-track span:first-child{color:var(--gold);font-weight:600}
 .ticker-track .sep{width:6px;height:6px;background:var(--gold);display:inline-block}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ SHEET 01 — SLIDE-IN VIEWS ============ */
+@keyframes slideFromLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes slideFromRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+.slide-left{opacity:0;animation:slideFromLeft .9s .2s cubic-bezier(.2,.7,.2,1) forwards}
+.slide-right{opacity:0;animation:slideFromRight .9s .4s cubic-bezier(.2,.7,.2,1) forwards}
 
 /* ============ SHEET 01 — ORTHOGRAPHIC TRIPTYCH ============ */
 .triptych{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--ink);border-top:0}
@@ -668,7 +673,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>POWERED BY<span class="sep"></span></span>
     <span>CADENCE<span class="sep"></span></span>
     <span>ALTIUM<span class="sep"></span></span>
     <span>SIEMENS<span class="sep"></span></span>
@@ -697,7 +701,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <span>VECTORNAV<span class="sep"></span></span>
     <span>SHINING 3D<span class="sep"></span></span>
     <!-- duplicated for seamless loop -->
-    <span>POWERED BY<span class="sep"></span></span>
     <span>CADENCE<span class="sep"></span></span>
     <span>ALTIUM<span class="sep"></span></span>
     <span>SIEMENS<span class="sep"></span></span>
@@ -740,7 +743,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
   <div class="triptych" style="grid-template-columns:1.6fr 0.8fr">
     <!-- SIDE — dims image as base, animated text overlaid exactly on top -->
-    <div class="view" style="background:#fff;position:relative">
+    <div class="view slide-left" style="background:#fff;position:relative">
       <div class="fig-label"><span>FIG 01.1</span><span>VIEW — SIDE</span></div>
       <div class="ortho-box reveal" id="sideView" style="display:block;padding:8px;background:#fff;border:none;position:relative">
         <img src="assets/cars/sr16-side-clean.png" alt="SR-16 side view" style="width:80%;height:auto;display:block;margin:0 auto;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
@@ -751,7 +754,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     </div>
 
     <!-- FRONT -->
-    <div class="view" style="background:#fff;display:flex;flex-direction:column">
+    <div class="view slide-right" style="background:#fff;display:flex;flex-direction:column">
       <div class="fig-label"><span>FIG 01.2</span><span>VIEW — FRONT</span></div>
       <div class="ortho-box reveal" id="frontView" style="display:flex;align-items:center;justify-content:center;padding:8px;background:#fff;border:none;position:relative;flex:1">
         <img src="assets/cars/sr16-front-clean.png" alt="SR-16 front view" style="width:85%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
