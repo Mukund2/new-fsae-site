@@ -1393,8 +1393,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   }
 
   function loadIssue(idx){
-    if (flipBook){ flipBook.destroy(); flipBook = null; }
-    pageEl.innerHTML = '';
+    // Destroy old flipbook and replace container with a fresh one
+    if (flipBook){ try{ flipBook.destroy(); }catch(e){} flipBook = null; }
+    var parent = pageEl.parentElement;
+    var fresh = document.createElement('div');
+    fresh.className = 'lt-page';
+    fresh.id = 'ltPage';
+    parent.replaceChild(fresh, pageEl);
+    pageEl = fresh;
+
     loading.style.display = 'flex';
     loading.querySelector('span').textContent = 'LOADING';
     pageNum.textContent = '— / —';
@@ -1411,38 +1418,36 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     loading.style.display = 'none';
 
     // Build page elements from pre-rendered images
-    {
-      for (var i = 1; i <= count; i++){
-        var div = document.createElement('div');
-        div.className = 'page-wrapper';
-        var img = document.createElement('img');
-        img.src = 'assets/newsletters/' + issue.slug + '/page-' + String(i).padStart(2,'0') + '.jpg';
-        img.alt = 'Page ' + i;
-        img.draggable = false;
-        div.appendChild(img);
-        pageEl.appendChild(div);
-      }
-
-      // Compute dimensions
-      var wrap = pageEl.parentElement;
-      var availW = wrap.clientWidth - 110;
-      var pageRatio = 8.5 / 11;
-      var pageW = Math.min(Math.round(availW / 2), 320);
-      var pageH = Math.round(pageW / pageRatio);
-
-      flipBook = new St.PageFlip(pageEl, {
-        width: pageW, height: pageH, size: 'fixed',
-        showCover: false, maxShadowOpacity: 0.5,
-        mobileScrollSupport: true, useMouseEvents: true,
-        swipeDistance: 30, flippingTime: 600,
-        drawShadow: true, showPageCorners: true,
-        disableFlipByClick: false, startPage: 0,
-        startZIndex: 0, autoSize: false
-      });
-      flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
-      flipBook.on('flip', function(){ playFlip(); updateButtons(); });
-      updateButtons();
+    for (var i = 1; i <= count; i++){
+      var div = document.createElement('div');
+      div.className = 'page-wrapper';
+      var img = document.createElement('img');
+      img.src = 'assets/newsletters/' + issue.slug + '/page-' + String(i).padStart(2,'0') + '.jpg';
+      img.alt = 'Page ' + i;
+      img.draggable = false;
+      div.appendChild(img);
+      pageEl.appendChild(div);
     }
+
+    // Compute dimensions
+    var wrap = pageEl.parentElement;
+    var availW = wrap.clientWidth - 110;
+    var pageRatio = 8.5 / 11;
+    var pageW = Math.min(Math.round(availW / 2), 320);
+    var pageH = Math.round(pageW / pageRatio);
+
+    flipBook = new St.PageFlip(pageEl, {
+      width: pageW, height: pageH, size: 'fixed',
+      showCover: false, maxShadowOpacity: 0.5,
+      mobileScrollSupport: true, useMouseEvents: true,
+      swipeDistance: 30, flippingTime: 600,
+      drawShadow: true, showPageCorners: true,
+      disableFlipByClick: false, startPage: 0,
+      startZIndex: 0, autoSize: false
+    });
+    flipBook.loadFromHTML(pageEl.querySelectorAll('.page-wrapper'));
+    flipBook.on('flip', function(){ playFlip(); updateButtons(); });
+    updateButtons();
   }
 
   prevBtn.addEventListener('click', function(){ if(flipBook) flipBook.flipPrev(); });
