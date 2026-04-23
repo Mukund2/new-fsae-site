@@ -526,6 +526,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .merch-img .corner.tr{top:4px;right:4px;border-left:0;border-bottom:0}
 .merch-img .corner.bl{bottom:4px;left:4px;border-right:0;border-top:0}
 .merch-img .corner.br{bottom:4px;right:4px;border-left:0;border-top:0}
+@keyframes merchGlitch{
+  0%{clip-path:inset(0);transform:none;filter:none}
+  5%{clip-path:inset(40% 0 20% 0);transform:translateX(4px);filter:hue-rotate(90deg) saturate(2)}
+  10%{clip-path:inset(10% 0 60% 0);transform:translateX(-3px);filter:none}
+  15%{clip-path:inset(70% 0 5% 0);transform:translateX(2px) skewX(2deg);filter:hue-rotate(-60deg)}
+  20%{clip-path:inset(30% 0 40% 0);transform:translateX(-4px);filter:saturate(3) brightness(1.1)}
+  25%{clip-path:inset(0);transform:none;filter:none}
+  100%{clip-path:inset(0);transform:none;filter:none}
+}
+.merch-img.glitch img{animation:merchGlitch .4s steps(1) forwards}
 .merch-label{font-size:9px;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
 .merch-name{font-size:13px;font-weight:500;color:var(--ink);letter-spacing:.02em;margin-bottom:4px;text-transform:uppercase}
 .merch-price{font-family:var(--mono);font-size:11px;color:var(--ink-2);letter-spacing:.04em;margin-bottom:auto;padding-bottom:16px}
@@ -1596,6 +1606,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       if (loading) loading.style.display = 'none';
       grid.innerHTML = '<div class="merch-error">CATALOG UNAVAILABLE — <a href="https://' + SHOP + '" target="_blank" rel="noopener">VISIT SHOP DIRECTLY</a></div>';
     });
+
+  // Random glitch on a merch card every 15s
+  setInterval(function(){
+    var imgs = grid.querySelectorAll('.merch-img');
+    if (!imgs.length) return;
+    var pick = imgs[Math.floor(Math.random() * imgs.length)];
+    pick.classList.add('glitch');
+    setTimeout(function(){ pick.classList.remove('glitch'); }, 500);
+  }, 15000);
 })();
 
 /* ============ LIGHT TABLE NEWSLETTER VIEWER (pre-rendered images + page-flip) ============ */
