@@ -679,9 +679,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <div class="cover-eyebrow">Programme title · Season 2025–26</div>
         <h1 class="cover-title">SR-17<span class="sub">Successor to Flourish.</span></h1>
         <p class="cover-desc">
-          Formula SAE electric vehicle · Emrax 228 motor · 408&nbsp;V accumulator.<br/>
+          Formula SAE electric vehicle · Emrax 228 motor · 8.3&nbsp;kWh accumulator.<br/>
           Designed, machined and composited in <b>San José, California</b> by Spartan Racing across eight subteams: Aero, Powertrain, Chassis, Suspension, Electronics, Software, Business, R&amp;D.<br/><br/>
-          Successor to SR-16 <em>Flourish</em> (1st Endurance, 2nd Overall — FSAE Michigan 2025). Fastest SAE EV.
+          Successor to SR-16 <em>Flourish</em> (1st Endurance, 2nd Overall, Best Aero — FSAE Michigan 2025). Fourth all-electric car. Twenty-third Spartan ever built since 1989.
         </p>
       </div>
       <div class="stamp">FOR COMPETITION USE · REV C</div>
@@ -781,62 +781,26 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
-  <div class="triptych" style="grid-template-columns:1.4fr 1fr">
+  <div class="triptych" style="grid-template-columns:1.6fr 0.8fr">
     <!-- SIDE — dims image as base, animated text overlaid exactly on top -->
     <div class="view" style="background:#fff;position:relative">
       <div class="fig-label"><span>FIG 01.1</span><span>VIEW — SIDE</span></div>
       <div class="ortho-box reveal" id="sideView" style="display:block;padding:8px;background:#fff;border:none;position:relative">
-        <img src="assets/cars/sr16-side-dims.png" alt="SR-16 side view" style="width:100%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
-        <!-- SVG overlay: viewBox matches image 1340x664 exactly -->
-        <svg class="dim-overlay" viewBox="0 0 1340 664" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);pointer-events:none">
-          <!-- 34.32 CG -->
-          <g class="dim-group" style="--delay:0.8s">
-            <rect x="215" y="486" width="110" height="14" fill="#fff"/>
-            <text class="dim-label" x="270" y="497" text-anchor="middle" style="font-size:10px">34.32 CG</text>
-          </g>
-          <!-- 60.25 WHEEL BASE -->
-          <g class="dim-group" style="--delay:1.2s">
-            <rect x="220" y="504" width="170" height="14" fill="#fff"/>
-            <text class="dim-label" x="305" y="515" text-anchor="middle" style="font-size:10px">60.25 WHEEL BASE</text>
-          </g>
-          <!-- 113.20 -->
-          <g class="dim-group" style="--delay:1.6s">
-            <rect x="215" y="523" width="65" height="14" fill="#fff"/>
-            <text class="dim-label" x="248" y="534" text-anchor="middle" style="font-size:10px">113.20</text>
-          </g>
-          <!-- 10.41 CG -->
-          <g class="dim-group" style="--delay:2.0s">
-            <rect x="1175" y="366" width="75" height="14" fill="#fff"/>
-            <text class="dim-label" x="1212" y="377" text-anchor="middle" style="font-size:10px">10.41 CG</text>
-          </g>
-        </svg>
+        <img src="assets/cars/sr16-side-clean.png" alt="SR-16 side view" style="width:90%;height:auto;display:block;margin:0 auto;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
       </div>
       <div class="dim-line reveal">
-        <span class="tick"></span><span class="bar"></span><span class="val">SR-16 · DWG 16-00-MASR00-1A</span><span class="bar"></span><span class="tick"></span>
+        <span class="tick"></span><span class="bar"></span><span class="val"><span class="dim-text" data-text="113.20" data-delay="800"></span></span><span class="bar"></span><span class="tick"></span>
       </div>
     </div>
 
-    <!-- FRONT — dims image as base, animated text overlaid exactly on top -->
-    <div class="view" style="background:#fff">
+    <!-- FRONT -->
+    <div class="view" style="background:#fff;display:flex;flex-direction:column">
       <div class="fig-label"><span>FIG 01.2</span><span>VIEW — FRONT</span></div>
-      <div class="ortho-box reveal" id="frontView" style="display:block;padding:8px;background:#fff;border:none;position:relative">
-        <img src="assets/cars/sr16-front-dims.png" alt="SR-16 front view" style="width:100%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
-        <!-- SVG overlay: viewBox matches image 840x776 exactly -->
-        <svg class="dim-overlay" viewBox="0 0 840 776" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);pointer-events:none">
-          <!-- 48"/47" FRONT / REAR TRACK WIDTH -->
-          <g class="dim-group" style="--delay:1.0s">
-            <rect x="195" y="660" width="380" height="14" fill="#fff"/>
-            <text class="dim-label" x="385" y="671" text-anchor="middle" style="font-size:10px">48"/47" FRONT / REAR TRACK WIDTH</text>
-          </g>
-          <!-- 56.40" OVERALL -->
-          <g class="dim-group" style="--delay:1.4s">
-            <rect x="270" y="685" width="190" height="14" fill="#fff"/>
-            <text class="dim-label" x="365" y="696" text-anchor="middle" style="font-size:10px">56.40" OVERALL</text>
-          </g>
-        </svg>
+      <div class="ortho-box reveal" id="frontView" style="display:flex;align-items:center;justify-content:center;padding:8px;background:#fff;border:none;position:relative;flex:1">
+        <img src="assets/cars/sr16-front-clean.png" alt="SR-16 front view" style="width:80%;height:auto;display:block;opacity:0;transition:opacity .8s .2s" onload="this.style.opacity=1"/>
       </div>
       <div class="dim-line reveal">
-        <span class="tick"></span><span class="bar"></span><span class="val">CAR #205 · 427 LBS</span><span class="bar"></span><span class="tick"></span>
+        <span class="tick"></span><span class="bar"></span><span class="val"><span class="dim-text" data-text='56.40" OVERALL' data-delay="1000"></span></span><span class="bar"></span><span class="tick"></span>
       </div>
     </div>
   </div>
@@ -872,7 +836,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="stat-cell reveal">
       <div class="n">[ M-01 ] Years running</div>
       <div class="big"><span class="count" data-to="37">00</span><span class="unit">YRS</span></div>
-      <div class="cap">From SR-0 in 1989 through a pause, reborn with SR-1 in 2008, and annually since.</div>
+      <div class="cap">From SR-0 in 1989 through a pause, reborn with SR-1 in 2008, and annually since. SR-17 is the 23rd Spartan.</div>
     </div>
     <div class="stat-cell reveal">
       <div class="n">[ M-02 ] Dry mass</div>
@@ -1361,35 +1325,26 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   tick(); setInterval(tick,1000);
 })();
 
-/* ============ DIMENSION TYPEWRITER ============ */
+/* ============ DIMENSION TYPEWRITER (HTML divs) ============ */
 (function(){
-  var labels = document.querySelectorAll('.dim-group .dim-label');
-  labels.forEach(function(label){
-    var text = label.textContent;
-    label.textContent = '';
-    label.dataset.dimText = text;
-  });
-  // When the ortho-box gets .in, type out each label
   var boxes = document.querySelectorAll('#sideView, #frontView');
   var observer = new MutationObserver(function(mutations){
     mutations.forEach(function(m){
       if (m.target.classList.contains('in')){
-        // Trigger .in on sibling dim SVGs in the same .view
         var parent = m.target.closest('.view');
-        if (parent) parent.querySelectorAll('.dim-overlay').forEach(function(d){ d.classList.add('in'); });
-        var svgLabels = parent ? parent.querySelectorAll('.dim-group .dim-label') : m.target.querySelectorAll('.dim-group .dim-label');
-        svgLabels.forEach(function(label){
-          var text = label.dataset.dimText;
-          if (!text || label.dataset.typed) return;
-          label.dataset.typed = '1';
-          var group = label.closest('.dim-group');
-          var delay = parseFloat(getComputedStyle(group).getPropertyValue('--delay') || '0.8') * 1000;
+        var dimTexts = parent ? parent.querySelectorAll('.dim-text') : m.target.querySelectorAll('.dim-text');
+        dimTexts.forEach(function(el){
+          if (el.dataset.typed) return;
+          el.dataset.typed = '1';
+          var text = el.dataset.text;
+          var delay = parseInt(el.dataset.delay) || 800;
+          el.style.opacity = '1';
           setTimeout(function(){
             var i = 0;
-            var step = Math.max(30, 400 / text.length);
+            var step = Math.max(35, 500 / text.length);
             function tick(){
               i++;
-              label.textContent = text.slice(0, i);
+              el.textContent = text.slice(0, i);
               if (i < text.length) setTimeout(tick, step);
             }
             tick();
