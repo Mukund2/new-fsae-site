@@ -6,7 +6,7 @@
 <title>SJSU Formula SAE — SR-17</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&family=Dancing+Script:wght@400;500;600&family=Caveat:wght@400;500;600&family=Oswald:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500;600&family=Dancing+Script:wght@400;500;600&family=Caveat:wght@400;500;600&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <!-- Preload critical images -->
 <link rel="preload" as="image" href="assets/cars/sr16-side-clean.png">
 <link rel="preload" as="image" href="assets/cars/sr16-front-clean.png">
@@ -426,9 +426,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .join-body{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);border-top:0}
 .join-left{padding:32px 40px;border-right:1px solid var(--ink)}
 .join-left h3{
-  font-family:var(--sans);font-weight:600;font-size:clamp(32px,4vw,56px);letter-spacing:-.03em;line-height:1;margin:0;color:var(--ink)
+  font-family:"Playfair Display",serif;font-weight:500;font-size:clamp(32px,4vw,56px);letter-spacing:-.02em;line-height:1.05;margin:0;color:var(--ink)
 }
-.join-left h3 em{font-style:italic;color:var(--gold);font-weight:300}
+.join-left h3 em{font-family:"Playfair Display",serif;font-style:italic;color:var(--gold);font-weight:500}
 .join-left p{font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:28px;max-width:46ch;letter-spacing:.02em}
 .join-btn{display:inline-flex;align-items:center;gap:14px;margin-top:36px;padding:16px 22px;background:var(--ink);color:var(--paper);font-size:10px;letter-spacing:.14em;text-transform:uppercase;transition:background .25s}
 .join-btn:hover{background:var(--gold)}
@@ -1111,14 +1111,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
   <div class="role-detail" id="roleDetail">
     <div class="role-detail-inner" id="roleDetailInner">
-      <div class="role-detail-img" id="roleDetailImgWrap">
-        <img id="roleDetailImg" src="" alt=""/>
-        <div class="fig-tag" id="roleDetailFig">FIG 08.1</div>
-      </div>
       <div class="role-detail-text">
         <div class="role-detail-label" id="roleDetailLabel">AERODYNAMICS</div>
         <p class="role-detail-desc" id="roleDetailDesc">Hover a subteam to see what they do.</p>
         <div class="role-detail-n" id="roleDetailN">01</div>
+      </div>
+      <div class="role-detail-img" id="roleDetailImgWrap">
+        <img id="roleDetailImg" src="" alt=""/>
+        <div class="fig-tag" id="roleDetailFig">FIG 08.1</div>
       </div>
     </div>
   </div>
