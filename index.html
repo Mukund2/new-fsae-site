@@ -443,9 +443,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .role-row .n{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
 .role-row .name{font-size:15px;color:var(--ink);letter-spacing:.01em;font-weight:500}
 .role-row .cap{font-size:10px;color:var(--ink-3);letter-spacing:.1em}
-.role-detail{border:1px solid var(--ink);border-top:0;padding:24px 28px;display:flex;gap:24px;align-items:baseline;transition:background .2s}
-.role-detail-label{font-size:10px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;font-weight:600;white-space:nowrap;min-width:120px}
-.role-detail-desc{font-size:12px;color:var(--ink-2);line-height:1.7;letter-spacing:.02em}
+/* Role detail card — alternates image left/right */
+.role-detail{border:1px solid var(--ink);border-top:0;overflow:hidden;min-height:200px;position:relative}
+.role-detail-inner{display:grid;grid-template-columns:1fr 1fr;min-height:200px;transition:opacity .25s}
+.role-detail.alt .role-detail-inner{direction:rtl}
+.role-detail.alt .role-detail-inner > *{direction:ltr}
+.role-detail-img{position:relative;overflow:hidden;background:var(--paper-2);min-height:200px}
+.role-detail-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.03)}
+.role-detail-img .fig-tag{position:absolute;bottom:10px;left:10px;font-size:8px;letter-spacing:.12em;color:var(--paper);text-transform:uppercase;
+  background:rgba(10,11,13,.7);padding:4px 8px;backdrop-filter:blur(4px)}
+.role-detail-text{padding:28px 32px;display:flex;flex-direction:column;justify-content:center;background:var(--paper-2)}
+.role-detail-label{font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.role-detail-desc{font-size:12px;color:var(--ink-2);line-height:1.75;letter-spacing:.02em;margin:0}
+.role-detail-n{font-family:var(--sans);font-size:clamp(32px,4vw,48px);font-weight:200;color:var(--ink);letter-spacing:-.03em;margin-top:16px;opacity:.15}
+@media(max-width:900px){.role-detail-inner{grid-template-columns:1fr}}
 
 
 /* ============ CONTACT FIGURE PHOTOS ============ */
@@ -1101,8 +1112,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="roles" id="rolesList"></div>
   </div>
   <div class="role-detail" id="roleDetail">
-    <div class="role-detail-label" id="roleDetailLabel">HOVER A SUBTEAM</div>
-    <div class="role-detail-desc" id="roleDetailDesc">Select a subteam above to learn what they do.</div>
+    <div class="role-detail-inner" id="roleDetailInner">
+      <div class="role-detail-img" id="roleDetailImgWrap">
+        <img id="roleDetailImg" src="" alt=""/>
+        <div class="fig-tag" id="roleDetailFig">FIG 08.1</div>
+      </div>
+      <div class="role-detail-text">
+        <div class="role-detail-label" id="roleDetailLabel">AERODYNAMICS</div>
+        <p class="role-detail-desc" id="roleDetailDesc">Hover a subteam to see what they do.</p>
+        <div class="role-detail-n" id="roleDetailN">01</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1365,32 +1385,41 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============ ROLES LIST ============ */
 (function(){
   const roles = [
-    {n:'R-01', name:'Aerodynamics',                  cap:'ROLLING', desc:'We design parts on the car that create downforce and reduce drag, such as the front and rear wings, canards, and side pods.'},
-    {n:'R-02', name:'Chassis',                       cap:'ROLLING', desc:'We design and create a rigid skeleton for the car so that the other subteams can mount parts onto it and so that the car can handle well.'},
-    {n:'R-03', name:'Suspension',                    cap:'ROLLING', desc:'We design everything that controls the kinematics of the vehicle, such as the brakes, steering, and suspension.'},
-    {n:'R-04', name:'Powertrain',                    cap:'ROLLING', desc:'We design the systems that make the car move, such as the electric motor, accumulator (battery), and final drive.'},
-    {n:'R-05', name:'Electronics',                   cap:'ROLLING', desc:'We are responsible for designing and installing all of the analog and digital circuits in the car so that the necessary electronics can work and output data properly.'},
-    {n:'R-06', name:'Software',                      cap:'ROLLING', desc:'We program the electronic components so that they behave properly when the car is in different states. We are also responsible for data collection and logging.'},
-    {n:'R-07', name:'Business',                      cap:'ROLLING', desc:'We handle the data analytics, marketing, public relations, finances, and logistics for the team.'},
-    {n:'R-08', name:'R&D',                           cap:'ROLLING', desc:'With a focus on multi-year projects and manufacturing an experimental in-hubs powertrain, R&D is focused on developing and optimizing the future of Spartan Racing.'},
+    {n:'R-01', name:'Aerodynamics',  cap:'ROLLING', img:'assets/subteams/aero.jpg',        desc:'We design parts on the car that create downforce and reduce drag, such as the front and rear wings, canards, and side pods.'},
+    {n:'R-02', name:'Chassis',       cap:'ROLLING', img:'assets/subteams/chassis.jpg',     desc:'We design and create a rigid skeleton for the car so that the other subteams can mount parts onto it and so that the car can handle well.'},
+    {n:'R-03', name:'Suspension',    cap:'ROLLING', img:'assets/subteams/suspension.jpg',  desc:'We design everything that controls the kinematics of the vehicle, such as the brakes, steering, and suspension.'},
+    {n:'R-04', name:'Powertrain',    cap:'ROLLING', img:'assets/subteams/powertrain.jpg',  desc:'We design the systems that make the car move, such as the electric motor, accumulator (battery), and final drive.'},
+    {n:'R-05', name:'Electronics',   cap:'ROLLING', img:'assets/subteams/electronics.jpg', desc:'We are responsible for designing and installing all of the analog and digital circuits in the car so that the necessary electronics can work and output data properly.'},
+    {n:'R-06', name:'Software',      cap:'ROLLING', img:'assets/subteams/software.jpg',    desc:'We program the electronic components so that they behave properly when the car is in different states. We are also responsible for data collection and logging.'},
+    {n:'R-07', name:'Business',      cap:'ROLLING', img:'assets/subteams/business.jpg',    desc:'We handle the data analytics, marketing, public relations, finances, and logistics for the team.'},
+    {n:'R-08', name:'R&D',           cap:'ROLLING', img:'assets/subteams/rnd.jpg',         desc:'With a focus on multi-year projects and manufacturing an experimental in-hubs powertrain, R&D is focused on developing and optimizing the future of Spartan Racing.'},
   ];
   const body = document.getElementById('rolesList');
+  const detail = document.getElementById('roleDetail');
   const detailLabel = document.getElementById('roleDetailLabel');
   const detailDesc = document.getElementById('roleDetailDesc');
-  const DEFAULT_LABEL = 'HOVER A SUBTEAM';
-  const DEFAULT_DESC = 'Select a subteam above to learn what they do.';
-  roles.forEach(r => {
+  const detailImg = document.getElementById('roleDetailImg');
+  const detailFig = document.getElementById('roleDetailFig');
+  const detailN = document.getElementById('roleDetailN');
+
+  function setRole(r, idx){
+    detailLabel.textContent = r.name.toUpperCase();
+    detailDesc.textContent = r.desc;
+    detailImg.src = r.img || '';
+    detailImg.alt = r.name;
+    detailFig.textContent = 'FIG 08.' + String(idx+1);
+    detailN.textContent = String(idx+1).padStart(2,'0');
+    // Alternate image left/right
+    detail.classList.toggle('alt', idx % 2 === 1);
+  }
+  // Show first role by default
+  setRole(roles[0], 0);
+
+  roles.forEach((r, idx) => {
     const el = document.createElement('div');
     el.className = 'role-row';
     el.innerHTML = `<div class="n">${r.n}</div><div class="name">${r.name}</div><div class="cap">${r.cap}</div>`;
-    el.addEventListener('mouseenter', () => {
-      detailLabel.textContent = r.name.toUpperCase();
-      detailDesc.textContent = r.desc;
-    });
-    el.addEventListener('mouseleave', () => {
-      detailLabel.textContent = DEFAULT_LABEL;
-      detailDesc.textContent = DEFAULT_DESC;
-    });
+    el.addEventListener('mouseenter', () => setRole(r, idx));
     body.appendChild(el);
   });
   const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); io.unobserve(e.target);} }), {threshold:.3});
