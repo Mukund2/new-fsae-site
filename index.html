@@ -472,7 +472,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .foot-sign .big .gold{color:var(--gold)}
 .foot-sign .approval{font-size:11px;color:var(--ink-2);letter-spacing:.1em;margin-top:16px}
-.signature{font-family:"Dancing Script",cursive;font-size:28px;font-weight:500;color:var(--ink);letter-spacing:0;text-transform:none}
+.signature{font-family:"Dancing Script",cursive;font-size:28px;font-weight:500;color:var(--ink);letter-spacing:0;text-transform:none;
+  display:inline-block;clip-path:inset(0 100% 0 0);opacity:0}
+.signature.writing{opacity:1;animation:signWrite 1.2s cubic-bezier(.4,0,.2,1) forwards}
+.signature.writing-delay{opacity:1;animation:signWrite 1.2s .6s cubic-bezier(.4,0,.2,1) forwards;clip-path:inset(0 100% 0 0)}
+@keyframes signWrite{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 .foot-colophon{display:flex;justify-content:space-between;margin-top:28px;font-size:10px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
 
 /* ============ SCROLL REVEAL ============ */
@@ -1144,9 +1148,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="big">SR-<span class="gold">17</span></div>
     <div class="approval">
       <span style="font-size:10px;letter-spacing:.12em;color:var(--ink-2);display:block;margin-bottom:12px">SIGNED · 21 APR 2026</span>
-      <span class="signature">Will Kittinger</span><span style="font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin:0 8px">PRESIDENT</span>
+      <span class="signature" id="sig1">Will Kittinger</span><span style="font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin:0 8px">PRESIDENT</span>
       <span style="color:var(--ink-3);margin:0 12px">·</span>
-      <span class="signature">Hiren Patel</span><span style="font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin:0 8px">CHIEF ENGINEER</span>
+      <span class="signature" id="sig2">Hiren Patel</span><span style="font-size:10px;color:var(--ink-3);letter-spacing:.1em;margin:0 8px">CHIEF ENGINEER</span>
     </div>
   </div>
 
@@ -1933,6 +1937,23 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 </script>
 
 <script>
+/* ============ SIGNATURE ANIMATION ============ */
+(function(){
+  var sig1 = document.getElementById('sig1');
+  var sig2 = document.getElementById('sig2');
+  if (!sig1 || !sig2) return;
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting){
+        sig1.classList.add('writing');
+        sig2.classList.add('writing-delay');
+        io.disconnect();
+      }
+    });
+  }, {threshold: 0.5});
+  io.observe(sig1);
+})();
+
 /* ============ IMAGE PRELOADER ============ */
 (function(){
   var imgs = document.querySelectorAll('img[loading="lazy"], img[src*="assets/"]');
