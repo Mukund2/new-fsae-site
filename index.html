@@ -379,16 +379,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lt-fig{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase;margin-bottom:8px;position:relative;z-index:1}
 .lt-page-wrap{flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;gap:0}
 .lt-page{width:100%;min-height:360px}
-/* Side arrows */
+/* Side arrows — subtle gray, no box */
 .lt-arrow{
-  width:36px;height:36px;display:grid;place-items:center;flex-shrink:0;
-  border:1px solid var(--gold);color:var(--gold);background:var(--paper);
-  cursor:pointer;transition:all .18s;z-index:3;
+  width:28px;height:28px;display:grid;place-items:center;flex-shrink:0;
+  border:none;color:var(--ink-3);background:transparent;
+  cursor:pointer;transition:color .18s;z-index:3;
 }
-.lt-arrow:hover{background:var(--gold);color:var(--paper)}
-.lt-arrow:disabled{opacity:.2;cursor:default;background:var(--paper);color:var(--gold)}
-.lt-arrow-l{margin-right:12px}
-.lt-arrow-r{margin-left:12px}
+.lt-arrow:hover{color:var(--ink)}
+.lt-arrow:disabled{opacity:.15;cursor:default}
+.lt-arrow-l{margin-right:4px}
+.lt-arrow-r{margin-left:4px}
 /* Page info below */
 .lt-page-info{text-align:center;padding-top:8px;font-size:10px;letter-spacing:.1em;color:var(--ink-2);position:relative;z-index:1}
 /* Flipbook container from page-flip library */
