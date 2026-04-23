@@ -189,8 +189,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #spFlip .stf__parent,#spFlip .stf__wrapper{transition:none !important}
 #spFlip .page-wrapper.page-blank{background:transparent;box-shadow:none;border:none}
 /* Light-table surface styling to match homepage newsletter */
-.sp-surface{position:relative;
-  box-shadow:inset 0 0 120px rgba(200,190,170,.3);overflow:hidden}
+.sp-surface{position:relative;padding:12px 18px 14px;display:flex;flex-direction:column;overflow:hidden;
+  border:1px solid var(--ink);border-top:0;
+  background:linear-gradient(145deg,#e8e4da 0%,#f2efe6 30%,#eae6dc 100%);
+  box-shadow:inset 0 0 120px rgba(200,190,170,.3)}
 .sp-surface::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse at 50% 50%,rgba(255,248,230,.45) 0%,transparent 70%);z-index:0}
 .sp-surface::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
@@ -198,6 +200,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     linear-gradient(to right,rgba(0,0,0,.03) 1px,transparent 1px),
     linear-gradient(to bottom,rgba(0,0,0,.03) 1px,transparent 1px);
   background-size:24px 24px}
+.sp-fig{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase;margin-bottom:8px;position:relative;z-index:1}
+.sp-page-wrap{flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;gap:0;min-height:400px}
+.sp-page{width:100%;min-height:380px;flex:1;position:relative}
+.sp-page-info{text-align:center;padding-top:8px;font-size:10px;letter-spacing:.1em;color:var(--ink-2);position:relative;z-index:1}
 
 /* ============ BACK LINK ============ */
 .back-link{
@@ -488,18 +494,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
-  <div class="sp-surface" style="border:1px solid var(--ink);border-top:0;padding:12px 18px 14px;background:linear-gradient(145deg,#e8e4da 0%,#f2efe6 30%,#eae6dc 100%)">
-    <div style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase;margin-bottom:8px;position:relative;z-index:1"><span>FIG 04.1 — SPONSOR PACKET · 2025–26</span><span id="spScale">PAGE 1</span></div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:0;min-height:400px;position:relative;z-index:1" id="spWrap">
+  <div class="sp-surface">
+    <div class="sp-fig"><span>FIG 04.1 — SPONSOR PACKET · 2025–26</span><span id="spScale">PAGE 1</span></div>
+    <div class="sp-page-wrap" id="spWrap">
       <button class="sp-arrow sp-arrow-l" id="spPrev" disabled aria-label="Previous page">
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M12 15L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div id="spFlip" style="flex:1;position:relative;min-height:380px"></div>
+      <div id="spFlip" class="sp-page"></div>
       <button class="sp-arrow sp-arrow-r" id="spNext" disabled aria-label="Next page">
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M8 5L13 10L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
-    <div style="text-align:center;padding-top:8px;font-size:10px;letter-spacing:.1em;color:var(--ink-2);position:relative;z-index:1"><span id="spPageNum">1 / 12</span></div>
+    <div class="sp-page-info"><span id="spPageNum">1 / 12</span></div>
   </div>
 </section>
 
