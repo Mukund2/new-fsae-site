@@ -1430,6 +1430,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       return;
     }
 
+    // Add blank page at start (inside front cover — cover shows on right of first spread)
+    var blankFront = document.createElement('div');
+    blankFront.className = 'page-wrapper';
+    blankFront.style.background = '#fff';
+    pageEl.appendChild(blankFront);
+
     // Build page elements and wait for ALL images to load before init
     var loaded = 0;
     var imgs = [];
@@ -1470,7 +1476,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
       flipBook = new St.PageFlip(pageEl, {
         width: pageW, height: pageH, size: 'fixed',
-        showCover: true, maxShadowOpacity: 0.5,
+        showCover: false, maxShadowOpacity: 0.5,
         mobileScrollSupport: true, useMouseEvents: true,
         swipeDistance: 30, flippingTime: 600,
         drawShadow: true, showPageCorners: true,
