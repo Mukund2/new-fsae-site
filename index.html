@@ -342,7 +342,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .track-svg.in .dot{opacity:1}
 
 .results{padding:24px 0}
-.result-row{display:grid;grid-template-columns:80px 80px 1fr 80px;padding:14px 24px;font-size:14px;border-bottom:1px solid var(--hair);
+.result-row{display:grid;grid-template-columns:60px 60px 1fr auto;padding:14px 24px;font-size:14px;border-bottom:1px solid var(--hair);
   opacity:0;transform:translateX(-10px);transition:opacity .4s, transform .4s;align-items:center}
 .result-row.in{opacity:1;transform:none}
 .result-row .place{font-family:var(--sans);font-size:26px;font-weight:400;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
@@ -350,7 +350,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .result-row .year{color:var(--ink-2)}
 .result-row .event{color:var(--ink);font-weight:500}
 .result-row .event em{font-style:normal;color:var(--ink-3);font-size:14px;display:block;margin-top:2px}
-.result-row .div{color:var(--ink-2);font-size:14px;text-align:right;letter-spacing:.08em}
+.result-row .div{color:var(--ink-2);font-size:14px;text-align:left;letter-spacing:.08em;white-space:nowrap}
 
 /* ============ SHEET 08 — PARTNERS ============ */
 .partners{border:1px solid var(--ink);border-top:0}
@@ -624,7 +624,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .lead-grid--subs .lead-card{width:calc((100% - 20px) / 3)}
   .foot-colophon{flex-direction:column;gap:6px;text-align:center}
   .partner-tier{grid-template-columns:60px 120px 1fr}
-  .result-row{grid-template-columns:60px 60px 1fr 80px}
+  .result-row{grid-template-columns:60px 60px 1fr auto}
   .role-detail-inner{grid-template-columns:1fr}
   .role-detail-img{min-height:200px}
   .cover-note{grid-template-columns:1fr;gap:12px}
