@@ -114,12 +114,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .sheet::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 0%, rgba(243,239,229,.55), transparent 60%);z-index:-1}
 
 .title-block{
-  display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr 1fr;
-  border:1px solid var(--ink);font-size:10px;letter-spacing:.04em;text-transform:uppercase;
+  display:grid;grid-template-columns:1.8fr 1fr 0.6fr 0.6fr;
+  border:1px solid var(--ink);font-size:11px;letter-spacing:.04em;text-transform:uppercase;
 }
-.title-block > div{border-right:1px solid var(--ink);padding:8px 12px}
+.title-block > div{border-right:1px solid var(--ink);padding:10px 14px}
 .title-block > div:last-child{border-right:0}
-.title-block .k{color:var(--ink-3);font-size:9px}
+.title-block .k{color:var(--ink-3);font-size:10px}
 .title-block .v{margin-top:2px;font-weight:500;color:var(--ink)}
 
 /* ============ ANIMATED DIMENSION OVERLAYS ============ */
@@ -366,15 +366,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============ SHEET 09 — LIGHT TABLE NEWSLETTER ============ */
 .lt-body{display:grid;grid-template-columns:1fr 220px;border:1px solid var(--ink);border-top:0;max-height:600px;overflow:hidden}
 .lt-surface{position:relative;padding:12px 18px 14px;display:flex;flex-direction:column;max-height:600px;overflow:hidden;
-  background:var(--paper);
+  background:transparent;
   box-shadow:none;overflow:hidden}
-.lt-surface::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:none;z-index:0}
-.lt-surface::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
-  background-image:
-    linear-gradient(to right,rgba(0,0,0,.03) 1px,transparent 1px),
-    linear-gradient(to bottom,rgba(0,0,0,.03) 1px,transparent 1px);
-  background-size:24px 24px}
 .lt-fig{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase;margin-bottom:8px;position:relative;z-index:1}
 .lt-page-wrap{flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;gap:0}
 .lt-page{width:100%;min-height:360px}
@@ -662,8 +655,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .footer-sheet{padding:24px 14px 18px}
 
   /* Title blocks */
-  .title-block{grid-template-columns:1fr 1fr;font-size:9px}
-  .title-block > div{padding:6px 10px}
+  .title-block{grid-template-columns:1fr 1fr;font-size:10px}
+  .title-block > div{padding:8px 12px}
 
   /* Cover */
   .cover-body{min-height:auto}
@@ -772,7 +765,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .sheet{padding:18px 10px 14px}
   .footer-sheet{padding:18px 10px 14px}
   .sheet-header{padding:8px 10px;font-size:8px;padding-right:52px}
-  .title-block{grid-template-columns:1fr;font-size:8px}
+  .title-block{grid-template-columns:1fr;font-size:9px}
   .title-block > div{border-right:0 !important;border-bottom:1px solid var(--hair)}
   .title-block > div:last-child{border-bottom:0}
   .cover-title{font-size:clamp(40px,14vw,64px)}
@@ -949,7 +942,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">COVER — SR-17 PROGRAMME</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="cover-body">
@@ -1055,7 +1047,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">VEHICLE — ORTHOGRAPHIC PROJECTION</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 20</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="triptych" style="grid-template-columns:1.6fr 0.8fr">
@@ -1091,7 +1082,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">LINEAGE — REVISION HISTORY · 37 YRS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="rev-table">
@@ -1109,7 +1099,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">TEAM — LEADERSHIP, SEASON 2025–26</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 1</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="leadership">
@@ -1270,7 +1259,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">RESULTS — FIVE-SEASON DYNAMIC EVENTS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="track-body">
@@ -1298,7 +1286,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">PARTNERS — CERTIFIED CONTRIBUTORS</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div class="sponsor-cell"><a href="sponsors.html" class="sponsor-link"><span>BECOME A SPONSOR</span><span class="arr">→</span></a></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="partners">
@@ -1342,7 +1329,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">NEWSLETTER — MICROFICHE ARCHIVE</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">1 : 1</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="lt-body">
@@ -1375,7 +1361,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">MERCH — TEAM STORE · PARTS CATALOG</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="merch-body" id="merchBody">
@@ -1398,7 +1383,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">RECRUITING — JOIN US · SEASON 27</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="join-body">
@@ -1431,7 +1415,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div><div class="k">Title</div><div class="v">CONTACT · APPROVAL STAMP</div></div>
     <div><div class="k">Rev</div><div class="v">C</div></div>
     <div><div class="k">Scale</div><div class="v">—</div></div>
-    <div><div class="k">Date</div><div class="v">APR 2026</div></div>
   </div>
 
   <div class="foot-contact">
@@ -1471,7 +1454,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         San José State University<br/>
         One Washington Square<br/>
         San José, CA 95192<br/><br/>
-        <span style="color:var(--ink-2);font-size:11px">Lat 37.3352° N / Lng 121.8811° W</span>
+        <span style="color:var(--ink-2);font-size:11px">Lat <span id="coordLat">0.0000</span>° N / Lng <span id="coordLng">0.0000</span>° W</span>
       </div>
     </div>
     <div>
@@ -2542,6 +2525,36 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     });
   }, {threshold: 0.3});
   io.observe(footSign);
+})();
+
+// Lat/Lng count-up animation
+(function(){
+  var latEl = document.getElementById('coordLat');
+  var lngEl = document.getElementById('coordLng');
+  if (!latEl || !lngEl) return;
+  var targetLat = 37.3352, targetLng = 121.8811;
+  var duration = 1200, steps = 60;
+  var interval = duration / steps;
+
+  var io = new IntersectionObserver(function(entries){
+    if (!entries[0].isIntersecting) return;
+    io.disconnect();
+    var step = 0;
+    var timer = setInterval(function(){
+      step++;
+      var t = step / steps;
+      // ease-out cubic
+      var ease = 1 - Math.pow(1 - t, 3);
+      latEl.textContent = (targetLat * ease).toFixed(4);
+      lngEl.textContent = (targetLng * ease).toFixed(4);
+      if (step >= steps) {
+        clearInterval(timer);
+        latEl.textContent = targetLat.toFixed(4);
+        lngEl.textContent = targetLng.toFixed(4);
+      }
+    }, interval);
+  }, {threshold: 0.2});
+  io.observe(document.getElementById('s12'));
 })();
 
 </script>
