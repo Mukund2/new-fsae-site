@@ -1563,7 +1563,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ============ GENERIC REVEAL ============ */
 (function(){
-  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }), {threshold:.15});
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); }
+    else { e.target.classList.remove('in'); }
+  }), {threshold:.15});
   document.querySelectorAll('.reveal, .draw, .dim-line, .track-svg, .slide-left, .slide-right').forEach(el => io.observe(el));
 })();
 
@@ -1593,7 +1596,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     el.innerHTML = `<div class="rev">${rv.r}</div><div>${rv.y}</div><div class="car">${rv.car}</div><div class="sum">${rv.sum}</div><div>${rv.res}</div>`;
     body.appendChild(el);
   });
-  const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*60); io.unobserve(e.target);} }), {threshold:.25});
+  const io = new IntersectionObserver(es => es.forEach((e,i) => {
+    if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*60); }
+    else { e.target.classList.remove('in'); }
+  }), {threshold:.25});
   [...body.children].forEach(el => io.observe(el));
 })();
 
@@ -1617,7 +1623,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     el.innerHTML = `<div class="place">${r.p}<sup>${r.s}</sup></div><div class="year">${r.y}</div><div class="event">${r.e}<em>${r.loc}</em></div><div class="div">${r.d.replace(/ · /g,'<br>')}</div>`;
     body.appendChild(el);
   });
-  const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*70); io.unobserve(e.target);} }), {threshold:.3});
+  const io = new IntersectionObserver(es => es.forEach((e,i) => {
+    if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*70); }
+    else { e.target.classList.remove('in'); }
+  }), {threshold:.3});
   [...body.children].forEach(el => io.observe(el));
 
   // Hover preview — swap event photo + highlights in FIG 07.1
@@ -1713,7 +1722,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   });
   // Only reset to default when mouse leaves the entire roles list
   body.addEventListener('mouseleave', setDefault);
-  const io = new IntersectionObserver(es => es.forEach((e,i) => { if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); io.unobserve(e.target);} }), {threshold:.3});
+  const io = new IntersectionObserver(es => es.forEach((e,i) => {
+    if (e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); }
+    else { e.target.classList.remove('in'); }
+  }), {threshold:.3});
   [...body.children].forEach(el => io.observe(el));
 })();
 
@@ -1777,7 +1789,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           if (e.isIntersecting){
             var idx = Array.prototype.indexOf.call(grid.children, e.target);
             setTimeout(function(){ e.target.classList.add('in'); }, idx * 100);
-            io.unobserve(e.target);
+          } else {
+            e.target.classList.remove('in');
           }
         });
       }, {threshold:.2});
@@ -1805,7 +1818,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     var obs = new IntersectionObserver(function(entries){
       if (entries[0].isIntersecting) {
         triggerGlitch();
-        obs.disconnect();
       }
     }, {threshold: 0.15});
     obs.observe(merchSection);
@@ -2492,17 +2504,19 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){
       if (e.isIntersecting){
-        // Diagonal gleam on "17", then fade to gold (all in one animation)
         var goldEl = footSign.querySelector('.big .gold');
         if (goldEl) {
           setTimeout(function(){ goldEl.classList.add('swept'); }, 300);
         }
-        // Signatures start as gold is fading in (~1.2s into the 1.6s animation)
         setTimeout(function(){
           sig1.classList.add('writing');
           sig2.classList.add('writing-delay');
         }, 1400);
-        io.disconnect();
+      } else {
+        var goldEl = footSign.querySelector('.big .gold');
+        if (goldEl) goldEl.classList.remove('swept');
+        sig1.classList.remove('writing');
+        sig2.classList.remove('writing-delay');
       }
     });
   }, {threshold: 0.3});
@@ -2518,23 +2532,31 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   var duration = 1200, steps = 60;
   var interval = duration / steps;
 
+  var activeTimer = null;
   var io = new IntersectionObserver(function(entries){
-    if (!entries[0].isIntersecting) return;
-    io.disconnect();
-    var step = 0;
-    var timer = setInterval(function(){
-      step++;
-      var t = step / steps;
-      // ease-out cubic
-      var ease = 1 - Math.pow(1 - t, 3);
-      latEl.textContent = (targetLat * ease).toFixed(4);
-      lngEl.textContent = (targetLng * ease).toFixed(4);
-      if (step >= steps) {
-        clearInterval(timer);
-        latEl.textContent = targetLat.toFixed(4);
-        lngEl.textContent = targetLng.toFixed(4);
-      }
-    }, interval);
+    if (entries[0].isIntersecting) {
+      latEl.textContent = '0.0000';
+      lngEl.textContent = '0.0000';
+      var step = 0;
+      if (activeTimer) clearInterval(activeTimer);
+      activeTimer = setInterval(function(){
+        step++;
+        var t = step / steps;
+        var ease = 1 - Math.pow(1 - t, 3);
+        latEl.textContent = (targetLat * ease).toFixed(4);
+        lngEl.textContent = (targetLng * ease).toFixed(4);
+        if (step >= steps) {
+          clearInterval(activeTimer);
+          activeTimer = null;
+          latEl.textContent = targetLat.toFixed(4);
+          lngEl.textContent = targetLng.toFixed(4);
+        }
+      }, interval);
+    } else {
+      if (activeTimer) { clearInterval(activeTimer); activeTimer = null; }
+      latEl.textContent = '0.0000';
+      lngEl.textContent = '0.0000';
+    }
   }, {threshold: 0.2});
   io.observe(document.getElementById('s12'));
 })();
